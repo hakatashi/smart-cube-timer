@@ -123,6 +123,7 @@
 				solveSequence: null,
 				cubeStage: null,
 				stages: {},
+				oll: null,
 			};
 		},
 		computed: {
@@ -178,6 +179,16 @@
 								text: `${config.faceColors[this.cross].name} Cross`,
 								color: config.faceColors[this.cross].color,
 								textColor: idealTextColor(config.faceColors[this.cross].color),
+							});
+						}
+					}
+
+					if (id === 'oll') {
+						if (this.oll) {
+							infos.push({
+								text: this.oll.name,
+								color: '#f5f5f5',
+								textColor: idealTextColor('#f5f5f5'),
 							});
 						}
 					}
@@ -271,10 +282,13 @@
 
 					for (const stage of stagesData.slice(1)) {
 						if (this.cubeStage === stage.id) {
-							const {result} = isStageSatisfied({cube: this.cube, stage: stage.id, cross: this.cross});
+							const {result, oll} = isStageSatisfied({cube: this.cube, stage: stage.id, cross: this.cross});
 							if (result === true) {
 								this.cubeStage = getNextStage(stage.id);
 								this.stages[stage.id].time = this.time;
+								if (stage.id === 'f2l4') {
+									this.oll = oll;
+								}
 							}
 						}
 					}
