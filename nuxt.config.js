@@ -1,5 +1,7 @@
 module.exports = {
-	build: {},
+	build: {
+		publicPath: 'https://hakatashi.github.io/smart-cube-timer/_nuxt/',
+	},
 
 	head: {
 		link: [
