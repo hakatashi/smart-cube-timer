@@ -198,8 +198,8 @@
 						if (this.pll) {
 							infos.push({
 								text: this.pll.name,
-								color: '#EF6C00',
-								textColor: idealTextColor('#EF6C00'),
+								color: '#FFEE58',
+								textColor: idealTextColor('#FFEE58'),
 							});
 						}
 					}
