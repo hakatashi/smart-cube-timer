@@ -55,8 +55,51 @@
 	import 'cubejs/lib/solve';
 	import MoveSequence from '~/lib/MoveSequence.js';
 	import scrambles from '~/lib/scrambles.json';
-	import {findCross} from '~/lib/utils.js';
+	import {findCross, formatTime} from '~/lib/utils.js';
 	import sample from 'lodash/sample';
+
+	const stagesData = [
+		{
+			id: 'cross',
+			name: 'Cross',
+			className: 'is-link',
+		},
+		{
+			id: 'f2l1',
+			name: 'F2L #1',
+			className: '',
+		},
+		{
+			id: 'f2l2',
+			name: 'F2L #2',
+			className: '',
+		},
+		{
+			id: 'f2l3',
+			name: 'F2L #3',
+			className: '',
+		},
+		{
+			id: 'f2l4',
+			name: 'F2L #4',
+			className: '',
+		},
+		{
+			id: 'oll',
+			name: 'OLL',
+			className: 'is-warning',
+		},
+		{
+			id: 'pll',
+			name: 'PLL',
+			className: 'is-danger',
+		},
+		{
+			id: 'auf',
+			name: 'AUF',
+			className: 'is-primary',
+		},
+	];
 
 	// Cube.initSolver();
 
@@ -115,48 +158,7 @@
 			stagesInfo() {
 				const stages = this.stages || {};
 				let sumTime = 0;
-				return [
-					{
-						id: 'cross',
-						name: 'Cross',
-						className: 'is-link',
-					},
-					{
-						id: 'f2l1',
-						name: 'F2L #1',
-						className: '',
-					},
-					{
-						id: 'f2l2',
-						name: 'F2L #2',
-						className: '',
-					},
-					{
-						id: 'f2l3',
-						name: 'F2L #3',
-						className: '',
-					},
-					{
-						id: 'f2l4',
-						name: 'F2L #4',
-						className: '',
-					},
-					{
-						id: 'oll',
-						name: 'OLL',
-						className: 'is-warning',
-					},
-					{
-						id: 'pll',
-						name: 'PLL',
-						className: 'is-danger',
-					},
-					{
-						id: 'auf',
-						name: 'AUF',
-						className: 'is-primary',
-					},
-				].map(({id, name, className}) => {
+				return stagesData.map(({id, name, className}) => {
 					const stage = this.stages[id] || {};
 					const time = stage.time || (this.time - sumTime);
 					sumTime += stage.time || 0;
@@ -164,15 +166,13 @@
 						id,
 						name,
 						class: className,
-						sequenceText: stage.sequence ? stage.sequence.toString() : '',
-						time,
+						sequenceText: stage.sequence ? stage.sequence.toString() : '--',
+						time: formatTime(time),
 					};
 				});
 			},
 			displayTime() {
-				const second = Math.floor(this.time / 1000).toString().padStart(2, '0');
-				const msecond = (Math.floor(this.time / 10) % 100).toString().padStart(2, '0');
-				return `${second}:${msecond}`;
+				return formatTime(this.time);
 			},
 		},
 		created() {
@@ -194,6 +194,7 @@
 				this.description = 'Follow the scramble.'
 			},
 			onGiikerMove(move) {
+				const now = new Date();
 				this.cube.move(move.notation);
 
 				if (this.phase === 'scramble') {
@@ -218,57 +219,33 @@
 					this.phase = 'solve';
 					this.description = 'Good luck :)';
 					this.cubeStage = 'cross';
-					this.stages = {
-						cross: {
+					this.stages = Object.assign(...stagesData.map(({id}) => ({
+						[id]: {
 							sequence: new MoveSequence(),
+							firstMoveTime: null,
 							time: null,
 						},
-						f2l1: {
-							sequence: new MoveSequence(),
-							time: null,
-						},
-						f2l2: {
-							sequence: new MoveSequence(),
-							time: null,
-						},
-						f2l3: {
-							sequence: new MoveSequence(),
-							time: null,
-						},
-						f2l4: {
-							sequence: new MoveSequence(),
-							time: null,
-						},
-						oll: {
-							sequence: new MoveSequence(),
-							time: null,
-						},
-						pll: {
-							sequence: new MoveSequence(),
-							time: null,
-						},
-						auf: {
-							sequence: new MoveSequence(),
-							time: null,
-						},
-					};
+					})));
 					this.interval = setInterval(this.onTick, 1000 / 30);
 					// fall through
 				}
 
 				if (this.phase === 'solve') {
+					this.time = now.getTime() - this.startTime.getTime();
 					this.stages[this.cubeStage].sequence.push(move);
 
-					if (this.cubeState === 'cross') {
+					if (this.cubeStage === 'cross') {
 						const cross = findCross(this.cube);
+						console.log(cross);
 						if (cross) {
 							this.cubeStage = 'f2l1';
+							this.stages.cross.time = this.time;
 							this.cross = cross;
 							// fall through
 						}
 					}
 
-					if (this.cubeState === 'f2l1') {
+					if (this.cubeStage === 'f2l1') {
 
 					}
 
