@@ -34,7 +34,7 @@
 						<p class="title">Cross</p>
 						<p class="subtitle">02.33</p>
 						<div class="content">
-							R U' R' U
+							{{solveSequenceText}}
 						</div>
 					</article>
 				</div>
@@ -128,6 +128,7 @@
 				description: 'Make sure GiiKER is solved state, and press "Connect Cube" to link cube.',
 				placeholderMoves: [],
 				scramble: null,
+				solveSequence: null,
 			};
 		},
 		computed: {
@@ -165,12 +166,15 @@
 					};
 				});
 			},
+			solveSequenceText() {
+				return this.solveSequence ? this.solveSequence.toString() : '';
+			},
 		},
 		created() {
 			this.cube = new Cube();
 		},
 		async mounted() {
-			this.scramble = MoveSequence.fromScramble(sample(scrambles.sheets[0].scrambles));
+			this.scramble = MoveSequence.fromScramble(sample(scrambles.sheets[0].scrambles), {mode: 'reduction'});
 			this.placeholderMoves = this.scramble.moves.map((move) => ({...move}));
 		},
 		methods: {
@@ -207,24 +211,20 @@
 					this.startTime = new Date();
 					this.phase = 'solve';
 					this.description = 'Good luck :)';
+					this.solveSequence = new MoveSequence();
 					this.interval = setInterval(this.onTick, 1000 / 30);
-					return;
+					// fall through
 				}
 
 				if (this.phase === 'solve') {
-					console.log({
-						ep: this.cube.ep,
-						cp: this.cube.cp,
-						eo: this.cube.eo,
-						co: this.cube.co,
-					});
+					this.solveSequence.push(move);
 
 					if (this.cube.isSolved()) {
 						this.onTick();
 						clearInterval(this.interval);
 						this.phase = 'scramble';
 						this.description = 'Nice!';
-						this.scramble = MoveSequence.fromScramble(sample(scrambles.sheets[0].scrambles));
+						this.scramble = MoveSequence.fromScramble(sample(scrambles.sheets[0].scrambles), {mode: 'reduction'});
 						this.placeholderMoves = this.scramble.moves.map((move) => ({...move}));
 					}
 				}
