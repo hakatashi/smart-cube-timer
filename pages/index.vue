@@ -1,12 +1,23 @@
 <template>
   <section class="container">
     <div>
+      <div class="notification">
+        {{description}}
+      </div>
+      <button
+        v-if="giiker === null"
+        :disabled="this.isConnecting"
+        class="button is-primary is-large"
+        :class="{'is-loading': this.isConnecting}"
+        @click="onClickConnect"
+      >
+        Connect Cube
+      </button>
       <div class="scramble">
         <span v-for="move, index in scrambleMoves" :key="index" :style="{color: move.grey ? '#CCC' : ''}">
           {{move.text}}
         </span>
       </div>
-      <button @click="onClickConnect">Connect</button>
     </div>
   </section>
 </template>
@@ -23,6 +34,9 @@
   export default {
     data () {
       return {
+        giiker: null,
+        isConnecting: false,
+        description: 'Make sure GiiKER is solved state, and press "Connect Cube" to link cube.',
         placeholderMoves: [],
         scramble: null,
       };
@@ -69,9 +83,14 @@
     },
     methods: {
       async onClickConnect() {
+        if (this.isConnecting) {
+          return;
+        }
+
+        this.isConnecting = true;
         this.giiker = await GiiKER.connect();
-        console.log('connect');
         this.giiker.on('move', this.onGiikerMove)
+        this.description = 'Follow the scramble.'
       },
       onGiikerMove(move) {
         this.scramble.unshift({
@@ -98,11 +117,11 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: #444;
   }
 
   .scramble {
-    font-size: 10vmin;
+    font-size: 8vmin;
     font-weight: bold;
+    line-height: 1.2em;
   }
 </style>
