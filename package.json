@@ -5,8 +5,10 @@
   "author": "Koki Takahashi <hakatasiloving@gmail.com>",
   "private": true,
   "dependencies": {
-    "nuxt": "latest",
-    "@nuxtjs/pwa": "latest"
+    "@nuxtjs/pwa": "latest",
+    "cubejs": "^1.1.0",
+    "giiker": "^1.0.1",
+    "nuxt": "latest"
   },
   "scripts": {
     "dev": "nuxt",
@@ -17,12 +19,10 @@
     "precommit": "npm run lint"
   },
   "devDependencies": {
-    "babel-eslint": "^7.1.1",
-    "eslint": "^3.15.0",
-    "eslint-config-standard": "^6.2.1",
-    "eslint-loader": "^1.6.1",
-    "eslint-plugin-html": "^2.0.0",
-    "eslint-plugin-promise": "^3.4.1",
-    "eslint-plugin-standard": "^2.0.1"
+    "@hakatashi/eslint-config": "^1.6.0",
+    "babel-eslint": "^8.2.6",
+    "eslint": "^5.2.0",
+    "eslint-loader": "^2.1.0",
+    "eslint-plugin-vue": "^4.7.1"
   }
 }

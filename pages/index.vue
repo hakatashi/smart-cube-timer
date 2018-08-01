@@ -1,48 +1,48 @@
 <template>
   <section class="container">
     <div>
-      <h1 class="title">
-        NUXT
-      </h1>
-      <h2 class="subtitle">
-        PWA Vue.js Application
-      </h2>
-      <div :class="['network',online ? 'online' : 'offline']">
-        <div class="circle"></div>
-        {{ online ? 'online' : 'offline' }}
-      </div>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green" rel="noopener">Documentation</a>
-        <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey" rel="noopener">GitHub</a>
-      </div>
+      <div class="scramble">{{scrambleText}}</div>
+      <button @click="onClickConnect">Connect</button>
     </div>
   </section>
 </template>
 
 <script>
+  import GiiKER from 'giiker';
+  import Cube from 'cubejs';
+  import 'cubejs/lib/solve';
+  import MoveSequence from '~/lib/MoveSequence.js';
+
+  Cube.initSolver();
+
   export default {
     data () {
       return {
-        online: true
-      }
+        scramble: null,
+      };
     },
-    mounted () {
-      if (!window.navigator) {
-        this.online = false
-        return
-      }
-      this.online = Boolean(window.navigator.onLine)
-      window.addEventListener('offline', this._toggleNetworkStatus)
-      window.addEventListener('online', this._toggleNetworkStatus)
+    computed: {
+      scrambleText() {
+        return this.scramble === null ? '' : this.scramble.toString();
+      },
+    },
+    async mounted () {
+      this.scramble = MoveSequence.fromScramble(Cube.scramble());
+      console.log(this.scramble);
     },
     methods: {
-      _toggleNetworkStatus ({ type }) {
-        this.online = type === 'online'
-      }
+      async onClickConnect() {
+        this.giiker = await GiiKER.connect();
+        this.giiker.on('move', this.onGiikerMove)
+      },
+      onGiikerMove(move) {
+        console.log(move);
+      },
     },
     destroyed () {
-      window.removeEventListener('offline', this._toggleNetworkStatus)
-      window.removeEventListener('online', this._toggleNetworkStatus)
+      if (this.giiker) {
+        this.giiker.removeListener('move', this.onGiikerMove);
+      }
     }
   }
 </script>
@@ -54,44 +54,11 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    color: #444;
   }
 
-  .title {
-    font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-    display: block;
-    font-weight: 300;
-    font-size: 100px;
-    color: #35495e;
-    letter-spacing: 1px;
-  }
-
-  .subtitle {
-    font-weight: 300;
-    font-size: 42px;
-    color: #526488;
-    word-spacing: 5px;
-    padding-bottom: 15px;
-  }
-
-  .links {
-    padding-top: 15px;
-  }
-
-  .network {
-    font-weight: 400;
-    font-size: 1rem;
-  }
-
-  .network .circle {
-    display: inline-block;
-    width: 1rem;
-    height: 1rem;
-    background: green;
-    padding: .1rem .5rem;
-    border-radius: 1rem;
-  }
-
-  .network.offline .circle {
-    background: red;
+  .scramble {
+    font-size: 10vmin;
+    font-weight: bold;
   }
 </style>
