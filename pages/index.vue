@@ -23,81 +23,23 @@
 					</span>
 				</div>
 				<div
+					class="info"
+				>
+					cross: {{cross}}
+				</div>
+				<div
 					class="timer"
 				>
 					{{displayTime}}
 				</div>
 			</div>
 			<div class="tile times">
-				<div class="tile is-parent is-3">
-					<article class="tile is-child notification is-link">
-						<p class="title">Cross</p>
-						<p class="subtitle">02.33</p>
+				<div v-for="stage in stagesInfo" class="tile is-parent is-3" :key="stage.id">
+					<article class="tile is-child notification" :class="stage.class">
+						<p class="title">{{stage.name}}</p>
+						<p class="subtitle">{{stage.time}}</p>
 						<div class="content">
-							{{solveSequenceText}}
-						</div>
-					</article>
-				</div>
-				<div class="tile is-parent is-3">
-					<article class="tile is-child notification">
-						<p class="title">F2L #1</p>
-						<p class="subtitle">02.33</p>
-						<div class="content">
-							R U' R' U
-						</div>
-					</article>
-				</div>
-				<div class="tile is-parent is-3">
-					<article class="tile is-child notification">
-						<p class="title">F2L #2</p>
-						<p class="subtitle">02.33</p>
-						<div class="content">
-							R U' R' U
-						</div>
-					</article>
-				</div>
-				<div class="tile is-parent is-3">
-					<article class="tile is-child notification">
-						<p class="title">F2L #3</p>
-						<p class="subtitle">02.33</p>
-						<div class="content">
-							R U' R' U
-						</div>
-					</article>
-				</div>
-				<div class="tile is-parent is-3">
-					<article class="tile is-child notification">
-						<p class="title">F2L #4</p>
-						<p class="subtitle">02.33</p>
-						<div class="content">
-							R U' R' U
-						</div>
-					</article>
-				</div>
-				<div class="tile is-parent is-3">
-					<article class="tile is-child notification is-warning">
-						<p class="title">OLL</p>
-						<p class="subtitle">02.33</p>
-						<div class="content">
-							R U' R' U
-						</div>
-					</article>
-				</div>
-				<div class="tile is-parent is-3">
-					<article class="tile is-child notification is-danger">
-						<p class="title">PLL</p>
-						<p class="subtitle">02.33</p>
-						<div class="content">
-							R U' R' U
-						</div>
-					</article>
-				</div>
-				<div class="tile is-parent is-3">
-					<article class="tile is-child notification is-primary">
-						<p class="title">AUF</p>
-						<p class="subtitle">02.33</p>
-						<div class="content">
-							R U' R' U
+							{{stage.sequenceText}}
 						</div>
 					</article>
 				</div>
@@ -113,6 +55,7 @@
 	import 'cubejs/lib/solve';
 	import MoveSequence from '~/lib/MoveSequence.js';
 	import scrambles from '~/lib/scrambles.json';
+	import {findCross} from '~/lib/utils.js';
 	import sample from 'lodash/sample';
 
 	// Cube.initSolver();
@@ -120,15 +63,18 @@
 	export default {
 		data () {
 			return {
+				cross: null,
 				giiker: null,
 				startTime: null,
-				displayTime: '00.00',
+				time: 0,
 				phase: 'scramble',
 				isConnecting: false,
 				description: 'Make sure GiiKER is solved state, and press "Connect Cube" to link cube.',
 				placeholderMoves: [],
 				scramble: null,
 				solveSequence: null,
+				cubeStage: null,
+				stages: {},
 			};
 		},
 		computed: {
@@ -166,8 +112,67 @@
 					};
 				});
 			},
-			solveSequenceText() {
-				return this.solveSequence ? this.solveSequence.toString() : '';
+			stagesInfo() {
+				const stages = this.stages || {};
+				let sumTime = 0;
+				return [
+					{
+						id: 'cross',
+						name: 'Cross',
+						className: 'is-link',
+					},
+					{
+						id: 'f2l1',
+						name: 'F2L #1',
+						className: '',
+					},
+					{
+						id: 'f2l2',
+						name: 'F2L #2',
+						className: '',
+					},
+					{
+						id: 'f2l3',
+						name: 'F2L #3',
+						className: '',
+					},
+					{
+						id: 'f2l4',
+						name: 'F2L #4',
+						className: '',
+					},
+					{
+						id: 'oll',
+						name: 'OLL',
+						className: 'is-warning',
+					},
+					{
+						id: 'pll',
+						name: 'PLL',
+						className: 'is-danger',
+					},
+					{
+						id: 'auf',
+						name: 'AUF',
+						className: 'is-primary',
+					},
+				].map(({id, name, className}) => {
+					const stage = this.stages[id] || {};
+					const time = stage.time || (this.time - sumTime);
+					sumTime += stage.time || 0;
+					return {
+						id,
+						name,
+						class: className,
+						sequenceText: stage.sequence ? stage.sequence.toString() : '',
+						time,
+					};
+				});
+			},
+			displayTime() {
+				const second = Math.floor(this.time / 1000).toString().padStart(2, '0');
+				const msecond = (Math.floor(this.time / 10) % 100).toString().padStart(2, '0');
+				return `${second}:${msecond}`;
 			},
 		},
 		created() {
@@ -201,7 +206,8 @@
 					}
 					if (this.scramble.length === 0) {
 						this.phase = 'inspect';
-						this.displayTime = '00.00';
+						this.cross = null;
+						this.time = 0;
 						this.description = 'Now start solving when you\'re ready.'
 					}
 					return;
@@ -211,13 +217,60 @@
 					this.startTime = new Date();
 					this.phase = 'solve';
 					this.description = 'Good luck :)';
-					this.solveSequence = new MoveSequence();
+					this.cubeStage = 'cross';
+					this.stages = {
+						cross: {
+							sequence: new MoveSequence(),
+							time: null,
+						},
+						f2l1: {
+							sequence: new MoveSequence(),
+							time: null,
+						},
+						f2l2: {
+							sequence: new MoveSequence(),
+							time: null,
+						},
+						f2l3: {
+							sequence: new MoveSequence(),
+							time: null,
+						},
+						f2l4: {
+							sequence: new MoveSequence(),
+							time: null,
+						},
+						oll: {
+							sequence: new MoveSequence(),
+							time: null,
+						},
+						pll: {
+							sequence: new MoveSequence(),
+							time: null,
+						},
+						auf: {
+							sequence: new MoveSequence(),
+							time: null,
+						},
+					};
 					this.interval = setInterval(this.onTick, 1000 / 30);
 					// fall through
 				}
 
 				if (this.phase === 'solve') {
-					this.solveSequence.push(move);
+					this.stages[this.cubeStage].sequence.push(move);
+
+					if (this.cubeState === 'cross') {
+						const cross = findCross(this.cube);
+						if (cross) {
+							this.cubeStage = 'f2l1';
+							this.cross = cross;
+							// fall through
+						}
+					}
+
+					if (this.cubeState === 'f2l1') {
+
+					}
 
 					if (this.cube.isSolved()) {
 						this.onTick();
@@ -231,10 +284,7 @@
 			},
 			onTick() {
 				const now = new Date();
-				const time = now.getTime() - this.startTime.getTime();
-				const second = Math.floor(time / 1000).toString().padStart(2, '0');
-				const msecond = (Math.floor(time / 10) % 100).toString().padStart(2, '0');
-				this.displayTime = `${second}:${msecond}`;
+				this.time = now.getTime() - this.startTime.getTime();
 			},
 		},
 		destroyed () {
