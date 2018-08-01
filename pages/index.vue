@@ -28,8 +28,8 @@
 					{{displayTime}}
 				</div>
 			</div>
-			<div class="tile times">
-				<div v-for="stage in stagesInfo" class="tile is-parent is-3" :key="stage.id">
+			<div class="tile times" id="stages">
+				<div v-for="stage in stagesInfo" class="tile is-parent is-3" :key="stage.id" :id="stage.id">
 					<article class="tile is-child notification" :class="stage.class">
 						<p class="title">
 							{{stage.name}}
@@ -124,6 +124,7 @@
 				cubeStage: null,
 				stages: {},
 				oll: null,
+				pll: null,
 			};
 		},
 		computed: {
@@ -193,12 +194,22 @@
 						}
 					}
 
+					if (id === 'pll') {
+						if (this.pll) {
+							infos.push({
+								text: this.pll.name,
+								color: '#EF6C00',
+								textColor: idealTextColor('#EF6C00'),
+							});
+						}
+					}
+
 					return {
 						id,
 						name,
 						infos,
 						class: className,
-						sequenceText: stage.sequence ? stage.sequence.toString() : '--',
+						sequenceText: stage.sequence ? stage.sequence.toString() || '--' : '--',
 						time: formatTime(deltaTime),
 					};
 				});
@@ -259,6 +270,7 @@
 						},
 					})));
 					this.interval = setInterval(this.onTick, 1000 / 30);
+					this.scrollToStage();
 					// fall through
 				}
 
@@ -274,6 +286,7 @@
 						const cross = findCross(this.cube);
 						if (cross) {
 							this.cubeStage = 'f2l1';
+							this.scrollToStage();
 							this.stages.cross.time = this.time;
 							this.cross = cross;
 							// fall through
@@ -282,30 +295,40 @@
 
 					for (const stage of stagesData.slice(1)) {
 						if (this.cubeStage === stage.id) {
-							const {result, oll} = isStageSatisfied({cube: this.cube, stage: stage.id, cross: this.cross});
+							const {result, oll, pll} = isStageSatisfied({cube: this.cube, stage: stage.id, cross: this.cross});
 							if (result === true) {
 								this.cubeStage = getNextStage(stage.id);
+								this.scrollToStage();
 								this.stages[stage.id].time = this.time;
 								if (stage.id === 'f2l4') {
 									this.oll = oll;
+								}
+								if (stage.id === 'oll') {
+									this.pll = pll;
 								}
 							}
 						}
 					}
 
 					if (this.cube.isSolved()) {
-						this.onTick();
 						clearInterval(this.interval);
 						this.phase = 'scramble';
 						this.description = 'Nice!';
 						this.scramble = MoveSequence.fromScramble(sample(scrambles.sheets[0].scrambles), {mode: 'reduction'});
 						this.placeholderMoves = this.scramble.moves.map((move) => ({...move}));
+						document.getElementById('stages').scrollTop = 0;
 					}
 				}
 			},
 			onTick() {
 				const now = new Date();
 				this.time = now.getTime() - this.startTime.getTime();
+			},
+			scrollToStage() {
+				const element = document.getElementById(this.cubeStage);
+				if (element) {
+					element.scrollIntoView({block: 'end', inline: 'nearest', behavior: 'smooth'});
+				}
 			},
 		},
 		destroyed () {
@@ -319,6 +342,9 @@
 <style>
 	.wrapper {
 		width: 100%;
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.container {
@@ -329,6 +355,7 @@
 
 	.controls {
 		text-align: center;
+		flex: 0 0 auto;
 	}
 
 	.scramble {
@@ -346,6 +373,9 @@
 
 	.times {
 		flex-wrap: wrap;
+		flex: 1 1 0;
+		overflow-y: auto;
+		min-height: auto;
 	}
 
 	.notification .content {
