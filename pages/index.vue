@@ -362,7 +362,6 @@
 		font-size: 8vmin;
 		font-weight: bold;
 		line-height: 1.2em;
-		margin: 0.5em 0;
 	}
 
 	.timer {
