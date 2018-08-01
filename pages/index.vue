@@ -23,10 +23,9 @@
           </span>
         </div>
         <div
-          v-else
           class="timer"
         >
-          0:00
+          {{displayTime}}
         </div>
       </div>
       <div class="tile times">
@@ -93,6 +92,15 @@
             </div>
           </article>
         </div>
+        <div class="tile is-parent is-3">
+          <article class="tile is-child notification is-danger">
+            <p class="title">AUF</p>
+            <p class="subtitle">02.33</p>
+            <div class="content">
+              R U' R' U
+            </div>
+          </article>
+        </div>
       </div>
     </div>
   </section>
@@ -111,6 +119,8 @@
     data () {
       return {
         giiker: null,
+        startTime: null,
+        displayTime: '00.00',
         phase: 'scramble',
         isConnecting: false,
         description: 'Make sure GiiKER is solved state, and press "Connect Cube" to link cube.',
@@ -154,6 +164,9 @@
         });
       },
     },
+    created() {
+      this.cube = new Cube();
+    },
     async mounted() {
       this.scramble = MoveSequence.fromScramble("D' R2 B2 D2 B2 D' F2 U' B2 L2 U2 B2 R B' L F' D' B L F2 U2");
       this.placeholderMoves = this.scramble.moves.map((move) => ({...move}));
@@ -170,6 +183,8 @@
         this.description = 'Follow the scramble.'
       },
       onGiikerMove(move) {
+        this.cube.move(move.notation);
+
         if (this.phase === 'scramble') {
           this.scramble.unshift({
             face: move.face,
@@ -180,13 +195,44 @@
           }
           if (this.scramble.length === 0) {
             this.phase = 'inspect';
+            this.displayTime = '00.00';
             this.description = 'Now start solving when you\'re ready.'
           }
           return;
         }
-        if (this.phase === 'inspect') {
 
+        if (this.phase === 'inspect') {
+          this.startTime = new Date();
+          this.phase = 'solve';
+          this.description = 'Good luck :)';
+          this.interval = setInterval(this.onTick, 1000 / 30);
+          return;
         }
+
+        if (this.phase === 'solve') {
+          console.log({
+            ep: this.cube.ep,
+            cp: this.cube.cp,
+            eo: this.cube.eo,
+            co: this.cube.co,
+          });
+
+          if (this.cube.isSolved()) {
+            this.onTick();
+            clearInterval(this.interval);
+            this.phase = 'scramble';
+            this.description = 'Nice!';
+            this.scramble = MoveSequence.fromScramble("D' R2 B2 D2 B2 D' F2 U' B2 L2 U2 B2 R B' L F' D' B L F2 U2");
+            this.placeholderMoves = this.scramble.moves.map((move) => ({...move}));
+          }
+        }
+      },
+      onTick() {
+        const now = new Date();
+        const time = now.getTime() - this.startTime.getTime();
+        const second = Math.floor(time / 1000).toString().padStart(2, '0');
+        const msecond = (Math.floor(time / 10) % 100).toString().padStart(2, '0');
+        this.displayTime = `${second}:${msecond}`;
       },
     },
     destroyed () {
@@ -222,6 +268,7 @@
   .timer {
     font-size: 20vmin;
     font-weight: bold;
+    line-height: 1em;
   }
 
   .times {
