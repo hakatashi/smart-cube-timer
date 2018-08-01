@@ -112,6 +112,8 @@
   import Cube from 'cubejs';
   import 'cubejs/lib/solve';
   import MoveSequence from '~/lib/MoveSequence.js';
+  import scrambles from '~/lib/scrambles.json';
+  import sample from 'lodash/sample';
 
   // Cube.initSolver();
 
@@ -168,7 +170,7 @@
       this.cube = new Cube();
     },
     async mounted() {
-      this.scramble = MoveSequence.fromScramble("D' R2 B2 D2 B2 D' F2 U' B2 L2 U2 B2 R B' L F' D' B L F2 U2");
+      this.scramble = MoveSequence.fromScramble(sample(scrambles.sheets[0].scrambles));
       this.placeholderMoves = this.scramble.moves.map((move) => ({...move}));
     },
     methods: {
@@ -222,7 +224,7 @@
             clearInterval(this.interval);
             this.phase = 'scramble';
             this.description = 'Nice!';
-            this.scramble = MoveSequence.fromScramble("D' R2 B2 D2 B2 D' F2 U' B2 L2 U2 B2 R B' L F' D' B L F2 U2");
+            this.scramble = MoveSequence.fromScramble(sample(scrambles.sheets[0].scrambles));
             this.placeholderMoves = this.scramble.moves.map((move) => ({...move}));
           }
         }

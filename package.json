@@ -8,6 +8,7 @@
     "@nuxtjs/pwa": "latest",
     "cubejs": "^1.1.0",
     "giiker": "^1.0.1",
+    "lodash": "^4.17.10",
     "nuxt": "latest"
   },
   "scripts": {
