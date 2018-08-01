@@ -1,6 +1,6 @@
 module.exports = {
 	build: {
-		publicPath: 'https://hakatashi.github.io/smart-cube-timer/_nuxt/',
+		publicPath: 'https://hakatashi.github.io/smart-cube-timer/',
 	},
 
 	head: {
@@ -14,8 +14,4 @@ module.exports = {
 	manifest: {
 		theme_color: '#3B8070',
 	},
-
-	modules: [
-		'@nuxtjs/pwa',
-	],
 };
