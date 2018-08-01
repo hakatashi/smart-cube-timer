@@ -8,15 +8,15 @@ const workboxSW = new self.WorkboxSW({
 
 workboxSW.precache([
   {
-    "url": "https://hakatashi.github.io/smart-cube-timer/app.4ec10c41eb7043af0555.js",
-    "revision": "c7b23e2df92a060f14092f0c21ab1711"
+    "url": "https://hakatashi.github.io/smart-cube-timer/app.e8319bd48fb459158279.js",
+    "revision": "86da474f6633b31fc11e1647fde6dbd1"
   },
   {
     "url": "https://hakatashi.github.io/smart-cube-timer/layouts_default.4146977e09a9df14ab4f.js",
     "revision": "658bd8e4ef3f28ad8bb7b30754a5ce16"
   },
   {
-    "url": "https://hakatashi.github.io/smart-cube-timer/manifest.204603551a4a7daad304.js",
+    "url": "https://hakatashi.github.io/smart-cube-timer/manifest.d4ebdd31d6af9b20e82a.js",
     "revision": "e50057ccb5d661fbaadfbe1e6d3d3f71"
   },
   {
