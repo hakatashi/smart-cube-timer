@@ -23,11 +23,6 @@
 					</span>
 				</div>
 				<div
-					class="info"
-				>
-					cross: {{cross}}
-				</div>
-				<div
 					class="timer"
 				>
 					{{displayTime}}
@@ -36,7 +31,16 @@
 			<div class="tile times">
 				<div v-for="stage in stagesInfo" class="tile is-parent is-3" :key="stage.id">
 					<article class="tile is-child notification" :class="stage.class">
-						<p class="title">{{stage.name}}</p>
+						<p class="title">
+							{{stage.name}}
+							<span
+								v-for="info in stage.infos"
+								class="tag is-medium"
+								:style="{backgroundColor: info.color, color: info.textColor}"
+							>
+								{{info.text}}
+							</span>
+						</p>
 						<p class="subtitle">{{stage.time}}</p>
 						<div class="content">
 							{{stage.sequenceText}}
@@ -55,7 +59,8 @@
 	import 'cubejs/lib/solve';
 	import MoveSequence from '~/lib/MoveSequence.js';
 	import scrambles from '~/lib/scrambles.json';
-	import {findCross, formatTime} from '~/lib/utils.js';
+	import {findCross, formatTime, idealTextColor, isStageSatisfied, getNextStage} from '~/lib/utils.js';
+	import config from '~/lib/config.js';
 	import sample from 'lodash/sample';
 
 	const stagesData = [
@@ -157,17 +162,33 @@
 			},
 			stagesInfo() {
 				const stages = this.stages || {};
-				let sumTime = 0;
+				let previousTime = 0;
+
 				return stagesData.map(({id, name, className}) => {
 					const stage = this.stages[id] || {};
-					const time = stage.time || (this.time - sumTime);
-					sumTime += stage.time || 0;
+					const deltaTime = (stage.time || this.time) - previousTime;
+					if (stage.time) {
+						previousTime = stage.time;
+					}
+
+					const infos = [];
+					if (id === 'cross') {
+						if (this.cross) {
+							infos.push({
+								text: `${config.faceColors[this.cross].name} Cross`,
+								color: config.faceColors[this.cross].color,
+								textColor: idealTextColor(config.faceColors[this.cross].color),
+							});
+						}
+					}
+
 					return {
 						id,
 						name,
+						infos,
 						class: className,
 						sequenceText: stage.sequence ? stage.sequence.toString() : '--',
-						time: formatTime(time),
+						time: formatTime(deltaTime),
 					};
 				});
 			},
@@ -232,11 +253,14 @@
 
 				if (this.phase === 'solve') {
 					this.time = now.getTime() - this.startTime.getTime();
+
 					this.stages[this.cubeStage].sequence.push(move);
+					if (this.stages[this.cubeStage].firstMoveTime === null) {
+						this.stages[this.cubeStage].firstMoveTime = this.time;
+					}
 
 					if (this.cubeStage === 'cross') {
 						const cross = findCross(this.cube);
-						console.log(cross);
 						if (cross) {
 							this.cubeStage = 'f2l1';
 							this.stages.cross.time = this.time;
@@ -245,8 +269,14 @@
 						}
 					}
 
-					if (this.cubeStage === 'f2l1') {
-
+					for (const stage of stagesData.slice(1)) {
+						if (this.cubeStage === stage.id) {
+							const {result} = isStageSatisfied({cube: this.cube, stage: stage.id, cross: this.cross});
+							if (result === true) {
+								this.cubeStage = getNextStage(stage.id);
+								this.stages[stage.id].time = this.time;
+							}
+						}
 					}
 
 					if (this.cube.isSolved()) {
@@ -302,5 +332,9 @@
 
 	.times {
 		flex-wrap: wrap;
+	}
+
+	.notification .content {
+		margin-top: -1.25rem;
 	}
 </style>
