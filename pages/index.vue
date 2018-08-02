@@ -435,4 +435,12 @@
 	.level-right .level-item:last-child {
 		margin-right: 0;
 	}
+
+	.notification {
+		padding: 0.8rem 1.2rem;
+	}
+
+	.tile.is-parent {
+		padding: 0.5rem 1rem;
+	}
 </style>
