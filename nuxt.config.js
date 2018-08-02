@@ -1,7 +1,5 @@
 module.exports = {
-	router: {
-		base: '/smart-cube-timer/',
-	},
+	router: { },
 
 	head: {
 		link: [
@@ -16,5 +14,13 @@ module.exports = {
 
 	manifest: {
 		theme_color: '#3B8070',
+	},
+
+	build: {
+		extend (config, {isDev}) {
+			if (!isDev) {
+				config.router.base = '/smart-cube-timer/';
+			}
+		},
 	},
 };

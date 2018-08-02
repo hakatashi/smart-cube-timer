@@ -35,7 +35,8 @@
 							{{stage.name}}
 							<span
 								v-for="info in stage.infos"
-								class="tag is-medium"
+								class="tag"
+								:class="{'is-medium': stage.infos.length === 1}"
 								:style="{backgroundColor: info.color, color: info.textColor}"
 							>
 								{{info.text}}
@@ -166,12 +167,12 @@
 				const stages = this.stages || {};
 				let previousTime = 0;
 
+				const isXcross = this.stages.f2l1 && this.stages.f2l1.time !== null && this.stages.f2l1.sequence.length === 0;
+
 				return stagesData.map(({id, name, className}) => {
-					const stage = this.stages[id] || {};
-					const deltaTime = (stage.time || this.time) - previousTime;
-					if (stage.time) {
-						previousTime = stage.time;
-					}
+					const stage = this.stages[id] || {time: null};
+					const deltaTime = previousTime === null ? 0 : (stage.time || this.time) - previousTime;
+					previousTime = stage.time;
 
 					const infos = [];
 					if (id === 'cross') {
@@ -180,6 +181,14 @@
 								text: `${config.faceColors[this.cross].name} Cross`,
 								color: config.faceColors[this.cross].color,
 								textColor: idealTextColor(config.faceColors[this.cross].color),
+							});
+						}
+
+						if (isXcross) {
+							infos.push({
+								text: `XCross`,
+								color: '#4A148C',
+								textColor: idealTextColor('#4A148C'),
 							});
 						}
 					}
@@ -204,12 +213,24 @@
 						}
 					}
 
+					let sequenceText = '--';
+
+					if (stage.sequence) {
+						if (stage.sequence.length === 0) {
+							if (stage.time !== null && stage.sequence.length === 0) {
+								sequenceText = '(Skipped)';
+							}
+						} else {
+							sequenceText = stage.sequence.toString();
+						}
+					}
+
 					return {
 						id,
 						name,
 						infos,
 						class: className,
-						sequenceText: stage.sequence ? stage.sequence.toString() || '--' : '--',
+						sequenceText,
 						time: formatTime(deltaTime),
 					};
 				});
@@ -379,5 +400,9 @@
 
 	.notification .content {
 		margin-top: -1.25rem;
+	}
+
+	.tag {
+		margin-right: 0.3em;
 	}
 </style>
