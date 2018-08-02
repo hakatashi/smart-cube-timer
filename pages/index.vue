@@ -88,27 +88,27 @@
 		{
 			id: 'cross',
 			name: 'Cross',
-			className: 'is-link',
+			className: 'is-info',
 		},
 		{
 			id: 'f2l1',
 			name: 'F2L #1',
-			className: '',
+			className: 'is-link',
 		},
 		{
 			id: 'f2l2',
 			name: 'F2L #2',
-			className: '',
+			className: 'is-link',
 		},
 		{
 			id: 'f2l3',
 			name: 'F2L #3',
-			className: '',
+			className: 'is-link',
 		},
 		{
 			id: 'f2l4',
 			name: 'F2L #4',
-			className: '',
+			className: 'is-link',
 		},
 		{
 			id: 'oll',
@@ -123,7 +123,7 @@
 		{
 			id: 'auf',
 			name: 'AUF',
-			className: 'is-primary',
+			className: '',
 		},
 	];
 
