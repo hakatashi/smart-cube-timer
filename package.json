@@ -15,13 +15,15 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate",
+    "generate": "cross-env DEPLOY_ENV=GH_PAGES nuxt generate",
+    "deploy": "npm run generate && cd dist && git init && git remote add origin https://github.com/hakatashi/smart-cube-timer.git && git fetch && git symbolic-ref HEAD refs/remotes/origin/gh-pages && git add . && git commit -m \"Update build\" && git push -u origin HEAD:gh-pages",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint"
   },
   "devDependencies": {
     "@hakatashi/eslint-config": "^1.6.0",
     "babel-eslint": "^8.2.6",
+    "cross-env": "^5.2.0",
     "eslint": "^5.2.0",
     "eslint-loader": "^2.1.0",
     "eslint-plugin-vue": "^4.7.1"

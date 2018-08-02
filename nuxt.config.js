@@ -1,5 +1,9 @@
 module.exports = {
-	router: { },
+	router: {
+		...(process.env.DEPLOY_ENV === 'GH_PAGES' ? {
+			base: '/smart-cube-timer/',
+		} : {}),
+	},
 
 	head: {
 		link: [
@@ -10,17 +14,11 @@ module.exports = {
 		],
 	},
 
-	loading: {color: '#3B8070'},
+	loading: {
+		color: '#3B8070',
+	},
 
 	manifest: {
 		theme_color: '#3B8070',
-	},
-
-	build: {
-		extend (config, {isDev}) {
-			if (!isDev) {
-				config.router.base = '/smart-cube-timer/';
-			}
-		},
 	},
 };
