@@ -31,7 +31,7 @@
 			<div class="tile times" id="stages">
 				<div v-for="stage in stagesInfo" class="tile is-parent is-3" :key="stage.id" :id="stage.id">
 					<article class="tile is-child notification" :class="stage.class">
-						<p class="title">
+						<p class="title is-marginless">
 							{{stage.name}}
 							<span
 								v-for="info in stage.infos"
@@ -42,7 +42,27 @@
 								{{info.text}}
 							</span>
 						</p>
-						<p class="subtitle">{{stage.time}}</p>
+						<div class="level is-mobile is-marginless">
+							<div class="level-left">
+								<div class="level-item">
+									<div class="subtitle"><strong :style="{color: 'inherit'}">{{stage.time}}</strong></div>
+								</div>
+							</div>
+							<div class="level-right">
+								<div
+									v-if="stage.moveCount !== null"
+									class="level-item"
+								>
+									{{stage.moveCount}} turns
+								</div>
+								<div
+									v-if="stage.speed !== null"
+									class="level-item"
+								>
+									{{stage.speed}} tps
+								</div>
+							</div>
+						</div>
 						<div class="content">
 							{{stage.sequenceText}}
 						</div>
@@ -225,6 +245,9 @@
 						}
 					}
 
+					const moveCount = (stage.time !== null && stage.sequence.length !== 0) ? stage.sequence.length : null;
+					const speed = moveCount === null ? null : (moveCount / (deltaTime / 1000)).toFixed(2);
+
 					return {
 						id,
 						name,
@@ -232,6 +255,8 @@
 						class: className,
 						sequenceText,
 						time: formatTime(deltaTime),
+						moveCount,
+						speed,
 					};
 				});
 			},
@@ -398,11 +423,16 @@
 		min-height: auto;
 	}
 
-	.notification .content {
-		margin-top: -1.25rem;
+	.title .tag {
+		margin-right: 0.3em;
+		vertical-align: top;
 	}
 
-	.tag {
-		margin-right: 0.3em;
+	.padding {
+		padding: 0.8rem 1.2rem;
+	}
+
+	.level-right .level-item:last-child {
+		margin-right: 0;
 	}
 </style>
