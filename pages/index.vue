@@ -2,7 +2,7 @@
 	<section class="container">
 		<div class="wrapper">
 			<div class="controls">
-				<div class="notification">
+				<div v-if="description" class="notification">
 					{{description}}
 				</div>
 				<button
@@ -83,6 +83,7 @@
 	import {findCross, formatTime, idealTextColor, isStageSatisfied, getNextStage} from '~/lib/utils.js';
 	import config from '~/lib/config.js';
 	import sample from 'lodash/sample';
+	import uniq from 'lodash/uniq';
 
 	const stagesData = [
 		{
@@ -145,7 +146,9 @@
 				cubeStage: null,
 				stages: {},
 				oll: null,
+				isOll2Look: false,
 				pll: null,
+				pllLooks: [],
 			};
 		},
 		computed: {
@@ -221,6 +224,13 @@
 								textColor: idealTextColor('#f5f5f5'),
 							});
 						}
+						if (this.isOll2Look) {
+							infos.push({
+								text: '2-Look',
+								color: '#F8BBD0',
+								textColor: idealTextColor('#F8BBD0'),
+							});
+						}
 					}
 
 					if (id === 'pll') {
@@ -229,6 +239,13 @@
 								text: this.pll.name,
 								color: '#FFEE58',
 								textColor: idealTextColor('#FFEE58'),
+							});
+						}
+						if (this.pllLooks.length > 1) {
+							infos.push({
+								text: `${this.pllLooks.length}-Look`,
+								color: '#F8BBD0',
+								textColor: idealTextColor('#F8BBD0'),
 							});
 						}
 					}
@@ -306,7 +323,7 @@
 				if (this.phase === 'inspect') {
 					this.startTime = new Date();
 					this.phase = 'solve';
-					this.description = 'Good luck :)';
+					this.description = null;
 					this.cubeStage = 'cross';
 					this.stages = Object.assign(...stagesData.map(({id}) => ({
 						[id]: {
@@ -315,6 +332,8 @@
 							time: null,
 						},
 					})));
+					this.isOll2Look = false;
+					this.pllLooks = [];
 					this.interval = setInterval(this.onTick, 1000 / 30);
 					this.scrollToStage();
 					// fall through
@@ -342,6 +361,7 @@
 					for (const stage of stagesData.slice(1)) {
 						if (this.cubeStage === stage.id) {
 							const {result, oll, pll} = isStageSatisfied({cube: this.cube, stage: stage.id, cross: this.cross});
+
 							if (result === true) {
 								this.cubeStage = getNextStage(stage.id);
 								this.scrollToStage();
@@ -352,6 +372,14 @@
 								if (stage.id === 'oll') {
 									this.pll = pll;
 								}
+							} else {
+								if (stage.id === 'oll' && !this.oll.isEdgeOriented && oll !== undefined && oll.isEdgeOriented) {
+									this.isOll2Look = true;
+								}
+							}
+
+							if (pll !== undefined && pll.name !== 'PLL Skip') {
+								this.pllLooks = uniq([...this.pllLooks, pll.name]);
 							}
 						}
 					}
@@ -359,7 +387,6 @@
 					if (this.cube.isSolved()) {
 						clearInterval(this.interval);
 						this.phase = 'scramble';
-						this.description = 'Nice!';
 						this.scramble = MoveSequence.fromScramble(sample(scrambles.sheets[0].scrambles), {mode: 'reduction'});
 						this.placeholderMoves = this.scramble.moves.map((move) => ({...move}));
 						document.getElementById('stages').scrollTop = 0;
@@ -381,7 +408,7 @@
 			if (this.giiker) {
 				this.giiker.removeListener('move', this.onGiikerMove);
 			}
-		}
+		},
 	}
 </script>
 
