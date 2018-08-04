@@ -131,7 +131,7 @@
 	// Cube.initSolver();
 
 	export default {
-		data () {
+		data() {
 			return {
 				cross: null,
 				giiker: null,
