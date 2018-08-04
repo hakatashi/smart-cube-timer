@@ -1,76 +1,78 @@
 <template>
-	<div class="wrapper">
-		<div class="controls">
-			<v-alert v-if="description" type="info" v-model="isDescriptionShown" dismissible>
-				{{description}}
-			</v-alert>
-			<v-btn
-				v-if="giiker === null"
-				color="info"
-				dark
-				large
-				:disabled="this.isConnecting"
-				:loading="this.isConnecting"
-				@click="onClickConnect"
-			>
-				Connect Cube
-			</v-btn>
-			<div
-				v-if="phase === 'scramble'"
-				class="scramble"
-			>
-				<span v-for="move, index in scrambleMoves" :key="index" :style="{color: move.grey ? '#CCC' : ''}">
-					{{move.text}}
-				</span>
-			</div>
-			<div
-				class="timer"
-			>
-				{{displayTime}}
-			</div>
-		</div>
-		<div class="tile times" id="stages">
-			<div v-for="stage in stagesInfo" class="tile is-parent is-3" :key="stage.id" :id="stage.id">
-				<article class="tile is-child notification" :class="stage.class">
-					<p class="title is-marginless">
-						{{stage.name}}
-						<span
-							v-for="info in stage.infos"
-							class="tag"
-							:class="{'is-medium': stage.infos.length === 1}"
-							:style="{backgroundColor: info.color, color: info.textColor}"
-						>
-							{{info.text}}
-						</span>
-					</p>
-					<div class="level is-mobile is-marginless">
-						<div class="level-left">
-							<div class="level-item">
-								<div class="subtitle"><strong :style="{color: 'inherit'}">{{stage.time}}</strong></div>
+	<v-container fill-height>
+		<v-layout column fill-height>
+			<v-flex class="controls">
+				<v-alert v-if="description" type="info" v-model="isDescriptionShown" dismissible>
+					{{description}}
+				</v-alert>
+				<v-btn
+					v-if="giiker === null"
+					color="info"
+					dark
+					large
+					:disabled="this.isConnecting"
+					:loading="this.isConnecting"
+					@click="onClickConnect"
+				>
+					Connect Cube
+				</v-btn>
+				<div
+					v-if="phase === 'scramble'"
+					class="scramble"
+				>
+					<span v-for="move, index in scrambleMoves" :key="index" :style="{color: move.grey ? '#CCC' : ''}">
+						{{move.text}}
+					</span>
+				</div>
+				<div
+					class="timer"
+				>
+					{{displayTime}}
+				</div>
+			</v-flex>
+			<v-flex class="tile times" id="stages">
+				<div v-for="stage in stagesInfo" class="tile is-parent is-3" :key="stage.id" :id="stage.id">
+					<article class="tile is-child notification" :class="stage.class">
+						<p class="title is-marginless">
+							{{stage.name}}
+							<span
+								v-for="info in stage.infos"
+								class="tag"
+								:class="{'is-medium': stage.infos.length === 1}"
+								:style="{backgroundColor: info.color, color: info.textColor}"
+							>
+								{{info.text}}
+							</span>
+						</p>
+						<div class="level is-mobile is-marginless">
+							<div class="level-left">
+								<div class="level-item">
+									<div class="subtitle"><strong :style="{color: 'inherit'}">{{stage.time}}</strong></div>
+								</div>
+							</div>
+							<div class="level-right">
+								<div
+									v-if="stage.moveCount !== null"
+									class="level-item"
+								>
+									{{stage.moveCount}} turns
+								</div>
+								<div
+									v-if="stage.speed !== null"
+									class="level-item"
+								>
+									{{stage.speed}} tps
+								</div>
 							</div>
 						</div>
-						<div class="level-right">
-							<div
-								v-if="stage.moveCount !== null"
-								class="level-item"
-							>
-								{{stage.moveCount}} turns
-							</div>
-							<div
-								v-if="stage.speed !== null"
-								class="level-item"
-							>
-								{{stage.speed}} tps
-							</div>
+						<div class="content">
+							{{stage.sequenceText}}
 						</div>
-					</div>
-					<div class="content">
-						{{stage.sequenceText}}
-					</div>
-				</article>
-			</div>
-		</div>
-	</div>
+					</article>
+				</div>
+			</v-flex>
+		</v-layout>
+	</v-container>
 </template>
 
 <script>
@@ -422,19 +424,6 @@
 </script>
 
 <style>
-	.wrapper {
-		width: 100%;
-		height: 100vh;
-		display: flex;
-		flex-direction: column;
-	}
-
-	.container {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-
 	.controls {
 		text-align: center;
 		flex: 0 0 auto;
