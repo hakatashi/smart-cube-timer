@@ -26,4 +26,12 @@ module.exports = {
 	css: [
 		'vuetify/dist/vuetify.css',
 	],
+
+	generate: {
+		minify: {
+			collapseWhitespace: true,
+			removeComments: true,
+			removeTagWhitespace: true,
+		},
+	},
 };
