@@ -1,8 +1,8 @@
 <template>
-	<v-container fill-height pa-0 grid-list-lg>
-		<v-layout column fill-height>
+	<v-container fill-height grid-list-lg pa-0>
+		<v-layout column fill-height ma-0>
 			<v-flex class="controls">
-				<v-alert v-if="description" type="success" v-model="isDescriptionShown" dismissible>
+				<v-alert v-if="description" type="success" v-model="isDescriptionShown">
 					{{description}}
 				</v-alert>
 				<v-btn
