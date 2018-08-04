@@ -18,7 +18,7 @@
 				</v-list-tile>
 			</v-list>
 		</v-navigation-drawer>
-		<v-toolbar app dark color="cyan">
+		<v-toolbar dense app dark color="purple">
 			<v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
 			<v-toolbar-title>
 				<nuxt-link to="/" class="white--text">

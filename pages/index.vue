@@ -1,76 +1,76 @@
 <template>
-	<section class="container">
-		<div class="wrapper">
-			<div class="controls">
-				<div v-if="description" class="notification">
-					{{description}}
-				</div>
-				<button
-					v-if="giiker === null"
-					:disabled="this.isConnecting"
-					class="button is-primary is-large"
-					:class="{'is-loading': this.isConnecting}"
-					@click="onClickConnect"
-				>
-					Connect Cube
-				</button>
-				<div
-					v-if="phase === 'scramble'"
-					class="scramble"
-				>
-					<span v-for="move, index in scrambleMoves" :key="index" :style="{color: move.grey ? '#CCC' : ''}">
-						{{move.text}}
-					</span>
-				</div>
-				<div
-					class="timer"
-				>
-					{{displayTime}}
-				</div>
+	<div class="wrapper">
+		<div class="controls">
+			<v-alert v-if="description" type="info" v-model="isDescriptionShown" dismissible>
+				{{description}}
+			</v-alert>
+			<v-btn
+				v-if="giiker === null"
+				color="info"
+				dark
+				large
+				:disabled="this.isConnecting"
+				:loading="this.isConnecting"
+				@click="onClickConnect"
+			>
+				Connect Cube
+			</v-btn>
+			<div
+				v-if="phase === 'scramble'"
+				class="scramble"
+			>
+				<span v-for="move, index in scrambleMoves" :key="index" :style="{color: move.grey ? '#CCC' : ''}">
+					{{move.text}}
+				</span>
 			</div>
-			<div class="tile times" id="stages">
-				<div v-for="stage in stagesInfo" class="tile is-parent is-3" :key="stage.id" :id="stage.id">
-					<article class="tile is-child notification" :class="stage.class">
-						<p class="title is-marginless">
-							{{stage.name}}
-							<span
-								v-for="info in stage.infos"
-								class="tag"
-								:class="{'is-medium': stage.infos.length === 1}"
-								:style="{backgroundColor: info.color, color: info.textColor}"
-							>
-								{{info.text}}
-							</span>
-						</p>
-						<div class="level is-mobile is-marginless">
-							<div class="level-left">
-								<div class="level-item">
-									<div class="subtitle"><strong :style="{color: 'inherit'}">{{stage.time}}</strong></div>
-								</div>
-							</div>
-							<div class="level-right">
-								<div
-									v-if="stage.moveCount !== null"
-									class="level-item"
-								>
-									{{stage.moveCount}} turns
-								</div>
-								<div
-									v-if="stage.speed !== null"
-									class="level-item"
-								>
-									{{stage.speed}} tps
-								</div>
-							</div>
-						</div>
-						<div class="content">
-							{{stage.sequenceText}}
-						</div>
-					</article>
-				</div>
+			<div
+				class="timer"
+			>
+				{{displayTime}}
 			</div>
 		</div>
-	</section>
+		<div class="tile times" id="stages">
+			<div v-for="stage in stagesInfo" class="tile is-parent is-3" :key="stage.id" :id="stage.id">
+				<article class="tile is-child notification" :class="stage.class">
+					<p class="title is-marginless">
+						{{stage.name}}
+						<span
+							v-for="info in stage.infos"
+							class="tag"
+							:class="{'is-medium': stage.infos.length === 1}"
+							:style="{backgroundColor: info.color, color: info.textColor}"
+						>
+							{{info.text}}
+						</span>
+					</p>
+					<div class="level is-mobile is-marginless">
+						<div class="level-left">
+							<div class="level-item">
+								<div class="subtitle"><strong :style="{color: 'inherit'}">{{stage.time}}</strong></div>
+							</div>
+						</div>
+						<div class="level-right">
+							<div
+								v-if="stage.moveCount !== null"
+								class="level-item"
+							>
+								{{stage.moveCount}} turns
+							</div>
+							<div
+								v-if="stage.speed !== null"
+								class="level-item"
+							>
+								{{stage.speed}} tps
+							</div>
+						</div>
+					</div>
+					<div class="content">
+						{{stage.sequenceText}}
+					</div>
+				</article>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -140,6 +140,7 @@
 				phase: 'scramble',
 				isConnecting: false,
 				description: 'Make sure GiiKER is solved state, and press "Connect Cube" to link cube.',
+				isDescriptionShown: true,
 				placeholderMoves: [],
 				scramble: null,
 				solveSequence: null,
@@ -298,6 +299,7 @@
 				this.giiker = await GiiKER.connect();
 				this.giiker.on('move', this.onGiikerMove)
 				this.description = 'Follow the scramble.'
+				this.isDescriptionShown = true;
 			},
 			onGiikerMove(move) {
 				const now = new Date();
@@ -316,6 +318,7 @@
 						this.cross = null;
 						this.time = 0;
 						this.description = 'Now start solving when you\'re ready.'
+						this.isDescriptionShown = true;
 					}
 					return;
 				}
@@ -324,6 +327,7 @@
 					this.startTime = new Date();
 					this.phase = 'solve';
 					this.description = null;
+					this.isDescriptionShown = false;
 					this.cubeStage = 'cross';
 					this.stages = Object.assign(...stagesData.map(({id}) => ({
 						[id]: {
