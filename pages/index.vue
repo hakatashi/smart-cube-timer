@@ -409,6 +409,11 @@
 				this.giiker.removeListener('move', this.onGiikerMove);
 			}
 		},
+		head() {
+			return {
+				title: 'Smart Cube Timer - Record your solves with advanced stats',
+			};
+		},
 	}
 </script>
 
