@@ -11,6 +11,2970 @@
  * Released under the MIT License.
  */
 
+/*!*****************************************!*\
+  !*** ./src/components/VAlert/VAlert.ts ***!
+  \*****************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_alerts.styl */
+
+/*! ../VIcon */
+
+/*! ../../mixins/colorable */
+
+/*! ../../mixins/toggleable */
+
+/*! ../../mixins/transitionable */
+
+/*! ../../util/mixins */
+
+/*!****************************************!*\
+  !*** ./src/components/VAlert/index.ts ***!
+  \****************************************/
+
+/*! exports provided: VAlert, default */
+
+/*! ./VAlert */
+
+/*!*************************************!*\
+  !*** ./src/components/VApp/VApp.js ***!
+  \*************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_app.styl */
+
+/*! ./mixins/app-theme */
+
+/*! ../../directives/resize */
+
+/*!**************************************!*\
+  !*** ./src/components/VApp/index.js ***!
+  \**************************************/
+
+/*! exports provided: VApp, default */
+
+/*! ./VApp */
+
+/*!*************************************************!*\
+  !*** ./src/components/VApp/mixins/app-theme.js ***!
+  \*************************************************/
+
+/*! exports provided: default */
+
+/*! ../../../util/colorUtils */
+
+/*! ../../../util/theme */
+
+/*!*******************************************************!*\
+  !*** ./src/components/VAutocomplete/VAutocomplete.js ***!
+  \*******************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_autocompletes.styl */
+
+/*! ../VSelect/VSelect */
+
+/*! ../VTextField/VTextField */
+
+/*! ../../util/helpers */
+
+/*!***********************************************!*\
+  !*** ./src/components/VAutocomplete/index.js ***!
+  \***********************************************/
+
+/*! exports provided: VAutocomplete, default */
+
+/*! ./VAutocomplete */
+
+/*!*******************************************!*\
+  !*** ./src/components/VAvatar/VAvatar.ts ***!
+  \*******************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_avatars.styl */
+
+/*! ../../mixins/colorable */
+
+/*! ../../util/helpers */
+
+/*! ../../util/mixins */
+
+/*!*****************************************!*\
+  !*** ./src/components/VAvatar/index.ts ***!
+  \*****************************************/
+
+/*! exports provided: VAvatar, default */
+
+/*! ./VAvatar */
+
+/*!*****************************************!*\
+  !*** ./src/components/VBadge/VBadge.ts ***!
+  \*****************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_badges.styl */
+
+/*! ../../mixins/colorable */
+
+/*! ../../mixins/toggleable */
+
+/*! ../../mixins/positionable */
+
+/*! ../../mixins/transitionable */
+
+/*! ../../util/mixins */
+
+/*!****************************************!*\
+  !*** ./src/components/VBadge/index.ts ***!
+  \****************************************/
+
+/*! exports provided: VBadge, default */
+
+/*! ./VBadge */
+
+/*!*************************************************!*\
+  !*** ./src/components/VBottomNav/VBottomNav.ts ***!
+  \*************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_bottom-navs.styl */
+
+/*! ../../mixins/applicationable */
+
+/*! ../../mixins/button-group */
+
+/*! ../../mixins/colorable */
+
+/*! ../../util/mixins */
+
+/*!********************************************!*\
+  !*** ./src/components/VBottomNav/index.ts ***!
+  \********************************************/
+
+/*! exports provided: VBottomNav, default */
+
+/*! ./VBottomNav */
+
+/*!*****************************************************!*\
+  !*** ./src/components/VBottomSheet/VBottomSheet.js ***!
+  \*****************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_bottom-sheets.styl */
+
+/*! ../VDialog/VDialog */
+
+/*!**********************************************!*\
+  !*** ./src/components/VBottomSheet/index.js ***!
+  \**********************************************/
+
+/*! exports provided: VBottomSheet, default */
+
+/*! ./VBottomSheet */
+
+/*!*****************************************************!*\
+  !*** ./src/components/VBreadcrumbs/VBreadcrumbs.js ***!
+  \*****************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_breadcrumbs.styl */
+
+/*!*********************************************************!*\
+  !*** ./src/components/VBreadcrumbs/VBreadcrumbsItem.js ***!
+  \*********************************************************/
+
+/*! exports provided: default */
+
+/*! ../../mixins/routable */
+
+/*!**********************************************!*\
+  !*** ./src/components/VBreadcrumbs/index.js ***!
+  \**********************************************/
+
+/*! exports provided: VBreadcrumbs, VBreadcrumbsItem, default */
+
+/*! ./VBreadcrumbs */
+
+/*! ./VBreadcrumbsItem */
+
+/*!*************************************!*\
+  !*** ./src/components/VBtn/VBtn.ts ***!
+  \*************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_buttons.styl */
+
+/*! ../../util/mixins */
+
+/*! ../VProgressCircular */
+
+/*! ../../mixins/colorable */
+
+/*! ../../mixins/positionable */
+
+/*! ../../mixins/routable */
+
+/*! ../../mixins/themeable */
+
+/*! ../../mixins/toggleable */
+
+/*! ../../mixins/registrable */
+
+/*!**************************************!*\
+  !*** ./src/components/VBtn/index.ts ***!
+  \**************************************/
+
+/*! exports provided: VBtn, default */
+
+/*! ./VBtn */
+
+/*!*************************************************!*\
+  !*** ./src/components/VBtnToggle/VBtnToggle.ts ***!
+  \*************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_button-toggle.styl */
+
+/*! ../../util/mixins */
+
+/*! ../../mixins/button-group */
+
+/*! ../../mixins/themeable */
+
+/*! ../../util/console */
+
+/*!********************************************!*\
+  !*** ./src/components/VBtnToggle/index.ts ***!
+  \********************************************/
+
+/*! exports provided: VBtnToggle, default */
+
+/*! ./VBtnToggle */
+
+/*!***************************************!*\
+  !*** ./src/components/VCard/VCard.ts ***!
+  \***************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_cards.styl */
+
+/*! ../../mixins/colorable */
+
+/*! ../../mixins/routable */
+
+/*! ../../mixins/themeable */
+
+/*! ../../util/helpers */
+
+/*! ../../util/mixins */
+
+/*!********************************************!*\
+  !*** ./src/components/VCard/VCardMedia.ts ***!
+  \********************************************/
+
+/*! exports provided: default */
+
+/*! ../../util/helpers */
+
+/*! vue */
+
+/*!********************************************!*\
+  !*** ./src/components/VCard/VCardTitle.ts ***!
+  \********************************************/
+
+/*! exports provided: default */
+
+/*! vue */
+
+/*!***************************************!*\
+  !*** ./src/components/VCard/index.ts ***!
+  \***************************************/
+
+/*! exports provided: VCard, VCardMedia, VCardTitle, VCardActions, VCardText, default */
+
+/*! ../../util/helpers */
+
+/*! ./VCard */
+
+/*! ./VCardMedia */
+
+/*! ./VCardTitle */
+
+/*! vue */
+
+/*!***********************************************!*\
+  !*** ./src/components/VCarousel/VCarousel.js ***!
+  \***********************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_carousel.styl */
+
+/*! ../VBtn */
+
+/*! ../VIcon */
+
+/*! ../../mixins/bootable */
+
+/*! ../../mixins/themeable */
+
+/*! ../../mixins/registrable */
+
+/*! ../../directives/touch */
+
+/*!***************************************************!*\
+  !*** ./src/components/VCarousel/VCarouselItem.js ***!
+  \***************************************************/
+
+/*! exports provided: default */
+
+/*! ../VJumbotron */
+
+/*! ../../mixins/registrable */
+
+/*!*******************************************!*\
+  !*** ./src/components/VCarousel/index.js ***!
+  \*******************************************/
+
+/*! exports provided: VCarousel, VCarouselItem, default */
+
+/*! ./VCarousel */
+
+/*! ./VCarouselItem */
+
+/*!***********************************************!*\
+  !*** ./src/components/VCheckbox/VCheckbox.js ***!
+  \***********************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_selection-controls.styl */
+
+/*! ../VIcon */
+
+/*! ../../mixins/selectable */
+
+/*!*******************************************!*\
+  !*** ./src/components/VCheckbox/index.js ***!
+  \*******************************************/
+
+/*! exports provided: VCheckbox, default */
+
+/*! ./VCheckbox */
+
+/*!***************************************!*\
+  !*** ./src/components/VChip/VChip.ts ***!
+  \***************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_chips.styl */
+
+/*! ../../util/mixins */
+
+/*! ../VIcon */
+
+/*! ../../mixins/colorable */
+
+/*! ../../mixins/themeable */
+
+/*! ../../mixins/toggleable */
+
+/*!***************************************!*\
+  !*** ./src/components/VChip/index.ts ***!
+  \***************************************/
+
+/*! exports provided: VChip, default */
+
+/*! ./VChip */
+
+/*!***********************************************!*\
+  !*** ./src/components/VCombobox/VCombobox.js ***!
+  \***********************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_autocompletes.styl */
+
+/*! ../VSelect/VSelect */
+
+/*! ../VAutocomplete/VAutocomplete */
+
+/*! ../../util/helpers */
+
+/*!*******************************************!*\
+  !*** ./src/components/VCombobox/index.js ***!
+  \*******************************************/
+
+/*! exports provided: VCombobox, default */
+
+/*! ./VCombobox */
+
+/*!*********************************************!*\
+  !*** ./src/components/VCounter/VCounter.js ***!
+  \*********************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_counters.styl */
+
+/*! ../../mixins/themeable */
+
+/*!******************************************!*\
+  !*** ./src/components/VCounter/index.js ***!
+  \******************************************/
+
+/*! exports provided: VCounter, default */
+
+/*! ./VCounter */
+
+/*!*******************************************************!*\
+  !*** ./src/components/VDataIterator/VDataIterator.js ***!
+  \*******************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_data-iterator.styl */
+
+/*! ../../mixins/data-iterable */
+
+/*!***********************************************!*\
+  !*** ./src/components/VDataIterator/index.js ***!
+  \***********************************************/
+
+/*! exports provided: VDataIterator, default */
+
+/*! ./VDataIterator */
+
+/*!*************************************************!*\
+  !*** ./src/components/VDataTable/VDataTable.js ***!
+  \*************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_tables.styl */
+
+/*! ../../stylus/components/_data-table.styl */
+
+/*! ../../mixins/data-iterable */
+
+/*! ./mixins/head */
+
+/*! ./mixins/body */
+
+/*! ./mixins/foot */
+
+/*! ./mixins/progress */
+
+/*! ../../util/helpers */
+
+/*!**************************************************!*\
+  !*** ./src/components/VDataTable/VEditDialog.js ***!
+  \**************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_small-dialog.styl */
+
+/*! ../../mixins/returnable */
+
+/*! ../../util/helpers */
+
+/*! ../VBtn */
+
+/*! ../VMenu */
+
+/*!********************************************!*\
+  !*** ./src/components/VDataTable/index.js ***!
+  \********************************************/
+
+/*! exports provided: VDataTable, VEditDialog, VTableOverflow, default */
+
+/*! ../../util/helpers */
+
+/*! ./VDataTable */
+
+/*! ./VEditDialog */
+
+/*!**************************************************!*\
+  !*** ./src/components/VDataTable/mixins/body.js ***!
+  \**************************************************/
+
+/*! exports provided: default */
+
+/*! ../../transitions/expand-transition */
+
+/*!**************************************************!*\
+  !*** ./src/components/VDataTable/mixins/foot.js ***!
+  \**************************************************/
+
+/*! exports provided: default */
+
+/*!**************************************************!*\
+  !*** ./src/components/VDataTable/mixins/head.js ***!
+  \**************************************************/
+
+/*! exports provided: default */
+
+/*! ../../../util/console */
+
+/*! ../../VCheckbox */
+
+/*! ../../VIcon */
+
+/*!******************************************************!*\
+  !*** ./src/components/VDataTable/mixins/progress.js ***!
+  \******************************************************/
+
+/*! exports provided: default */
+
+/*!***************************************************!*\
+  !*** ./src/components/VDatePicker/VDatePicker.js ***!
+  \***************************************************/
+
+/*! exports provided: default */
+
+/*! ./VDatePickerTitle */
+
+/*! ./VDatePickerHeader */
+
+/*! ./VDatePickerDateTable */
+
+/*! ./VDatePickerMonthTable */
+
+/*! ./VDatePickerYears */
+
+/*! ../../mixins/picker */
+
+/*! ./util */
+
+/*! ./util/isDateAllowed */
+
+/*!************************************************************!*\
+  !*** ./src/components/VDatePicker/VDatePickerDateTable.js ***!
+  \************************************************************/
+
+/*! exports provided: default */
+
+/*! ../../mixins/colorable */
+
+/*! ./mixins/date-picker-table */
+
+/*! ../../mixins/themeable */
+
+/*! ./util */
+
+/*! ../../util/helpers */
+
+/*!*********************************************************!*\
+  !*** ./src/components/VDatePicker/VDatePickerHeader.js ***!
+  \*********************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_date-picker-header.styl */
+
+/*! ../VBtn */
+
+/*! ../VIcon */
+
+/*! ../../mixins/colorable */
+
+/*! ../../mixins/themeable */
+
+/*! ./util */
+
+/*!*************************************************************!*\
+  !*** ./src/components/VDatePicker/VDatePickerMonthTable.js ***!
+  \*************************************************************/
+
+/*! exports provided: default */
+
+/*! ../../mixins/colorable */
+
+/*! ./mixins/date-picker-table */
+
+/*! ../../mixins/themeable */
+
+/*! ./util */
+
+/*!********************************************************!*\
+  !*** ./src/components/VDatePicker/VDatePickerTitle.js ***!
+  \********************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_date-picker-title.styl */
+
+/*! ../VIcon */
+
+/*! ../../mixins/picker-button */
+
+/*!********************************************************!*\
+  !*** ./src/components/VDatePicker/VDatePickerYears.js ***!
+  \********************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_date-picker-years.styl */
+
+/*! ../../mixins/colorable */
+
+/*! ./util */
+
+/*!*********************************************!*\
+  !*** ./src/components/VDatePicker/index.js ***!
+  \*********************************************/
+
+/*! exports provided: VDatePicker, VDatePickerTitle, VDatePickerHeader, VDatePickerDateTable, VDatePickerMonthTable, VDatePickerYears, default */
+
+/*! ./VDatePicker */
+
+/*! ./VDatePickerTitle */
+
+/*! ./VDatePickerHeader */
+
+/*! ./VDatePickerDateTable */
+
+/*! ./VDatePickerMonthTable */
+
+/*! ./VDatePickerYears */
+
+/*!****************************************************************!*\
+  !*** ./src/components/VDatePicker/mixins/date-picker-table.js ***!
+  \****************************************************************/
+
+/*! exports provided: default */
+
+/*! ../../../stylus/components/_date-picker-table.styl */
+
+/*! ../../../directives/touch */
+
+/*! .././util/isDateAllowed */
+
+/*!************************************************************************!*\
+  !*** ./src/components/VDatePicker/util/createNativeLocaleFormatter.js ***!
+  \************************************************************************/
+
+/*! exports provided: default */
+
+/*! ./pad */
+
+/*!**************************************************!*\
+  !*** ./src/components/VDatePicker/util/index.js ***!
+  \**************************************************/
+
+/*! exports provided: createNativeLocaleFormatter, monthChange, pad */
+
+/*! ./createNativeLocaleFormatter */
+
+/*! ./monthChange */
+
+/*! ./pad */
+
+/*!**********************************************************!*\
+  !*** ./src/components/VDatePicker/util/isDateAllowed.js ***!
+  \**********************************************************/
+
+/*! exports provided: default */
+
+/*!********************************************************!*\
+  !*** ./src/components/VDatePicker/util/monthChange.js ***!
+  \********************************************************/
+
+/*! exports provided: default */
+
+/*! ./pad */
+
+/*!************************************************!*\
+  !*** ./src/components/VDatePicker/util/pad.js ***!
+  \************************************************/
+
+/*! exports provided: default */
+
+/*!*******************************************!*\
+  !*** ./src/components/VDialog/VDialog.js ***!
+  \*******************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_dialogs.styl */
+
+/*! ../../mixins/dependent */
+
+/*! ../../mixins/detachable */
+
+/*! ../../mixins/overlayable */
+
+/*! ../../mixins/returnable */
+
+/*! ../../mixins/stackable */
+
+/*! ../../mixins/toggleable */
+
+/*! ../../directives/click-outside */
+
+/*! ../../util/helpers */
+
+/*!*****************************************!*\
+  !*** ./src/components/VDialog/index.js ***!
+  \*****************************************/
+
+/*! exports provided: VDialog, default */
+
+/*! ./VDialog */
+
+/*!*********************************************!*\
+  !*** ./src/components/VDivider/VDivider.ts ***!
+  \*********************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_dividers.styl */
+
+/*! vue */
+
+/*! ../../mixins/themeable */
+
+/*!******************************************!*\
+  !*** ./src/components/VDivider/index.ts ***!
+  \******************************************/
+
+/*! exports provided: VDivider, default */
+
+/*! ./VDivider */
+
+/*!***********************************************************!*\
+  !*** ./src/components/VExpansionPanel/VExpansionPanel.ts ***!
+  \***********************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_expansion-panel.styl */
+
+/*! ../../mixins/themeable */
+
+/*! ../../mixins/registrable */
+
+/*! ../../util/mixins */
+
+/*!******************************************************************!*\
+  !*** ./src/components/VExpansionPanel/VExpansionPanelContent.ts ***!
+  \******************************************************************/
+
+/*! exports provided: default */
+
+/*! ../transitions */
+
+/*! ../../mixins/bootable */
+
+/*! ../../mixins/toggleable */
+
+/*! ../../mixins/rippleable */
+
+/*! ../../mixins/registrable */
+
+/*! ../VIcon */
+
+/*! ../../util/mixins */
+
+/*! ../../util/console */
+
+/*!*************************************************!*\
+  !*** ./src/components/VExpansionPanel/index.ts ***!
+  \*************************************************/
+
+/*! exports provided: VExpansionPanel, VExpansionPanelContent, default */
+
+/*! ./VExpansionPanel */
+
+/*! ./VExpansionPanelContent */
+
+/*!*******************************************!*\
+  !*** ./src/components/VFooter/VFooter.js ***!
+  \*******************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_footer.styl */
+
+/*! ../../mixins/applicationable */
+
+/*! ../../mixins/colorable */
+
+/*! ../../mixins/themeable */
+
+/*!*****************************************!*\
+  !*** ./src/components/VFooter/index.js ***!
+  \*****************************************/
+
+/*! exports provided: VFooter, default */
+
+/*! ./VFooter */
+
+/*!***************************************!*\
+  !*** ./src/components/VForm/VForm.js ***!
+  \***************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_forms.styl */
+
+/*! ../../mixins/registrable */
+
+/*!***************************************!*\
+  !*** ./src/components/VForm/index.js ***!
+  \***************************************/
+
+/*! exports provided: VForm, default */
+
+/*! ./VForm */
+
+/*!********************************************!*\
+  !*** ./src/components/VGrid/VContainer.js ***!
+  \********************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_grid.styl */
+
+/*! ./grid */
+
+/*!******************************************!*\
+  !*** ./src/components/VGrid/VContent.js ***!
+  \******************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_content.styl */
+
+/*! ../../mixins/ssr-bootable */
+
+/*!***************************************!*\
+  !*** ./src/components/VGrid/VFlex.js ***!
+  \***************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_grid.styl */
+
+/*! ./grid */
+
+/*!*****************************************!*\
+  !*** ./src/components/VGrid/VLayout.js ***!
+  \*****************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_grid.styl */
+
+/*! ./grid */
+
+/*!**************************************!*\
+  !*** ./src/components/VGrid/grid.js ***!
+  \**************************************/
+
+/*! exports provided: default */
+
+/*!***************************************!*\
+  !*** ./src/components/VGrid/index.js ***!
+  \***************************************/
+
+/*! exports provided: VContainer, VContent, VFlex, VLayout, VSpacer, default */
+
+/*! ../../util/helpers */
+
+/*! ./VContent */
+
+/*! ./VContainer */
+
+/*! ./VFlex */
+
+/*! ./VLayout */
+
+/*!***************************************!*\
+  !*** ./src/components/VIcon/VIcon.ts ***!
+  \***************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_icons.styl */
+
+/*! ../../mixins/themeable */
+
+/*! ../../mixins/colorable */
+
+/*! ../../util/helpers */
+
+/*! ../../util/mixins */
+
+/*!***************************************!*\
+  !*** ./src/components/VIcon/index.ts ***!
+  \***************************************/
+
+/*! exports provided: VIcon, default */
+
+/*! ./VIcon */
+
+/*!*****************************************!*\
+  !*** ./src/components/VInput/VInput.js ***!
+  \*****************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_inputs.styl */
+
+/*! ../VIcon */
+
+/*! ../VLabel */
+
+/*! ../VMessages */
+
+/*! ../../mixins/colorable */
+
+/*! ../../mixins/loadable */
+
+/*! ../../mixins/themeable */
+
+/*! ../../mixins/validatable */
+
+/*! ../../util/helpers */
+
+/*! ../../util/console */
+
+/*!****************************************!*\
+  !*** ./src/components/VInput/index.js ***!
+  \****************************************/
+
+/*! exports provided: VInput, default */
+
+/*! ./VInput */
+
+/*!*************************************************!*\
+  !*** ./src/components/VJumbotron/VJumbotron.js ***!
+  \*************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_jumbotrons.styl */
+
+/*! ../../mixins/colorable */
+
+/*! ../../mixins/routable */
+
+/*! ../../mixins/themeable */
+
+/*!********************************************!*\
+  !*** ./src/components/VJumbotron/index.js ***!
+  \********************************************/
+
+/*! exports provided: VJumbotron, default */
+
+/*! ./VJumbotron */
+
+/*!*****************************************!*\
+  !*** ./src/components/VLabel/VLabel.js ***!
+  \*****************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_labels.styl */
+
+/*! ../../mixins/colorable */
+
+/*! ../../mixins/themeable */
+
+/*! ../../util/helpers */
+
+/*!****************************************!*\
+  !*** ./src/components/VLabel/index.js ***!
+  \****************************************/
+
+/*! exports provided: VLabel, default */
+
+/*! ./VLabel */
+
+/*!***************************************!*\
+  !*** ./src/components/VList/VList.js ***!
+  \***************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_lists.styl */
+
+/*! ../../mixins/themeable */
+
+/*! ../../mixins/registrable */
+
+/*!********************************************!*\
+  !*** ./src/components/VList/VListGroup.js ***!
+  \********************************************/
+
+/*! exports provided: default */
+
+/*! ../../components/VIcon */
+
+/*! ../../mixins/bootable */
+
+/*! ../../mixins/toggleable */
+
+/*! ../../mixins/registrable */
+
+/*! ../transitions */
+
+/*!*******************************************!*\
+  !*** ./src/components/VList/VListTile.js ***!
+  \*******************************************/
+
+/*! exports provided: default */
+
+/*! ../../mixins/colorable */
+
+/*! ../../mixins/routable */
+
+/*! ../../mixins/toggleable */
+
+/*! ../../directives/ripple */
+
+/*!*************************************************!*\
+  !*** ./src/components/VList/VListTileAction.js ***!
+  \*************************************************/
+
+/*! exports provided: default */
+
+/*!*************************************************!*\
+  !*** ./src/components/VList/VListTileAvatar.js ***!
+  \*************************************************/
+
+/*! exports provided: default */
+
+/*! ../VAvatar */
+
+/*!***************************************!*\
+  !*** ./src/components/VList/index.js ***!
+  \***************************************/
+
+/*! exports provided: VList, VListGroup, VListTile, VListTileAction, VListTileAvatar, VListTileActionText, VListTileContent, VListTileTitle, VListTileSubTitle, default */
+
+/*! ../../util/helpers */
+
+/*! ./VList */
+
+/*! ./VListGroup */
+
+/*! ./VListTile */
+
+/*! ./VListTileAction */
+
+/*! ./VListTileAvatar */
+
+/*!***************************************!*\
+  !*** ./src/components/VMenu/VMenu.js ***!
+  \***************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_menus.styl */
+
+/*! ../../mixins/delayable */
+
+/*! ../../mixins/dependent */
+
+/*! ../../mixins/detachable */
+
+/*! ../../mixins/menuable.js */
+
+/*! ../../mixins/returnable */
+
+/*! ../../mixins/toggleable */
+
+/*! ./mixins/menu-activator */
+
+/*! ./mixins/menu-generators */
+
+/*! ./mixins/menu-keyable */
+
+/*! ./mixins/menu-position */
+
+/*! ../../directives/click-outside */
+
+/*! ../../directives/resize */
+
+/*! ../../util/helpers */
+
+/*!***************************************!*\
+  !*** ./src/components/VMenu/index.js ***!
+  \***************************************/
+
+/*! exports provided: VMenu, default */
+
+/*! ./VMenu */
+
+/*!*******************************************************!*\
+  !*** ./src/components/VMenu/mixins/menu-activator.js ***!
+  \*******************************************************/
+
+/*! exports provided: default */
+
+/*!********************************************************!*\
+  !*** ./src/components/VMenu/mixins/menu-generators.js ***!
+  \********************************************************/
+
+/*! exports provided: default */
+
+/*!*****************************************************!*\
+  !*** ./src/components/VMenu/mixins/menu-keyable.js ***!
+  \*****************************************************/
+
+/*! exports provided: default */
+
+/*! ../../../util/helpers */
+
+/*!******************************************************!*\
+  !*** ./src/components/VMenu/mixins/menu-position.js ***!
+  \******************************************************/
+
+/*! exports provided: default */
+
+/*!***********************************************!*\
+  !*** ./src/components/VMessages/VMessages.js ***!
+  \***********************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_messages.styl */
+
+/*! ../../mixins/colorable */
+
+/*! ../../mixins/themeable */
+
+/*!*******************************************!*\
+  !*** ./src/components/VMessages/index.js ***!
+  \*******************************************/
+
+/*! exports provided: VMessages, default */
+
+/*! ./VMessages */
+
+/*!***************************************************************!*\
+  !*** ./src/components/VNavigationDrawer/VNavigationDrawer.js ***!
+  \***************************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_navigation-drawer.styl */
+
+/*! ../../mixins/applicationable */
+
+/*! ../../mixins/overlayable */
+
+/*! ../../mixins/ssr-bootable */
+
+/*! ../../mixins/themeable */
+
+/*! ../../directives/click-outside */
+
+/*! ../../directives/resize */
+
+/*! ../../directives/touch */
+
+/*! ../../util/helpers */
+
+/*!***************************************************!*\
+  !*** ./src/components/VNavigationDrawer/index.js ***!
+  \***************************************************/
+
+/*! exports provided: VNavigationDrawer, default */
+
+/*! ./VNavigationDrawer */
+
+/*!*****************************************************!*\
+  !*** ./src/components/VOverflowBtn/VOverflowBtn.js ***!
+  \*****************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_overflow-buttons.styl */
+
+/*! ../VSelect/VSelect */
+
+/*! ../VAutocomplete */
+
+/*! ../VTextField/VTextField */
+
+/*! ../VBtn */
+
+/*! ../../util/console */
+
+/*!**********************************************!*\
+  !*** ./src/components/VOverflowBtn/index.js ***!
+  \**********************************************/
+
+/*! exports provided: VOverflowBtn, default */
+
+/*! ./VOverflowBtn */
+
+/*!***************************************************!*\
+  !*** ./src/components/VPagination/VPagination.js ***!
+  \***************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_pagination.styl */
+
+/*! ../VIcon */
+
+/*! ../../directives/resize */
+
+/*! ../../mixins/colorable */
+
+/*!*********************************************!*\
+  !*** ./src/components/VPagination/index.js ***!
+  \*********************************************/
+
+/*! exports provided: VPagination, default */
+
+/*! ./VPagination */
+
+/*!***********************************************!*\
+  !*** ./src/components/VParallax/VParallax.ts ***!
+  \***********************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_parallax.styl */
+
+/*! ../../mixins/translatable */
+
+/*! ../../util/mixins */
+
+/*!*******************************************!*\
+  !*** ./src/components/VParallax/index.ts ***!
+  \*******************************************/
+
+/*! exports provided: VParallax, default */
+
+/*! ./VParallax */
+
+/*!*******************************************!*\
+  !*** ./src/components/VPicker/VPicker.js ***!
+  \*******************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_pickers.styl */
+
+/*! ../../stylus/components/_cards.styl */
+
+/*! ../../mixins/colorable */
+
+/*! ../../mixins/themeable */
+
+/*!*****************************************!*\
+  !*** ./src/components/VPicker/index.js ***!
+  \*****************************************/
+
+/*! exports provided: VPicker, default */
+
+/*! ./VPicker */
+
+/*!***************************************************************!*\
+  !*** ./src/components/VProgressCircular/VProgressCircular.ts ***!
+  \***************************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_progress-circular.styl */
+
+/*! ../../mixins/colorable */
+
+/*! ../../util/mixins */
+
+/*!***************************************************!*\
+  !*** ./src/components/VProgressCircular/index.ts ***!
+  \***************************************************/
+
+/*! exports provided: VProgressCircular, default */
+
+/*! ./VProgressCircular */
+
+/*!***********************************************************!*\
+  !*** ./src/components/VProgressLinear/VProgressLinear.ts ***!
+  \***********************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_progress-linear.styl */
+
+/*! ../../mixins/colorable */
+
+/*! ../../util/helpers */
+
+/*! ../../util/mixins */
+
+/*! ../transitions */
+
+/*!*************************************************!*\
+  !*** ./src/components/VProgressLinear/index.ts ***!
+  \*************************************************/
+
+/*! exports provided: VProgressLinear, default */
+
+/*! ./VProgressLinear */
+
+/*!**********************************************!*\
+  !*** ./src/components/VRadioGroup/VRadio.js ***!
+  \**********************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_radios.styl */
+
+/*! ../VIcon */
+
+/*! ../VLabel */
+
+/*! ../../mixins/colorable */
+
+/*! ../../mixins/rippleable */
+
+/*! ../../mixins/themeable */
+
+/*! ../../mixins/registrable */
+
+/*! ../../util/helpers */
+
+/*!***************************************************!*\
+  !*** ./src/components/VRadioGroup/VRadioGroup.js ***!
+  \***************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_selection-controls.styl */
+
+/*! ../../stylus/components/_radio-group.styl */
+
+/*! ../VInput */
+
+/*! ../../mixins/comparable */
+
+/*! ../../mixins/registrable */
+
+/*!*********************************************!*\
+  !*** ./src/components/VRadioGroup/index.js ***!
+  \*********************************************/
+
+/*! exports provided: VRadioGroup, VRadio, default */
+
+/*! ./VRadioGroup */
+
+/*! ./VRadio */
+
+/*!*****************************************************!*\
+  !*** ./src/components/VRangeSlider/VRangeSlider.js ***!
+  \*****************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_range-sliders.styl */
+
+/*! ../VSlider */
+
+/*! ../../util/helpers */
+
+/*!**********************************************!*\
+  !*** ./src/components/VRangeSlider/index.js ***!
+  \**********************************************/
+
+/*! exports provided: VRangeSlider, default */
+
+/*! ./VRangeSlider */
+
+/*!*******************************************!*\
+  !*** ./src/components/VSelect/VSelect.js ***!
+  \*******************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_text-fields.styl */
+
+/*! ../../stylus/components/_select.styl */
+
+/*! ../VChip */
+
+/*! ../VMenu */
+
+/*! ./VSelectList */
+
+/*! ../VTextField/VTextField */
+
+/*! ../../mixins/comparable */
+
+/*! ../../mixins/filterable */
+
+/*! ../../mixins/menuable */
+
+/*! ../../directives/click-outside */
+
+/*! ../../util/helpers */
+
+/*! ../../util/console */
+
+/*!***********************************************!*\
+  !*** ./src/components/VSelect/VSelectList.js ***!
+  \***********************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_cards.styl */
+
+/*! ../VCheckbox */
+
+/*! ../VDivider */
+
+/*! ../VSubheader */
+
+/*! ../VList */
+
+/*! ../../mixins/colorable */
+
+/*! ../../mixins/themeable */
+
+/*! ../../util/helpers */
+
+/*!*****************************************!*\
+  !*** ./src/components/VSelect/index.js ***!
+  \*****************************************/
+
+/*! exports provided: VSelect, default */
+
+/*! ./VSelect */
+
+/*! ../VOverflowBtn */
+
+/*! ../VAutocomplete */
+
+/*! ../VCombobox */
+
+/*! ../../util/rebuildFunctionalSlots */
+
+/*! ../../util/console */
+
+/*!*******************************************!*\
+  !*** ./src/components/VSlider/VSlider.js ***!
+  \*******************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_sliders.styl */
+
+/*! ../transitions */
+
+/*! ../VInput */
+
+/*! ../../directives/click-outside */
+
+/*! ../../util/helpers */
+
+/*! ../../util/console */
+
+/*!*****************************************!*\
+  !*** ./src/components/VSlider/index.js ***!
+  \*****************************************/
+
+/*! exports provided: VSlider, default */
+
+/*! ./VSlider */
+
+/*!***********************************************!*\
+  !*** ./src/components/VSnackbar/VSnackbar.ts ***!
+  \***********************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_snackbars.styl */
+
+/*! ../../mixins/colorable */
+
+/*! ../../mixins/toggleable */
+
+/*! ../../mixins/positionable */
+
+/*! ../../util/mixins */
+
+/*!*******************************************!*\
+  !*** ./src/components/VSnackbar/index.ts ***!
+  \*******************************************/
+
+/*! exports provided: VSnackbar, default */
+
+/*! ./VSnackbar */
+
+/*!*************************************************!*\
+  !*** ./src/components/VSpeedDial/VSpeedDial.js ***!
+  \*************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_speed-dial.styl */
+
+/*! ../../mixins/toggleable */
+
+/*! ../../mixins/positionable */
+
+/*! ../../mixins/transitionable */
+
+/*! ../../directives/click-outside */
+
+/*!********************************************!*\
+  !*** ./src/components/VSpeedDial/index.js ***!
+  \********************************************/
+
+/*! exports provided: VSpeedDial, default */
+
+/*! ./VSpeedDial */
+
+/*!*********************************************!*\
+  !*** ./src/components/VStepper/VStepper.js ***!
+  \*********************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_steppers.styl */
+
+/*! ../../mixins/themeable */
+
+/*!****************************************************!*\
+  !*** ./src/components/VStepper/VStepperContent.js ***!
+  \****************************************************/
+
+/*! exports provided: default */
+
+/*! ../transitions */
+
+/*! ../../util/helpers */
+
+/*!*************************************************!*\
+  !*** ./src/components/VStepper/VStepperStep.js ***!
+  \*************************************************/
+
+/*! exports provided: default */
+
+/*! ../VIcon */
+
+/*! ../../directives/ripple */
+
+/*!******************************************!*\
+  !*** ./src/components/VStepper/index.js ***!
+  \******************************************/
+
+/*! exports provided: VStepper, VStepperContent, VStepperStep, VStepperHeader, VStepperItems, default */
+
+/*! ../../util/helpers */
+
+/*! ./VStepper */
+
+/*! ./VStepperStep */
+
+/*! ./VStepperContent */
+
+/*!*************************************************!*\
+  !*** ./src/components/VSubheader/VSubheader.js ***!
+  \*************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_subheaders.styl */
+
+/*! ../../mixins/themeable */
+
+/*!********************************************!*\
+  !*** ./src/components/VSubheader/index.js ***!
+  \********************************************/
+
+/*! exports provided: VSubheader, default */
+
+/*! ./VSubheader */
+
+/*!*******************************************!*\
+  !*** ./src/components/VSwitch/VSwitch.js ***!
+  \*******************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_selection-controls.styl */
+
+/*! ../../stylus/components/_switch.styl */
+
+/*! ../../mixins/selectable */
+
+/*! ../../directives/touch */
+
+/*!*****************************************!*\
+  !*** ./src/components/VSwitch/index.js ***!
+  \*****************************************/
+
+/*! exports provided: VSwitch, default */
+
+/*! ./VSwitch */
+
+/*!*************************************************!*\
+  !*** ./src/components/VSystemBar/VSystemBar.js ***!
+  \*************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_system-bars.styl */
+
+/*! ../../mixins/applicationable */
+
+/*! ../../mixins/colorable */
+
+/*! ../../mixins/themeable */
+
+/*!********************************************!*\
+  !*** ./src/components/VSystemBar/index.js ***!
+  \********************************************/
+
+/*! exports provided: VSystemBar, default */
+
+/*! ./VSystemBar */
+
+/*!**************************************!*\
+  !*** ./src/components/VTabs/VTab.js ***!
+  \**************************************/
+
+/*! exports provided: default */
+
+/*! ../../mixins/routable */
+
+/*! ../../mixins/registrable */
+
+/*! ../../util/helpers */
+
+/*!******************************************!*\
+  !*** ./src/components/VTabs/VTabItem.js ***!
+  \******************************************/
+
+/*! exports provided: default */
+
+/*! ../../mixins/bootable */
+
+/*! ../transitions */
+
+/*! ../../mixins/registrable */
+
+/*! ../../directives/touch */
+
+/*!***************************************!*\
+  !*** ./src/components/VTabs/VTabs.js ***!
+  \***************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_tabs.styl */
+
+/*! ./mixins/tabs-computed */
+
+/*! ./mixins/tabs-generators */
+
+/*! ./mixins/tabs-props */
+
+/*! ./mixins/tabs-touch */
+
+/*! ./mixins/tabs-watchers */
+
+/*! ../../mixins/colorable */
+
+/*! ../../mixins/ssr-bootable */
+
+/*! ../../mixins/themeable */
+
+/*! ../../mixins/registrable */
+
+/*! ../../directives/resize */
+
+/*! ../../directives/touch */
+
+/*!********************************************!*\
+  !*** ./src/components/VTabs/VTabsItems.js ***!
+  \********************************************/
+
+/*! exports provided: default */
+
+/*! ../../mixins/registrable */
+
+/*! ../../directives/touch */
+
+/*!*********************************************!*\
+  !*** ./src/components/VTabs/VTabsSlider.js ***!
+  \*********************************************/
+
+/*! exports provided: default */
+
+/*! ../../mixins/colorable */
+
+/*!***************************************!*\
+  !*** ./src/components/VTabs/index.js ***!
+  \***************************************/
+
+/*! exports provided: VTabs, VTabItem, VTab, VTabsItems, VTabsSlider, default */
+
+/*! ./VTabs */
+
+/*! ./VTab */
+
+/*! ./VTabsItems */
+
+/*! ./VTabItem */
+
+/*! ./VTabsSlider */
+
+/*!******************************************************!*\
+  !*** ./src/components/VTabs/mixins/tabs-computed.js ***!
+  \******************************************************/
+
+/*! exports provided: default */
+
+/*!********************************************************!*\
+  !*** ./src/components/VTabs/mixins/tabs-generators.js ***!
+  \********************************************************/
+
+/*! exports provided: default */
+
+/*! ../VTabsItems */
+
+/*! ../VTabsSlider */
+
+/*! ../../VIcon */
+
+/*!***************************************************!*\
+  !*** ./src/components/VTabs/mixins/tabs-props.js ***!
+  \***************************************************/
+
+/*! exports provided: default */
+
+/*!***************************************************!*\
+  !*** ./src/components/VTabs/mixins/tabs-touch.js ***!
+  \***************************************************/
+
+/*! exports provided: default */
+
+/*!******************************************************!*\
+  !*** ./src/components/VTabs/mixins/tabs-watchers.js ***!
+  \******************************************************/
+
+/*! exports provided: default */
+
+/*!*************************************************!*\
+  !*** ./src/components/VTextField/VTextField.js ***!
+  \*************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_text-fields.styl */
+
+/*! ../VInput */
+
+/*! ../VCounter */
+
+/*! ../VLabel */
+
+/*! ../../mixins/maskable */
+
+/*! ../../directives/ripple */
+
+/*! ../../util/helpers */
+
+/*! ../../util/console */
+
+/*!********************************************!*\
+  !*** ./src/components/VTextField/index.js ***!
+  \********************************************/
+
+/*! exports provided: VTextField, default */
+
+/*! ./VTextField */
+
+/*! ../VTextarea/VTextarea */
+
+/*! ../../util/rebuildFunctionalSlots */
+
+/*! ../../util/console */
+
+/*!***********************************************!*\
+  !*** ./src/components/VTextarea/VTextarea.js ***!
+  \***********************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_textarea.styl */
+
+/*! ../VTextField/VTextField */
+
+/*! ../../util/console */
+
+/*!*******************************************!*\
+  !*** ./src/components/VTextarea/index.js ***!
+  \*******************************************/
+
+/*! exports provided: VTextarea, default */
+
+/*! ./VTextarea */
+
+/*!***************************************************!*\
+  !*** ./src/components/VTimePicker/VTimePicker.js ***!
+  \***************************************************/
+
+/*! exports provided: default */
+
+/*! ./VTimePickerTitle */
+
+/*! ./VTimePickerClock */
+
+/*! ../../mixins/picker */
+
+/*! ../../util/helpers */
+
+/*! ../VDatePicker/util/pad */
+
+/*!********************************************************!*\
+  !*** ./src/components/VTimePicker/VTimePickerClock.js ***!
+  \********************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_time-picker-clock.styl */
+
+/*! ../../mixins/colorable */
+
+/*! ../../mixins/themeable */
+
+/*!********************************************************!*\
+  !*** ./src/components/VTimePicker/VTimePickerTitle.js ***!
+  \********************************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_time-picker-title.styl */
+
+/*! ../../mixins/picker-button */
+
+/*! ../VDatePicker/util */
+
+/*!*********************************************!*\
+  !*** ./src/components/VTimePicker/index.js ***!
+  \*********************************************/
+
+/*! exports provided: VTimePicker, VTimePickerClock, VTimePickerTitle, default */
+
+/*! ./VTimePicker */
+
+/*! ./VTimePickerClock */
+
+/*! ./VTimePickerTitle */
+
+/*!*********************************************!*\
+  !*** ./src/components/VToolbar/VToolbar.js ***!
+  \*********************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_toolbar.styl */
+
+/*! ../../mixins/applicationable */
+
+/*! ../../mixins/colorable */
+
+/*! ../../mixins/themeable */
+
+/*! ../../mixins/ssr-bootable */
+
+/*! ../../directives/scroll */
+
+/*! ../../util/console */
+
+/*!*****************************************************!*\
+  !*** ./src/components/VToolbar/VToolbarSideIcon.js ***!
+  \*****************************************************/
+
+/*! exports provided: default */
+
+/*! ../../components/VBtn */
+
+/*! ../../components/VIcon */
+
+/*!******************************************!*\
+  !*** ./src/components/VToolbar/index.js ***!
+  \******************************************/
+
+/*! exports provided: VToolbar, VToolbarSideIcon, VToolbarTitle, VToolbarItems, default */
+
+/*! ../../util/helpers */
+
+/*! ./VToolbar */
+
+/*! ./VToolbarSideIcon */
+
+/*!*********************************************!*\
+  !*** ./src/components/VTooltip/VTooltip.js ***!
+  \*********************************************/
+
+/*! exports provided: default */
+
+/*! ../../stylus/components/_tooltips.styl */
+
+/*! ../../mixins/colorable */
+
+/*! ../../mixins/delayable */
+
+/*! ../../mixins/dependent */
+
+/*! ../../mixins/detachable */
+
+/*! ../../mixins/menuable */
+
+/*! ../../mixins/toggleable */
+
+/*! ../../util/helpers */
+
+/*!******************************************!*\
+  !*** ./src/components/VTooltip/index.js ***!
+  \******************************************/
+
+/*! exports provided: VTooltip, default */
+
+/*! ./VTooltip */
+
+/*!*****************************************!*\
+  !*** ./src/components/Vuetify/index.ts ***!
+  \*****************************************/
+
+/*! exports provided: checkVueVersion, default */
+
+/*! ./mixins/application */
+
+/*! ./mixins/breakpoint */
+
+/*! ./mixins/theme */
+
+/*! ./mixins/icons */
+
+/*! ./mixins/options */
+
+/*! ./mixins/lang */
+
+/*! ../../util/console */
+
+/*! ./util/goTo */
+
+/*!******************************************************!*\
+  !*** ./src/components/Vuetify/mixins/application.ts ***!
+  \******************************************************/
+
+/*! exports provided: default */
+
+/*!*****************************************************!*\
+  !*** ./src/components/Vuetify/mixins/breakpoint.ts ***!
+  \*****************************************************/
+
+/*! exports provided: default */
+
+/*! vue */
+
+/*!************************************************!*\
+  !*** ./src/components/Vuetify/mixins/icons.js ***!
+  \************************************************/
+
+/*! exports provided: default */
+
+/*!***********************************************!*\
+  !*** ./src/components/Vuetify/mixins/lang.ts ***!
+  \***********************************************/
+
+/*! exports provided: default */
+
+/*! ../../../locale/en */
+
+/*! ../../../util/helpers */
+
+/*! ../../../util/console */
+
+/*!**************************************************!*\
+  !*** ./src/components/Vuetify/mixins/options.js ***!
+  \**************************************************/
+
+/*! exports provided: default */
+
+/*!************************************************!*\
+  !*** ./src/components/Vuetify/mixins/theme.ts ***!
+  \************************************************/
+
+/*! exports provided: default */
+
+/*!*********************************************!*\
+  !*** ./src/components/Vuetify/util/goTo.js ***!
+  \*********************************************/
+
+/*! exports provided: default */
+
+/*! ../../../util/easing-patterns */
+
+/*!*********************************!*\
+  !*** ./src/components/index.js ***!
+  \*********************************/
+
+/*! exports provided: Vuetify, VApp, VAlert, VAutocomplete, VAvatar, VBadge, VBottomNav, VBottomSheet, VBreadcrumbs, VBtn, VBtnToggle, VCard, VCarousel, VCheckbox, VChip, VCombobox, VCounter, VDataIterator, VDataTable, VDatePicker, VDialog, VDivider, VExpansionPanel, VFooter, VForm, VGrid, VIcon, VInput, VJumbotron, VLabel, VList, VMenu, VMessages, VNavigationDrawer, VOverflowBtn, VPagination, VParallax, VPicker, VProgressCircular, VProgressLinear, VRadioGroup, VRangeSlider, VSelect, VSlider, VSnackbar, VSpeedDial, VStepper, VSubheader, VSwitch, VSystemBar, VTabs, VTextarea, VTextField, VTimePicker, VToolbar, VTooltip, Transitions */
+
+/*! ./Vuetify */
+
+/*! ./VApp */
+
+/*! ./VAlert */
+
+/*! ./VAutocomplete */
+
+/*! ./VAvatar */
+
+/*! ./VBadge */
+
+/*! ./VBottomNav */
+
+/*! ./VBottomSheet */
+
+/*! ./VBreadcrumbs */
+
+/*! ./VBtn */
+
+/*! ./VBtnToggle */
+
+/*! ./VCard */
+
+/*! ./VCarousel */
+
+/*! ./VCheckbox */
+
+/*! ./VChip */
+
+/*! ./VCombobox */
+
+/*! ./VCounter */
+
+/*! ./VDataIterator */
+
+/*! ./VDataTable */
+
+/*! ./VDatePicker */
+
+/*! ./VDialog */
+
+/*! ./VDivider */
+
+/*! ./VExpansionPanel */
+
+/*! ./VFooter */
+
+/*! ./VForm */
+
+/*! ./VGrid */
+
+/*! ./VIcon */
+
+/*! ./VInput */
+
+/*! ./VJumbotron */
+
+/*! ./VLabel */
+
+/*! ./VList */
+
+/*! ./VMenu */
+
+/*! ./VMessages */
+
+/*! ./VNavigationDrawer */
+
+/*! ./VOverflowBtn */
+
+/*! ./VPagination */
+
+/*! ./VParallax */
+
+/*! ./VPicker */
+
+/*! ./VProgressCircular */
+
+/*! ./VProgressLinear */
+
+/*! ./VRadioGroup */
+
+/*! ./VRangeSlider */
+
+/*! ./VSelect */
+
+/*! ./VSlider */
+
+/*! ./VSnackbar */
+
+/*! ./VSpeedDial */
+
+/*! ./VStepper */
+
+/*! ./VSubheader */
+
+/*! ./VSwitch */
+
+/*! ./VSystemBar */
+
+/*! ./VTabs */
+
+/*! ./VTextarea */
+
+/*! ./VTextField */
+
+/*! ./VTimePicker */
+
+/*! ./VToolbar */
+
+/*! ./VTooltip */
+
+/*! ./transitions */
+
+/*!*********************************************************!*\
+  !*** ./src/components/transitions/expand-transition.js ***!
+  \*********************************************************/
+
+/*! exports provided: default */
+
+/*! ../../util/helpers */
+
+/*!*********************************************!*\
+  !*** ./src/components/transitions/index.js ***!
+  \*********************************************/
+
+/*! exports provided: VBottomSheetTransition, VCarouselTransition, VCarouselReverseTransition, VTabTransition, VTabReverseTransition, VMenuTransition, VFabTransition, VDialogTransition, VDialogBottomTransition, VFadeTransition, VScaleTransition, VSlideXTransition, VSlideXReverseTransition, VSlideYTransition, VSlideYReverseTransition, VExpandTransition, VRowExpandTransition, default */
+
+/*! ../../util/helpers */
+
+/*! ./expand-transition */
+
+/*!*****************************************!*\
+  !*** ./src/directives/click-outside.ts ***!
+  \*****************************************/
+
+/*! exports provided: default */
+
+/*!*********************************!*\
+  !*** ./src/directives/index.js ***!
+  \*********************************/
+
+/*! exports provided: ClickOutside, Ripple, Resize, Scroll, Touch, default */
+
+/*! ./click-outside */
+
+/*! ./resize */
+
+/*! ./ripple */
+
+/*! ./scroll */
+
+/*! ./touch */
+
+/*!**********************************!*\
+  !*** ./src/directives/resize.ts ***!
+  \**********************************/
+
+/*! exports provided: default */
+
+/*!**********************************!*\
+  !*** ./src/directives/ripple.ts ***!
+  \**********************************/
+
+/*! exports provided: default */
+
+/*!**********************************!*\
+  !*** ./src/directives/scroll.ts ***!
+  \**********************************/
+
+/*! exports provided: default */
+
+/*!*********************************!*\
+  !*** ./src/directives/touch.ts ***!
+  \*********************************/
+
+/*! exports provided: default */
+
+/*! ../util/helpers */
+
+/*!**********************!*\
+  !*** ./src/index.ts ***!
+  \**********************/
+
+/*! exports provided: default */
+
+/*! ./stylus/app.styl */
+
+/*! ./components */
+
+/*! ./directives */
+
+/*!**************************!*\
+  !*** ./src/locale/en.js ***!
+  \**************************/
+
+/*! exports provided: default */
+
+/*!***************************************!*\
+  !*** ./src/mixins/applicationable.ts ***!
+  \***************************************/
+
+/*! exports provided: default */
+
+/*! ./positionable */
+
+/*! ../util/mixins */
+
+/*!********************************!*\
+  !*** ./src/mixins/bootable.ts ***!
+  \********************************/
+
+/*! exports provided: default */
+
+/*! vue */
+
+/*!************************************!*\
+  !*** ./src/mixins/button-group.ts ***!
+  \************************************/
+
+/*! exports provided: default */
+
+/*! ../util/mixins */
+
+/*! ./registrable */
+
+/*! ../util/console */
+
+/*!*********************************!*\
+  !*** ./src/mixins/colorable.ts ***!
+  \*********************************/
+
+/*! exports provided: default */
+
+/*! vue */
+
+/*!**********************************!*\
+  !*** ./src/mixins/comparable.ts ***!
+  \**********************************/
+
+/*! exports provided: default */
+
+/*! vue */
+
+/*! ../util/helpers */
+
+/*!*************************************!*\
+  !*** ./src/mixins/data-iterable.js ***!
+  \*************************************/
+
+/*! exports provided: default */
+
+/*! ../components/VBtn */
+
+/*! ../components/VIcon */
+
+/*! ../components/VSelect */
+
+/*! ./filterable */
+
+/*! ./themeable */
+
+/*! ./loadable */
+
+/*! ../util/helpers */
+
+/*! ../util/console */
+
+/*!*********************************!*\
+  !*** ./src/mixins/delayable.ts ***!
+  \*********************************/
+
+/*! exports provided: default */
+
+/*! vue */
+
+/*!*********************************!*\
+  !*** ./src/mixins/dependent.js ***!
+  \*********************************/
+
+/*! exports provided: default */
+
+/*!**********************************!*\
+  !*** ./src/mixins/detachable.js ***!
+  \**********************************/
+
+/*! exports provided: default */
+
+/*! ./bootable */
+
+/*! ../util/console */
+
+/*!**********************************!*\
+  !*** ./src/mixins/filterable.js ***!
+  \**********************************/
+
+/*! exports provided: default */
+
+/*!********************************!*\
+  !*** ./src/mixins/loadable.ts ***!
+  \********************************/
+
+/*! exports provided: default */
+
+/*! vue */
+
+/*! ../components/VProgressLinear */
+
+/*!********************************!*\
+  !*** ./src/mixins/maskable.js ***!
+  \********************************/
+
+/*! exports provided: default */
+
+/*! ../util/mask */
+
+/*!********************************!*\
+  !*** ./src/mixins/menuable.js ***!
+  \********************************/
+
+/*! exports provided: default */
+
+/*! ./positionable */
+
+/*! ./stackable */
+
+/*! ./themeable */
+
+/*!***********************************!*\
+  !*** ./src/mixins/overlayable.js ***!
+  \***********************************/
+
+/*! exports provided: default */
+
+/*! ../stylus/components/_overlay.styl */
+
+/*! ../util/helpers */
+
+/*!*************************************!*\
+  !*** ./src/mixins/picker-button.js ***!
+  \*************************************/
+
+/*! exports provided: default */
+
+/*!******************************!*\
+  !*** ./src/mixins/picker.js ***!
+  \******************************/
+
+/*! exports provided: default */
+
+/*! ../components/VPicker */
+
+/*! ./colorable */
+
+/*! ./themeable */
+
+/*!************************************!*\
+  !*** ./src/mixins/positionable.ts ***!
+  \************************************/
+
+/*! exports provided: factory, default */
+
+/*! vue */
+
+/*! ../util/helpers */
+
+/*!***********************************!*\
+  !*** ./src/mixins/registrable.ts ***!
+  \***********************************/
+
+/*! exports provided: inject, provide */
+
+/*! vue */
+
+/*! ../util/console */
+
+/*!**********************************!*\
+  !*** ./src/mixins/returnable.js ***!
+  \**********************************/
+
+/*! exports provided: default */
+
+/*!**********************************!*\
+  !*** ./src/mixins/rippleable.ts ***!
+  \**********************************/
+
+/*! exports provided: default */
+
+/*! ../directives/ripple */
+
+/*! vue */
+
+/*!********************************!*\
+  !*** ./src/mixins/routable.ts ***!
+  \********************************/
+
+/*! exports provided: default */
+
+/*! vue */
+
+/*! ../directives/ripple */
+
+/*!**********************************!*\
+  !*** ./src/mixins/selectable.js ***!
+  \**********************************/
+
+/*! exports provided: default */
+
+/*! ../components/VInput */
+
+/*! ./rippleable */
+
+/*! ./comparable */
+
+/*! ../util/helpers */
+
+/*!************************************!*\
+  !*** ./src/mixins/ssr-bootable.ts ***!
+  \************************************/
+
+/*! exports provided: default */
+
+/*! vue */
+
+/*!*********************************!*\
+  !*** ./src/mixins/stackable.js ***!
+  \*********************************/
+
+/*! exports provided: default */
+
+/*! ../util/helpers */
+
+/*!*********************************!*\
+  !*** ./src/mixins/themeable.ts ***!
+  \*********************************/
+
+/*! exports provided: default */
+
+/*! vue */
+
+/*!**********************************!*\
+  !*** ./src/mixins/toggleable.ts ***!
+  \**********************************/
+
+/*! exports provided: factory, default */
+
+/*! vue */
+
+/*!**************************************!*\
+  !*** ./src/mixins/transitionable.ts ***!
+  \**************************************/
+
+/*! exports provided: default */
+
+/*! vue */
+
+/*!************************************!*\
+  !*** ./src/mixins/translatable.ts ***!
+  \************************************/
+
+/*! exports provided: default */
+
+/*! vue */
+
+/*!***********************************!*\
+  !*** ./src/mixins/validatable.js ***!
+  \***********************************/
+
+/*! exports provided: default */
+
+/*! ../util/helpers */
+
+/*! ./registrable */
+
+/*! ../util/console */
+
+/*! ./colorable */
+
+/*!*****************************!*\
+  !*** ./src/stylus/app.styl ***!
+  \*****************************/
+
+/*! no static exports found */
+
+/*!********************************************!*\
+  !*** ./src/stylus/components/_alerts.styl ***!
+  \********************************************/
+
+/*! no static exports found */
+
+/*!*****************************************!*\
+  !*** ./src/stylus/components/_app.styl ***!
+  \*****************************************/
+
+/*! no static exports found */
+
+/*!***************************************************!*\
+  !*** ./src/stylus/components/_autocompletes.styl ***!
+  \***************************************************/
+
+/*! no static exports found */
+
+/*!*********************************************!*\
+  !*** ./src/stylus/components/_avatars.styl ***!
+  \*********************************************/
+
+/*! no static exports found */
+
+/*!********************************************!*\
+  !*** ./src/stylus/components/_badges.styl ***!
+  \********************************************/
+
+/*! no static exports found */
+
+/*!*************************************************!*\
+  !*** ./src/stylus/components/_bottom-navs.styl ***!
+  \*************************************************/
+
+/*! no static exports found */
+
+/*!***************************************************!*\
+  !*** ./src/stylus/components/_bottom-sheets.styl ***!
+  \***************************************************/
+
+/*! no static exports found */
+
+/*!*************************************************!*\
+  !*** ./src/stylus/components/_breadcrumbs.styl ***!
+  \*************************************************/
+
+/*! no static exports found */
+
+/*!***************************************************!*\
+  !*** ./src/stylus/components/_button-toggle.styl ***!
+  \***************************************************/
+
+/*! no static exports found */
+
+/*!*********************************************!*\
+  !*** ./src/stylus/components/_buttons.styl ***!
+  \*********************************************/
+
+/*! no static exports found */
+
+/*!*******************************************!*\
+  !*** ./src/stylus/components/_cards.styl ***!
+  \*******************************************/
+
+/*! no static exports found */
+
+/*!**********************************************!*\
+  !*** ./src/stylus/components/_carousel.styl ***!
+  \**********************************************/
+
+/*! no static exports found */
+
+/*!*******************************************!*\
+  !*** ./src/stylus/components/_chips.styl ***!
+  \*******************************************/
+
+/*! no static exports found */
+
+/*!*********************************************!*\
+  !*** ./src/stylus/components/_content.styl ***!
+  \*********************************************/
+
+/*! no static exports found */
+
+/*!**********************************************!*\
+  !*** ./src/stylus/components/_counters.styl ***!
+  \**********************************************/
+
+/*! no static exports found */
+
+/*!***************************************************!*\
+  !*** ./src/stylus/components/_data-iterator.styl ***!
+  \***************************************************/
+
+/*! no static exports found */
+
+/*!************************************************!*\
+  !*** ./src/stylus/components/_data-table.styl ***!
+  \************************************************/
+
+/*! no static exports found */
+
+/*!********************************************************!*\
+  !*** ./src/stylus/components/_date-picker-header.styl ***!
+  \********************************************************/
+
+/*! no static exports found */
+
+/*!*******************************************************!*\
+  !*** ./src/stylus/components/_date-picker-table.styl ***!
+  \*******************************************************/
+
+/*! no static exports found */
+
+/*!*******************************************************!*\
+  !*** ./src/stylus/components/_date-picker-title.styl ***!
+  \*******************************************************/
+
+/*! no static exports found */
+
+/*!*******************************************************!*\
+  !*** ./src/stylus/components/_date-picker-years.styl ***!
+  \*******************************************************/
+
+/*! no static exports found */
+
+/*!*********************************************!*\
+  !*** ./src/stylus/components/_dialogs.styl ***!
+  \*********************************************/
+
+/*! no static exports found */
+
+/*!**********************************************!*\
+  !*** ./src/stylus/components/_dividers.styl ***!
+  \**********************************************/
+
+/*! no static exports found */
+
+/*!*****************************************************!*\
+  !*** ./src/stylus/components/_expansion-panel.styl ***!
+  \*****************************************************/
+
+/*! no static exports found */
+
+/*!********************************************!*\
+  !*** ./src/stylus/components/_footer.styl ***!
+  \********************************************/
+
+/*! no static exports found */
+
+/*!*******************************************!*\
+  !*** ./src/stylus/components/_forms.styl ***!
+  \*******************************************/
+
+/*! no static exports found */
+
+/*!******************************************!*\
+  !*** ./src/stylus/components/_grid.styl ***!
+  \******************************************/
+
+/*! no static exports found */
+
+/*!*******************************************!*\
+  !*** ./src/stylus/components/_icons.styl ***!
+  \*******************************************/
+
+/*! no static exports found */
+
+/*!********************************************!*\
+  !*** ./src/stylus/components/_inputs.styl ***!
+  \********************************************/
+
+/*! no static exports found */
+
+/*!************************************************!*\
+  !*** ./src/stylus/components/_jumbotrons.styl ***!
+  \************************************************/
+
+/*! no static exports found */
+
+/*!********************************************!*\
+  !*** ./src/stylus/components/_labels.styl ***!
+  \********************************************/
+
+/*! no static exports found */
+
+/*!*******************************************!*\
+  !*** ./src/stylus/components/_lists.styl ***!
+  \*******************************************/
+
+/*! no static exports found */
+
+/*!*******************************************!*\
+  !*** ./src/stylus/components/_menus.styl ***!
+  \*******************************************/
+
+/*! no static exports found */
+
+/*!**********************************************!*\
+  !*** ./src/stylus/components/_messages.styl ***!
+  \**********************************************/
+
+/*! no static exports found */
+
+/*!*******************************************************!*\
+  !*** ./src/stylus/components/_navigation-drawer.styl ***!
+  \*******************************************************/
+
+/*! no static exports found */
+
+/*!******************************************************!*\
+  !*** ./src/stylus/components/_overflow-buttons.styl ***!
+  \******************************************************/
+
+/*! no static exports found */
+
+/*!*********************************************!*\
+  !*** ./src/stylus/components/_overlay.styl ***!
+  \*********************************************/
+
+/*! no static exports found */
+
+/*!************************************************!*\
+  !*** ./src/stylus/components/_pagination.styl ***!
+  \************************************************/
+
+/*! no static exports found */
+
+/*!**********************************************!*\
+  !*** ./src/stylus/components/_parallax.styl ***!
+  \**********************************************/
+
+/*! no static exports found */
+
+/*!*********************************************!*\
+  !*** ./src/stylus/components/_pickers.styl ***!
+  \*********************************************/
+
+/*! no static exports found */
+
+/*!*******************************************************!*\
+  !*** ./src/stylus/components/_progress-circular.styl ***!
+  \*******************************************************/
+
+/*! no static exports found */
+
+/*!*****************************************************!*\
+  !*** ./src/stylus/components/_progress-linear.styl ***!
+  \*****************************************************/
+
+/*! no static exports found */
+
+/*!*************************************************!*\
+  !*** ./src/stylus/components/_radio-group.styl ***!
+  \*************************************************/
+
+/*! no static exports found */
+
+/*!********************************************!*\
+  !*** ./src/stylus/components/_radios.styl ***!
+  \********************************************/
+
+/*! no static exports found */
+
+/*!***************************************************!*\
+  !*** ./src/stylus/components/_range-sliders.styl ***!
+  \***************************************************/
+
+/*! no static exports found */
+
+/*!********************************************!*\
+  !*** ./src/stylus/components/_select.styl ***!
+  \********************************************/
+
+/*! no static exports found */
+
+/*!********************************************************!*\
+  !*** ./src/stylus/components/_selection-controls.styl ***!
+  \********************************************************/
+
+/*! no static exports found */
+
+/*!*********************************************!*\
+  !*** ./src/stylus/components/_sliders.styl ***!
+  \*********************************************/
+
+/*! no static exports found */
+
+/*!**************************************************!*\
+  !*** ./src/stylus/components/_small-dialog.styl ***!
+  \**************************************************/
+
+/*! no static exports found */
+
+/*!***********************************************!*\
+  !*** ./src/stylus/components/_snackbars.styl ***!
+  \***********************************************/
+
+/*! no static exports found */
+
+/*!************************************************!*\
+  !*** ./src/stylus/components/_speed-dial.styl ***!
+  \************************************************/
+
+/*! no static exports found */
+
+/*!**********************************************!*\
+  !*** ./src/stylus/components/_steppers.styl ***!
+  \**********************************************/
+
+/*! no static exports found */
+
+/*!************************************************!*\
+  !*** ./src/stylus/components/_subheaders.styl ***!
+  \************************************************/
+
+/*! no static exports found */
+
+/*!********************************************!*\
+  !*** ./src/stylus/components/_switch.styl ***!
+  \********************************************/
+
+/*! no static exports found */
+
+/*!*************************************************!*\
+  !*** ./src/stylus/components/_system-bars.styl ***!
+  \*************************************************/
+
+/*! no static exports found */
+
+/*!********************************************!*\
+  !*** ./src/stylus/components/_tables.styl ***!
+  \********************************************/
+
+/*! no static exports found */
+
+/*!******************************************!*\
+  !*** ./src/stylus/components/_tabs.styl ***!
+  \******************************************/
+
+/*! no static exports found */
+
+/*!*************************************************!*\
+  !*** ./src/stylus/components/_text-fields.styl ***!
+  \*************************************************/
+
+/*! no static exports found */
+
+/*!**********************************************!*\
+  !*** ./src/stylus/components/_textarea.styl ***!
+  \**********************************************/
+
+/*! no static exports found */
+
+/*!*******************************************************!*\
+  !*** ./src/stylus/components/_time-picker-clock.styl ***!
+  \*******************************************************/
+
+/*! no static exports found */
+
+/*!*******************************************************!*\
+  !*** ./src/stylus/components/_time-picker-title.styl ***!
+  \*******************************************************/
+
+/*! no static exports found */
+
+/*!*********************************************!*\
+  !*** ./src/stylus/components/_toolbar.styl ***!
+  \*********************************************/
+
+/*! no static exports found */
+
+/*!**********************************************!*\
+  !*** ./src/stylus/components/_tooltips.styl ***!
+  \**********************************************/
+
+/*! no static exports found */
+
+/*!*******************************************!*\
+  !*** ./src/util/color/transformCIELAB.ts ***!
+  \*******************************************/
+
+/*! exports provided: fromXYZ, toXYZ */
+
+/*!*****************************************!*\
+  !*** ./src/util/color/transformSRGB.ts ***!
+  \*****************************************/
+
+/*! exports provided: fromXYZ, toXYZ */
+
+/*!********************************!*\
+  !*** ./src/util/colorUtils.ts ***!
+  \********************************/
+
+/*! exports provided: colorToInt, intToHex */
+
+/*! ./console */
+
+/*!*****************************!*\
+  !*** ./src/util/console.ts ***!
+  \*****************************/
+
+/*! exports provided: consoleInfo, consoleWarn, consoleError, deprecate */
+
+/*!*************************************!*\
+  !*** ./src/util/easing-patterns.js ***!
+  \*************************************/
+
+/*! exports provided: linear, easeInQuad, easeOutQuad, easeInOutQuad, easeInCubic, easeOutCubic, easeInOutCubic, easeInQuart, easeOutQuart, easeInOutQuart, easeInQuint, easeOutQuint, easeInOutQuint */
+
+/*!*****************************!*\
+  !*** ./src/util/helpers.ts ***!
+  \*****************************/
+
+/*! exports provided: createSimpleFunctional, createSimpleTransition, createJavaScriptTransition, directiveConfig, addOnceEventListener, getNestedValue, deepEqual, getObjectValueByPath, getPropertyFromItem, createRange, getZIndex, escapeHTML, filterObjectOnKeys, filterChildren, convertToUnit, kebabCase, isObject, keyCodes, keys */
+
+/*!**************************!*\
+  !*** ./src/util/mask.js ***!
+  \**************************/
+
+/*! exports provided: defaultDelimiters, isMaskDelimiter, maskText, unmaskText */
+
+/*!****************************!*\
+  !*** ./src/util/mixins.ts ***!
+  \****************************/
+
+/*! exports provided: default */
+
+/*! vue */
+
+/*!********************************************!*\
+  !*** ./src/util/rebuildFunctionalSlots.js ***!
+  \********************************************/
+
+/*! exports provided: default */
+
+/*!***************************!*\
+  !*** ./src/util/theme.ts ***!
+  \***************************/
+
+/*! exports provided: parse, genBaseColor, genVariantColor, genVariations */
+
+/*! ./colorUtils */
+
+/*! ./color/transformSRGB */
+
+/*! ./color/transformCIELAB */
+
+/*!******************************************************************************!*\
+  !*** external {"commonjs":"vue","commonjs2":"vue","amd":"vue","root":"Vue"} ***!
+  \******************************************************************************/
+
+/*! no static exports found */
+
 /*!
  * @overview es6-promise - a tiny implementation of Promises/A+.
  * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
