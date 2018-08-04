@@ -56,39 +56,12 @@ export default {
 
 <style>
 @import "https://fonts.googleapis.com/icon?family=Material+Icons";
-.button--green {
-	display: inline-block;
-	border-radius: 4px;
-	border: 1px solid #3b8070;
-	color: #3b8070;
-	background-color: white;
-	outline: none;
-	text-decoration: none;
-	padding: 10px 30px;
-}
-.button--green[disabled] {
-	color: dimgray;
-	border-color: dimgray;
-	background-color: lightgray;
-}
-.button--green:not([disabled]):hover {
-	color: #fff;
-	background-color: #3b8070;
-}
-.button--grey {
-	display: inline-block;
-	border-radius: 4px;
-	border: 1px solid #35495e;
-	color: #35495e;
-	background-color: white;
-	text-decoration: none;
-	outline: none;
-	padding: 10px 30px;
-	margin-left: 15px;
-}
-.button--grey:hover {
-	color: #fff;
-	background-color: #35495e;
+.v-chip.v-chip--small .v-avatar {
+	height: 24px !important;
+	margin-left: -13px;
+	margin-right: 4px;
+	min-width: 24px;
+	width: 24px !important;
 }
 a {
 	text-decoration: none;

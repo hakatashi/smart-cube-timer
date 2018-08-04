@@ -1,8 +1,8 @@
 <template>
-	<v-container fill-height>
+	<v-container fill-height pa-0 grid-list-lg>
 		<v-layout column fill-height>
 			<v-flex class="controls">
-				<v-alert v-if="description" type="info" v-model="isDescriptionShown" dismissible>
+				<v-alert v-if="description" type="success" v-model="isDescriptionShown" dismissible>
 					{{description}}
 				</v-alert>
 				<v-btn
@@ -30,46 +30,65 @@
 					{{displayTime}}
 				</div>
 			</v-flex>
-			<v-flex class="tile times" id="stages">
-				<div v-for="stage in stagesInfo" class="tile is-parent is-3" :key="stage.id" :id="stage.id">
-					<article class="tile is-child notification" :class="stage.class">
-						<p class="title is-marginless">
-							{{stage.name}}
-							<span
-								v-for="info in stage.infos"
-								class="tag"
-								:class="{'is-medium': stage.infos.length === 1}"
-								:style="{backgroundColor: info.color, color: info.textColor}"
-							>
-								{{info.text}}
-							</span>
-						</p>
-						<div class="level is-mobile is-marginless">
-							<div class="level-left">
-								<div class="level-item">
-									<div class="subtitle"><strong :style="{color: 'inherit'}">{{stage.time}}</strong></div>
+			<v-flex class="times" id="stages">
+				<v-layout wrap>
+					<v-flex
+						v-for="stage in stagesInfo"
+						lg3
+						xs12
+						:key="stage.id"
+						:id="stage.id"
+					>
+						<v-card dark color="primary" :class="stage.class">
+							<v-card-title primary-title>
+								<div :style="{width: '100%'}">
+									<h2 class="display-1 font-weight-bold">
+										{{stage.name}}
+										<v-chip
+											v-for="info in stage.infos"
+											small
+											:color="info.color.startsWith('#') ? null : info.color"
+											:text-color="info.textColor.startsWith('#') ? null : info.textColor"
+											:style="{
+												backgroundColor: info.color.startsWith('#') ? info.color : '',
+												color: info.textColor.startsWith('#') ? info.textColor : '',
+											}"
+										>
+											<v-avatar
+												v-if="info.avatar"
+												:color="info.color.startsWith('#') ? null : info.color"
+												:text-color="info.textColor.startsWith('#') ? null : info.textColor"
+												class="darken-3"
+											>
+												{{info.avatar}}
+											</v-avatar>
+											{{info.text}}
+										</v-chip>
+									</h2>
+									<v-layout class="stage-info headline ma-0">
+										<strong :style="{color: 'inherit'}">{{stage.time}}</strong>
+										<v-spacer></v-spacer>
+										<div
+											v-if="stage.moveCount !== null"
+											class="subheading stage-info-right"
+										>
+											{{stage.moveCount}} turns
+										</div>
+										<div
+											v-if="stage.speed !== null"
+											class="subheading stage-info-right"
+										>
+											{{stage.speed}} tps
+										</div>
+									</v-layout>
+									<div class="content">
+										{{stage.sequenceText}}
+									</div>
 								</div>
-							</div>
-							<div class="level-right">
-								<div
-									v-if="stage.moveCount !== null"
-									class="level-item"
-								>
-									{{stage.moveCount}} turns
-								</div>
-								<div
-									v-if="stage.speed !== null"
-									class="level-item"
-								>
-									{{stage.speed}} tps
-								</div>
-							</div>
-						</div>
-						<div class="content">
-							{{stage.sequenceText}}
-						</div>
-					</article>
-				</div>
+							</v-card-title>
+						</v-card>
+					</v-flex>
+				</v-layout>
 			</v-flex>
 		</v-layout>
 	</v-container>
@@ -229,9 +248,10 @@
 						}
 						if (this.isOll2Look) {
 							infos.push({
-								text: '2-Look',
-								color: '#F8BBD0',
-								textColor: idealTextColor('#F8BBD0'),
+								avatar: '2',
+								text: 'Look',
+								color: 'green',
+								textColor: 'white',
 							});
 						}
 					}
@@ -246,9 +266,10 @@
 						}
 						if (this.pllLooks.length > 1) {
 							infos.push({
-								text: `${this.pllLooks.length}-Look`,
-								color: '#F8BBD0',
-								textColor: idealTextColor('#F8BBD0'),
+								avatar: this.pllLooks.length.toString(),
+								text: 'Look',
+								color: 'green',
+								textColor: 'white',
 							});
 						}
 					}
@@ -442,10 +463,12 @@
 	}
 
 	.times {
-		flex-wrap: wrap;
 		flex: 1 1 0;
 		overflow-y: auto;
-		min-height: auto;
+	}
+
+	.stage-info-right {
+		margin-left: 0.3rem;
 	}
 
 	.title .tag {
