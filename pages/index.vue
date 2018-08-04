@@ -39,8 +39,8 @@
 						:key="stage.id"
 						:id="stage.id"
 					>
-						<v-card dark color="primary" :class="stage.class">
-							<v-card-title primary-title>
+						<v-card :dark="stage.dark" :color="stage.color" :class="stage.class">
+							<v-card-title class="stage-info">
 								<div :style="{width: '100%'}">
 									<h2 class="display-1 font-weight-bold">
 										{{stage.name}}
@@ -110,42 +110,50 @@
 		{
 			id: 'cross',
 			name: 'Cross',
-			className: 'is-info',
+			color: 'blue',
+			dark: true,
 		},
 		{
 			id: 'f2l1',
 			name: 'F2L #1',
-			className: 'is-link',
+			color: 'indigo',
+			dark: true,
 		},
 		{
 			id: 'f2l2',
 			name: 'F2L #2',
-			className: 'is-link',
+			color: 'indigo',
+			dark: true,
 		},
 		{
 			id: 'f2l3',
 			name: 'F2L #3',
-			className: 'is-link',
+			color: 'indigo',
+			dark: true,
 		},
 		{
 			id: 'f2l4',
 			name: 'F2L #4',
-			className: 'is-link',
+			color: 'indigo',
+			dark: true,
 		},
 		{
 			id: 'oll',
 			name: 'OLL',
-			className: 'is-warning',
+			color: 'yellow',
+			dark: false,
 		},
 		{
 			id: 'pll',
 			name: 'PLL',
-			className: 'is-danger',
+			color: 'red',
+			dark: true,
 		},
 		{
 			id: 'auf',
 			name: 'AUF',
-			className: '',
+			color: 'grey lighten-2',
+			dark: false,
 		},
 	];
 
@@ -214,7 +222,7 @@
 
 				const isXcross = this.stages.f2l1 && this.stages.f2l1.time !== null && this.stages.f2l1.sequence.length === 0;
 
-				return stagesData.map(({id, name, className}) => {
+				return stagesData.map(({id, name, color, dark}) => {
 					const stage = this.stages[id] || {time: null};
 					const deltaTime = previousTime === null ? 0 : (stage.time || this.time) - previousTime;
 					previousTime = stage.time;
@@ -293,7 +301,8 @@
 						id,
 						name,
 						infos,
-						class: className,
+						color,
+						dark,
 						sequenceText,
 						time: formatTime(deltaTime),
 						moveCount,
@@ -464,6 +473,7 @@
 
 	.times {
 		flex: 1 1 0;
+		padding-top: 0 !important;
 		overflow-y: auto;
 	}
 
