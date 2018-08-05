@@ -28,6 +28,20 @@
 				>
 					{{displayTime}}
 				</div>
+				<div
+					v-if="phase === 'solve'"
+					class="timer-controls"
+				>
+					<v-btn
+						flat
+						small
+						color="error"
+						class="ma-0"
+						@click="onClickSolved"
+					>
+						It's solved!
+					</v-btn>
+				</div>
 			</v-flex>
 			<v-flex class="times" id="stages">
 				<v-layout wrap>
@@ -195,6 +209,7 @@
 				pllLooks: [],
 				snackbar: '',
 				isSnackbarShown: false,
+				isFirstSolve: true,
 			};
 		},
 		computed: {
@@ -379,8 +394,10 @@
 						this.phase = 'inspect';
 						this.cross = null;
 						this.time = 0;
-						this.description = 'Now start solving when you\'re ready.'
-						this.isDescriptionShown = true;
+						if (this.isFirstSolve) {
+							this.description = 'Now start solving when you\'re ready.'
+							this.isDescriptionShown = true;
+						}
 					}
 					return;
 				}
@@ -451,11 +468,7 @@
 					}
 
 					if (this.cube.isSolved()) {
-						clearInterval(this.interval);
-						this.phase = 'scramble';
-						this.scramble = MoveSequence.fromScramble(sample(scrambles.sheets[0].scrambles), {mode: 'reduction'});
-						this.placeholderMoves = this.scramble.moves.map((move) => ({...move}));
-						document.getElementById('stages').scrollTop = 0;
+						this.finishSolve();
 					}
 				}
 			},
@@ -468,6 +481,24 @@
 				if (element) {
 					element.scrollIntoView({block: 'end', inline: 'nearest', behavior: 'smooth'});
 				}
+			},
+			onClickSolved() {
+				if (this.phase !== 'solve') {
+					return;
+				}
+
+				this.finishSolve();
+				this.cube.identity();
+				this.description = 'Oops...';
+				this.isDescriptionShown = true;
+			},
+			finishSolve() {
+				clearInterval(this.interval);
+				this.phase = 'scramble';
+				this.isFirstSolve = false;
+				this.scramble = MoveSequence.fromScramble(sample(scrambles.sheets[0].scrambles), {mode: 'reduction'});
+				this.placeholderMoves = this.scramble.moves.map((move) => ({...move}));
+				document.getElementById('stages').scrollTop = 0;
 			},
 		},
 		destroyed () {
