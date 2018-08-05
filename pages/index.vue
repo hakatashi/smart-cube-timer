@@ -8,7 +8,6 @@
 				<v-btn
 					v-if="giiker === null"
 					color="info"
-					dark
 					large
 					:disabled="this.isConnecting"
 					:loading="this.isConnecting"
@@ -91,6 +90,21 @@
 				</v-layout>
 			</v-flex>
 		</v-layout>
+		<v-snackbar
+			v-model="isSnackbarShown"
+			color="error"
+			bottom
+			multi-line
+			:timeout="5000"
+		>
+			{{snackbar}}
+			<v-btn
+				flat
+				@click="isSnackbarShown = false"
+			>
+				Close
+			</v-btn>
+		</v-snackbar>
 	</v-container>
 </template>
 
@@ -179,6 +193,8 @@
 				isOll2Look: false,
 				pll: null,
 				pllLooks: [],
+				snackbar: '',
+				isSnackbarShown: false,
 			};
 		},
 		computed: {
@@ -329,16 +345,23 @@
 			this.placeholderMoves = this.scramble.moves.map((move) => ({...move}));
 		},
 		methods: {
-			async onClickConnect() {
+			onClickConnect() {
 				if (this.isConnecting) {
 					return;
 				}
 
 				this.isConnecting = true;
-				this.giiker = await GiiKER.connect();
-				this.giiker.on('move', this.onGiikerMove)
-				this.description = 'Follow the scramble.'
-				this.isDescriptionShown = true;
+
+				GiiKER.connect().then((giiker) => {
+					this.giiker = giiker;
+					this.giiker.on('move', this.onGiikerMove)
+					this.description = 'Follow the scramble.'
+					this.isDescriptionShown = true;
+				}, (error) => {
+					this.isSnackbarShown = true;
+					this.snackbar = error.message;
+					this.isConnecting = false;
+				});
 			},
 			onGiikerMove(move) {
 				const now = new Date();
