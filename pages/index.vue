@@ -70,6 +70,7 @@
 										{{stage.name}}
 										<v-chip
 											v-for="info in stage.infos"
+											:key="info.id"
 											small
 											:color="info.color.startsWith('#') ? null : info.color"
 											:text-color="info.textColor.startsWith('#') ? null : info.textColor"
@@ -146,59 +147,6 @@
 	import uniq from 'lodash/uniq';
 	import sumBy from 'lodash/sumBy';
 
-	const stagesData = [
-		{
-			id: 'cross',
-			name: 'Cross',
-			color: 'blue',
-			dark: true,
-		},
-		{
-			id: 'f2l1',
-			name: 'F2L #1',
-			color: 'indigo',
-			dark: true,
-		},
-		{
-			id: 'f2l2',
-			name: 'F2L #2',
-			color: 'indigo',
-			dark: true,
-		},
-		{
-			id: 'f2l3',
-			name: 'F2L #3',
-			color: 'indigo',
-			dark: true,
-		},
-		{
-			id: 'f2l4',
-			name: 'F2L #4',
-			color: 'indigo',
-			dark: true,
-		},
-		{
-			id: 'oll',
-			name: 'OLL',
-			color: 'yellow',
-			dark: false,
-		},
-		{
-			id: 'pll',
-			name: 'PLL',
-			color: 'red',
-			dark: true,
-		},
-		{
-			id: 'auf',
-			name: 'AUF',
-			color: 'grey lighten-2',
-			dark: false,
-		},
-	];
-
-	// Cube.initSolver();
-
 	export default {
 		data() {
 			return {
@@ -265,7 +213,7 @@
 
 				const isXcross = this.stages.f2l1 && this.stages.f2l1.time !== null && this.stages.f2l1.sequence.length === 0;
 
-				return stagesData.map(({id, name, color, dark}) => {
+				return config.stagesData.map(({id, name, color, dark}) => {
 					const stage = this.stages[id] || {time: null};
 					const deltaTime = previousTime === null ? 0 : (stage.time || this.time) - previousTime;
 					previousTime = stage.time;
@@ -364,7 +312,7 @@
 				return formatTime(this.time);
 			},
 			moveCount() {
-				return sumBy(stagesData, ({id}) => {
+				return sumBy(config.stagesData, ({id}) => {
 					const stage = this.stages[id] || {time: null};
 					return stage.time === null ? 0 : stage.sequence.length;
 				});
@@ -433,7 +381,7 @@
 					this.description = null;
 					this.isDescriptionShown = false;
 					this.cubeStage = 'cross';
-					this.stages = Object.assign(...stagesData.map(({id}) => ({
+					this.stages = Object.assign(...config.stagesData.map(({id}) => ({
 						[id]: {
 							sequence: new MoveSequence(),
 							firstMoveTime: null,
@@ -466,7 +414,7 @@
 						}
 					}
 
-					for (const stage of stagesData.slice(1)) {
+					for (const stage of config.stagesData.slice(1)) {
 						if (this.cubeStage === stage.id) {
 							const {result, oll, pll} = isStageSatisfied({cube: this.cube, stage: stage.id, cross: this.cross});
 
