@@ -392,7 +392,6 @@
 					}
 					if (this.scramble.length === 0) {
 						this.phase = 'inspect';
-						this.cross = null;
 						this.time = 0;
 						if (this.isFirstSolve) {
 							this.description = 'Now start solving when you\'re ready.'
@@ -404,6 +403,7 @@
 
 				if (this.phase === 'inspect') {
 					this.startTime = new Date();
+					this.cross = null;
 					this.phase = 'solve';
 					this.description = null;
 					this.isDescriptionShown = false;
@@ -501,7 +501,10 @@
 				document.getElementById('stages').scrollTop = 0;
 			},
 		},
-		destroyed () {
+		destroyed() {
+			if (this.interval) {
+				clearInterval(this.interval);
+			}
 			if (this.giiker) {
 				this.giiker.removeListener('move', this.onGiikerMove);
 			}
@@ -539,27 +542,6 @@
 	}
 
 	.stage-info-right {
-		margin-left: 0.3rem;
-	}
-
-	.title .tag {
-		margin-right: 0.3em;
-		vertical-align: top;
-	}
-
-	.padding {
-		padding: 0.8rem 1.2rem;
-	}
-
-	.level-right .level-item:last-child {
-		margin-right: 0;
-	}
-
-	.notification {
-		padding: 0.8rem 1.2rem;
-	}
-
-	.tile.is-parent {
-		padding: 0.5rem 1rem;
+		margin-left: 0.6rem;
 	}
 </style>

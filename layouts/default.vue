@@ -25,6 +25,11 @@
 					Smart Cube Timer
 				</nuxt-link>
 			</v-toolbar-title>
+			<v-spacer></v-spacer>
+			<v-btn icon @click="onClickFullscreen">
+				<v-icon v-if="isFullscreen">fullscreen_exit</v-icon>
+				<v-icon v-else>fullscreen</v-icon>
+			</v-btn>
 		</v-toolbar>
 		<v-content>
 			<nuxt/>
@@ -49,7 +54,35 @@ export default {
 	data() {
 		return {
 			drawer: null,
+			isFullscreen: false,
 		};
+	},
+	methods: {
+		onClickFullscreen() {
+			if (this.isFullscreen) {
+				if (document.exitFullscreen) {
+					document.exitFullscreen();
+				} else if (document.mozExitFullscreen) {
+					document.mozExitFullscreen();
+				} else if (document.webkitExitFullscreen) {
+					document.webkitExitFullscreen();
+				} else if (document.msExitFullscreen) {
+					document.msExitFullscreen();
+				}
+				this.isFullscreen = false;
+			} else {
+				if (document.documentElement.requestFullscreen) {
+					document.documentElement.requestFullscreen();
+				} else if (document.documentElement.mozRequestFullScreen) {
+					document.documentElement.mozRequestFullScreen();
+				} else if (document.documentElement.webkitRequestFullscreen) {
+					document.documentElement.webkitRequestFullscreen();
+				} else if (document.documentElement.msRequestFullscreen) {
+					document.documentElement.msRequestFullscreen();
+				}
+				this.isFullscreen = true;
+			}
+		},
 	},
 }
 </script>
