@@ -42,6 +42,17 @@
 						It's solved!
 					</v-btn>
 				</div>
+				<div
+					v-if="phase === 'scramble' && !isFirstSolve"
+					class="solve-infos"
+				>
+					<span class="solve-info subheading">
+						{{moveCount}} turns
+					</span>
+					<span class="solve-info subheading">
+						{{speed}} tps
+					</span>
+				</div>
 			</v-flex>
 			<v-flex class="times" id="stages">
 				<v-layout wrap>
@@ -133,6 +144,7 @@
 	import config from '~/lib/config.js';
 	import sample from 'lodash/sample';
 	import uniq from 'lodash/uniq';
+	import sumBy from 'lodash/sumBy';
 
 	const stagesData = [
 		{
@@ -351,6 +363,19 @@
 			displayTime() {
 				return formatTime(this.time);
 			},
+			moveCount() {
+				return sumBy(stagesData, ({id}) => {
+					const stage = this.stages[id] || {time: null};
+					return stage.time === null ? 0 : stage.sequence.length;
+				});
+			},
+			speed() {
+				if (this.time === 0) {
+					return (0).toFixed(2);
+				}
+
+				return (this.moveCount / (this.time / 1000)).toFixed(2);
+			},
 		},
 		created() {
 			this.cube = new Cube();
@@ -543,5 +568,9 @@
 
 	.stage-info-right {
 		margin-left: 0.6rem;
+	}
+
+	.solve-info {
+		margin: 0 0.2rem;
 	}
 </style>
