@@ -34,4 +34,14 @@ module.exports = {
 			removeTagWhitespace: true,
 		},
 	},
+
+	build: {
+		extend(config) {
+			// For sylvester
+			config.node = {
+				fs: 'empty',
+			};
+			config.externals = (config.externals || []).concat(['lapack']);
+		},
+	},
 };

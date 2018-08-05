@@ -101,7 +101,7 @@
 	import 'cubejs/lib/solve';
 	import MoveSequence from '~/lib/MoveSequence.js';
 	import scrambles from '~/lib/scrambles.json';
-	import {findCross, formatTime, idealTextColor, isStageSatisfied, getNextStage} from '~/lib/utils.js';
+	import {findCross, formatTime, idealTextColor, isStageSatisfied, getNextStage, getRotationNotation} from '~/lib/utils.js';
 	import config from '~/lib/config.js';
 	import sample from 'lodash/sample';
 	import uniq from 'lodash/uniq';
@@ -290,7 +290,14 @@
 								sequenceText = '(Skipped)';
 							}
 						} else {
-							sequenceText = stage.sequence.toString();
+							sequenceText = stage.sequence.toString({cross: this.cross});
+
+							if (id === 'cross' && this.cross !== null) {
+								const rotationNotation = getRotationNotation({from: this.cross, to: 'D'});
+								if (rotationNotation !== '') {
+									sequenceText = `${rotationNotation} ${sequenceText}`;
+								}
+							}
 						}
 					}
 

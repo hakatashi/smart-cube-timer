@@ -10,6 +10,7 @@
     "giiker": "^1.0.1",
     "lodash": "^4.17.10",
     "nuxt": "latest",
+    "sylvester": "0.0.21",
     "vuetify": "^1.1.9"
   },
   "scripts": {
