@@ -143,6 +143,7 @@
 	import scrambles from '~/lib/scrambles.json';
 	import {findCross, formatTime, idealTextColor, isStageSatisfied, getNextStage, getRotationNotation} from '~/lib/utils.js';
 	import config from '~/lib/config.js';
+	import db, {saveSolve} from '~/lib/db.js';
 	import sample from 'lodash/sample';
 	import uniq from 'lodash/uniq';
 	import sumBy from 'lodash/sumBy';
@@ -207,11 +208,12 @@
 					};
 				});
 			},
+			isXcross() {
+				return this.stages.f2l1 && this.stages.f2l1.time !== null && this.stages.f2l1.sequence.length === 0;
+			},
 			stagesInfo() {
 				const stages = this.stages || {};
 				let previousTime = 0;
-
-				const isXcross = this.stages.f2l1 && this.stages.f2l1.time !== null && this.stages.f2l1.sequence.length === 0;
 
 				return config.stagesData.map(({id, name, color, dark}) => {
 					const stage = this.stages[id] || {time: null};
@@ -228,7 +230,7 @@
 							});
 						}
 
-						if (isXcross) {
+						if (this.isXcross) {
 							infos.push({
 								text: `XCross`,
 								color: '#4A148C',
@@ -330,6 +332,7 @@
 		},
 		async mounted() {
 			this.scramble = MoveSequence.fromScramble(sample(scrambles.sheets[0].scrambles), {mode: 'reduction'});
+			this.turns = new MoveSequence([], {mode: 'raw'});
 			this.placeholderMoves = this.scramble.moves.map((move) => ({...move}));
 		},
 		methods: {
@@ -397,8 +400,9 @@
 
 				if (this.phase === 'solve') {
 					this.time = now.getTime() - this.startTime.getTime();
+					this.turns.push({time: this.time, ...move})
 
-					this.stages[this.cubeStage].sequence.push(move);
+					this.stages[this.cubeStage].sequence.push({time: this.time, ...move});
 					if (this.stages[this.cubeStage].firstMoveTime === null) {
 						this.stages[this.cubeStage].firstMoveTime = this.time;
 					}
@@ -441,7 +445,7 @@
 					}
 
 					if (this.cube.isSolved()) {
-						this.finishSolve();
+						this.finishSolve({isError: false});
 					}
 				}
 			},
@@ -460,18 +464,48 @@
 					return;
 				}
 
-				this.finishSolve();
+				this.finishSolve({isError: true});
 				this.cube.identity();
 				this.description = 'Oops...';
 				this.isDescriptionShown = true;
 			},
-			finishSolve() {
+			finishSolve({isError}) {
+				saveSolve({
+					date: this.startTime.getTime(),
+					time: this.time,
+					scramble: this.scramble.moves,
+					turns: this.turns.moves,
+					stages: this.getSerializedStages(),
+					isError,
+					crossFace: this.cross,
+					isXcross: this.isXcross,
+					pllCase: this.pll ? this.pll.index : null,
+					ollCase: this.oll ? this.oll.index : null,
+					pllLooks: this.pll ? this.pllLooks.length : null,
+					ollLooks: this.oll ? (this.isOll2Look ? 2 : 1) : null,
+				});
+
 				clearInterval(this.interval);
 				this.phase = 'scramble';
 				this.isFirstSolve = false;
 				this.scramble = MoveSequence.fromScramble(sample(scrambles.sheets[0].scrambles), {mode: 'reduction'});
+				this.turns = new MoveSequence([], {mode: 'raw'});
 				this.placeholderMoves = this.scramble.moves.map((move) => ({...move}));
 				document.getElementById('stages').scrollTop = 0;
+			},
+			getSerializedStages() {
+				return config.stagesData.map(({id}) => {
+					const stage = this.stages[id];
+					if (!stage) {
+						return undefined;
+					}
+
+					return {
+						id,
+						time: stage.time,
+						turns: stage.sequence.toObject({cross: this.cross}),
+					};
+				}).filter((stage) => stage);
 			},
 		},
 		destroyed() {
