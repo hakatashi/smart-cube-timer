@@ -141,7 +141,7 @@
 	import 'cubejs/lib/solve';
 	import MoveSequence from '~/lib/MoveSequence.js';
 	import scrambles from '~/lib/scrambles.json';
-	import {findCross, formatTime, idealTextColor, isStageSatisfied, getNextStage, getRotationNotation} from '~/lib/utils.js';
+	import {findCross, formatTime, idealTextColor, isStageSatisfied, getNextStage, getRotation, getRotationNotation} from '~/lib/utils.js';
 	import config from '~/lib/config.js';
 	import db, {saveSolve} from '~/lib/db.js';
 	import sample from 'lodash/sample';
@@ -331,7 +331,9 @@
 			this.cube = new Cube();
 		},
 		async mounted() {
-			this.scramble = MoveSequence.fromScramble(sample(scrambles.sheets[0].scrambles), {mode: 'reduction'});
+			const scramble = sample(scrambles.sheets[0].scrambles);
+			this.scramble = MoveSequence.fromScramble(scramble, {mode: 'reduction'});
+			this.initialScramble = MoveSequence.fromScramble(scramble, {mode: 'reduction'});
 			this.turns = new MoveSequence([], {mode: 'raw'});
 			this.placeholderMoves = this.scramble.moves.map((move) => ({...move}));
 		},
@@ -473,10 +475,11 @@
 				saveSolve({
 					date: this.startTime.getTime(),
 					time: this.time,
-					scramble: this.scramble.moves,
+					scramble: this.initialScramble.moves,
 					turns: this.turns.moves,
 					stages: this.getSerializedStages(),
 					isError,
+					moveCount: this.moveCount,
 					crossFace: this.cross,
 					isXcross: this.isXcross,
 					pllCase: this.pll ? this.pll.index : null,
@@ -488,7 +491,9 @@
 				clearInterval(this.interval);
 				this.phase = 'scramble';
 				this.isFirstSolve = false;
-				this.scramble = MoveSequence.fromScramble(sample(scrambles.sheets[0].scrambles), {mode: 'reduction'});
+				const scramble = sample(scrambles.sheets[0].scrambles);
+				this.scramble = MoveSequence.fromScramble(scramble, {mode: 'reduction'});
+				this.initialScramble = MoveSequence.fromScramble(scramble, {mode: 'reduction'});
 				this.turns = new MoveSequence([], {mode: 'raw'});
 				this.placeholderMoves = this.scramble.moves.map((move) => ({...move}));
 				document.getElementById('stages').scrollTop = 0;
@@ -500,10 +505,24 @@
 						return undefined;
 					}
 
+					if (!this.cross) {
+						return {
+							id,
+							time: stage.time,
+							turns: stage.sequence.toObject(),
+						};
+					}
+
+					const rotation = getRotation({from: this.cross, to: 'D'});
+					const turns = stage.sequence.toObject({cross: this.cross});
+					if (id === 'cross' && rotation.amount !== 0) {
+						turns.unshift(rotation)
+					}
+
 					return {
 						id,
 						time: stage.time,
-						turns: stage.sequence.toObject({cross: this.cross}),
+						turns,
 					};
 				}).filter((stage) => stage);
 			},
