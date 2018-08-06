@@ -79,6 +79,8 @@
 				flat
 				value="nearby"
 				class="pa-0"
+				to="/faq"
+				nuxt
 			>
 				<v-icon>help</v-icon>
 			</v-btn>
