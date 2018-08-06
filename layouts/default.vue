@@ -9,7 +9,7 @@
 						</v-list-tile-title>
 					</v-list-tile-content>
 				</v-list-tile>
-				<v-list-tile to="/solves" nuxt>
+				<v-list-tile >
 					<v-list-tile-content>
 						<v-list-tile-title>
 							Solves History
@@ -46,6 +46,43 @@
 				</a>
 			</v-flex>
 		</v-footer>
+		<v-bottom-nav
+			app
+			active="recent"
+			:height="50"
+			:value="true"
+			absolute
+			color="purple darken-2"
+		>
+			<v-btn
+				color="white"
+				flat
+				value="recent"
+				class="pa-0"
+				to="/"
+				nuxt
+			>
+				<v-icon>timer</v-icon>
+			</v-btn>
+			<v-btn
+				color="white"
+				flat
+				value="favorites"
+				class="pa-0"
+				to="/solves"
+				nuxt
+			>
+				<v-icon>history</v-icon>
+			</v-btn>
+			<v-btn
+				color="white"
+				flat
+				value="nearby"
+				class="pa-0"
+			>
+				<v-icon>help</v-icon>
+			</v-btn>
+		</v-bottom-nav>
 	</v-app>
 </template>
 
@@ -98,5 +135,8 @@ export default {
 }
 a {
 	text-decoration: none;
+}
+.v-bottom-nav {
+	position: fixed;
 }
 </style>
