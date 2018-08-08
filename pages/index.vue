@@ -91,7 +91,22 @@
 										</v-chip>
 									</h2>
 									<v-layout class="stage-info headline ma-0">
-										<strong :style="{color: 'inherit'}">{{stage.time}}</strong>
+										<strong :style="{color: 'inherit'}">
+											{{stage.time}}
+										</strong>
+											<small v-if="stage.inspectionTime !== null" class="inspection-time">
+												<span class="time-info">
+													{{stage.inspectionTime}}
+													<span class="label">Inspection</span>
+												</span>
+												<span class="time-spacer">
+													/
+												</span>
+												<span class="time-info">
+													{{stage.executionTime}}
+													<span class="label">Execution</span>
+												</span>
+											</small>
 										<v-spacer></v-spacer>
 										<div
 											v-if="stage.moveCount !== null"
@@ -218,6 +233,16 @@
 				return config.stagesData.map(({id, name, color, dark}) => {
 					const stage = this.stages[id] || {time: null};
 					const deltaTime = previousTime === null ? 0 : (stage.time || this.time) - previousTime;
+
+					const isStageFinished = stage.time !== null && stage.sequence.length !== 0;
+
+					const moveCount = isStageFinished ? stage.sequence.length : null;
+					const speed = isStageFinished ? (moveCount / (deltaTime / 1000)).toFixed(2) : null;
+
+					const firstNonTrivialMove = stage.sequence && stage.sequence.getFirstNonTrivialMove({cross: this.cross});
+					const inspectionTime = (isStageFinished && id !== 'cross' && firstNonTrivialMove !== null) ? ((firstNonTrivialMove.time - previousTime) / 1000).toFixed(2) : null;
+					const executionTime = inspectionTime !== null ? ((stage.time - firstNonTrivialMove.time) / 1000).toFixed(2) : null;
+
 					previousTime = stage.time;
 
 					const infos = [];
@@ -294,9 +319,6 @@
 						}
 					}
 
-					const moveCount = (stage.time !== null && stage.sequence.length !== 0) ? stage.sequence.length : null;
-					const speed = moveCount === null ? null : (moveCount / (deltaTime / 1000)).toFixed(2);
-
 					return {
 						id,
 						name,
@@ -307,6 +329,8 @@
 						time: formatTime(deltaTime),
 						moveCount,
 						speed,
+						inspectionTime,
+						executionTime,
 					};
 				});
 			},
@@ -573,5 +597,33 @@
 
 	.solve-info {
 		margin: 0 0.2rem;
+	}
+
+	.inspection-time {
+		font-size: 70%;
+		opacity: 0.7;
+		display: flex;
+		line-height: 1.5em;
+		margin-left: 0.3em;
+	}
+
+	.time-info {
+		position: relative;
+		align-self: flex-end;
+	}
+
+	.time-info .label {
+		position: absolute;
+		bottom: calc(100% - 0.5em);
+		left: 50%;
+		transform: translate(-50%);
+		font-size: 40%;
+		line-height: 1em;
+	}
+
+	.time-spacer {
+		width: 0.8em;
+		text-align: center;
+		align-self: flex-end;
 	}
 </style>
