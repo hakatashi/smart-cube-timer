@@ -82,7 +82,7 @@
 				to="/faq"
 				nuxt
 			>
-				<v-icon>help</v-icon>
+				<v-icon>bar_chart</v-icon>
 			</v-btn>
 		</v-bottom-nav>
 	</v-app>

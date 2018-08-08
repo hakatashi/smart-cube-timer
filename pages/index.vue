@@ -240,8 +240,8 @@
 					const speed = isStageFinished ? (moveCount / (deltaTime / 1000)).toFixed(2) : null;
 
 					const firstNonTrivialMove = stage.sequence && stage.sequence.getFirstNonTrivialMove({cross: this.cross});
-					const inspectionTime = (isStageFinished && id !== 'cross' && firstNonTrivialMove !== null) ? ((firstNonTrivialMove.time - previousTime) / 1000).toFixed(2) : null;
-					const executionTime = inspectionTime !== null ? ((stage.time - firstNonTrivialMove.time) / 1000).toFixed(2) : null;
+					const inspectionTime = (isStageFinished && id !== 'cross' && firstNonTrivialMove !== null) ? formatTime(firstNonTrivialMove.time - previousTime) : null;
+					const executionTime = inspectionTime !== null ? formatTime(stage.time - firstNonTrivialMove.time) : null;
 
 					previousTime = stage.time;
 
@@ -523,16 +523,20 @@
 				document.getElementById('stages').scrollTop = 0;
 			},
 			getSerializedStages() {
-				return config.stagesData.map(({id}) => {
+				return config.stagesData.map(({id}, index) => {
 					const stage = this.stages[id];
+
 					if (!stage) {
 						return undefined;
 					}
 
+					const previousStage = index === 0 ? undefined : this.stages[config.stagesData[index - 1].id];
+					const time = stage.time - (previousStage ? previousStage.time : 0);
+
 					if (!this.cross) {
 						return {
 							id,
-							time: stage.time,
+							time,
 							turns: stage.sequence.toObject(),
 						};
 					}
@@ -545,7 +549,7 @@
 
 					return {
 						id,
-						time: stage.time,
+						time,
 						turns,
 					};
 				}).filter((stage) => stage);
@@ -604,7 +608,7 @@
 		opacity: 0.7;
 		display: flex;
 		line-height: 1.5em;
-		margin-left: 0.3em;
+		margin-left: 0.5em;
 	}
 
 	.time-info {

@@ -8,7 +8,7 @@
     "@nuxtjs/pwa": "latest",
     "cubejs": "^1.1.0",
     "dexie": "^2.0.4",
-    "giiker": "^1.0.1",
+    "giiker": "^1.0.2",
     "lodash": "^4.17.10",
     "nanoid": "^1.1.0",
     "nuxt": "latest",
