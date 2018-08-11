@@ -115,6 +115,11 @@
 				})
 			},
 		},
+		head() {
+			return {
+				title: 'History',
+			};
+		},
 	}
 </script>
 

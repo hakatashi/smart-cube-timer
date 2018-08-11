@@ -565,7 +565,7 @@
 		},
 		head() {
 			return {
-				title: 'Smart Cube Timer - Record your solves with advanced stats',
+				title: 'Smart Cube Timer',
 			};
 		},
 	}

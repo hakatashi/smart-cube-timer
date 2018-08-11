@@ -20,7 +20,7 @@
 <script>
 	import {getSolves} from '~/lib/db.js';
 	import {formatTime, formatDate, idealTextColor} from '~/lib/utils.js';
-	import {plls} from '~/lib/data.js';
+	import {olls} from '~/lib/data.js';
 	import meanBy from 'lodash/meanBy';
 
 	export default {
@@ -50,23 +50,20 @@
 					},
 				],
 				solves: [],
-				cases: plls.map(([name]) => ({
+				cases: olls.map(([name]) => ({
 					name,
-					count: null,
+					count: 0,
 					averageTime: 0,
-					averageTimeText: '',
 					averageInspection: 0,
-					averageInspectionText: '',
 					averageExecution: 0,
-					averageExecutionText: '',
 				})),
 			};
 		},
 		async mounted() {
 			this.solves = await getSolves();
 			this.cases = this.cases.map(({name}, index) => {
-				const solves = this.solves.filter(({_pllCase, isError}) => _pllCase === index && !isError);
-				const averageTime = meanBy(solves, (solve) => solve._pllTime) || NaN;
+				const solves = this.solves.filter(({_ollCase, isError}) => _ollCase === index && !isError);
+				const averageTime = meanBy(solves, (solve) => solve._ollTime) || NaN;
 
 				return {
 					index,
@@ -85,7 +82,7 @@
 		},
 		head() {
 			return {
-				title: 'PLL Stats',
+				title: 'OLL Stats',
 			};
 		},
 	}
