@@ -1,9 +1,20 @@
 <template>
 	<v-container fluid grid-list-md text-xs-center>
 		<v-layout row wrap>
-			<v-flex v-for="solve in solvesInfo" :key="solve.date" xs3>
+			<v-flex v-for="solve in solvesInfo" :key="solve.date" xs12>
 				<v-card class="solve">
-					<v-card-text class="pa-0 subheading text-xs-center"><strong>{{solve.timeText}}</strong></v-card-text>
+					<v-card-text class="pa-0 subheading text-xs-left">
+						<strong>{{solve.timeText}}</strong>
+						<small class="solve-times">
+							<span
+								v-for="stage, index in ['cross', 'f2l1', 'f2l2', 'f2l3', 'f2l4', 'oll', 'pll', 'auf']"
+								:key="stage"
+							>
+								<span v-if="index !== 0"> / </span>
+								<span class="solve-time" :class="[`solve-time-${stage}`]">{{solve[stage]}}</span>
+							</span>
+						</small>
+					</v-card-text>
 					<v-card-text class="solve-date pa-0 text-xs-right">{{solve.dateText}}</v-card-text>
 				</v-card>
 			</v-flex>
@@ -105,8 +116,49 @@
 
 <style>
 	.solve {
-		padding: 0.3em;
+		padding: 0.3em 0.8em;
 	}
+
+	.solve-times {
+		font-size: 10px;
+		margin-left: 1em;
+		vertical-align: text-top;
+	}
+
+	.solve-time {
+		position: relative;
+
+		&::after {
+			content: '';
+			position: absolute;
+			top: calc(100% - 0.1em);
+			left: 0;
+			right: 0;
+			height: 2px;
+			border-radius: 3px;
+		}
+
+		&.solve-time-cross::after {
+			background: #2196f3;
+		}
+
+		&.solve-time-f2l1::after, &.solve-time-f2l2::after, &.solve-time-f2l3::after, &.solve-time-f2l4::after {
+			background: #6472bf; /* slightly lighter than normal */
+		}
+
+		&.solve-time-oll::after {
+			background: #ffeb3b;
+		}
+
+		&.solve-time-pll::after {
+			background: #f44336;
+		}
+
+		&.solve-time-auf::after {
+			background: #e0e0e0;
+		}
+	}
+
 
 	.solve-date {
 		font-size: 10px;

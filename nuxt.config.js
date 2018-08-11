@@ -1,3 +1,5 @@
+const precss = require('precss');
+
 module.exports = {
 	router: {
 		...(process.env.DEPLOY_ENV === 'GH_PAGES' ? {
@@ -36,6 +38,9 @@ module.exports = {
 	},
 
 	build: {
+		postcss: [
+			precss(),
+		],
 		extend(config) {
 			// For sylvester
 			config.node = {
