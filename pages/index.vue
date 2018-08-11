@@ -364,14 +364,15 @@
 			this.initialScramble = MoveSequence.fromScramble(scramble, {mode: 'reduction'});
 			this.turns = new MoveSequence([], {mode: 'raw'});
 			this.placeholderMoves = this.scramble.moves.map((move) => ({...move}));
-			if (this.noSleep) {
-				this.noSleep.enable();
-			}
 		},
 		methods: {
 			onClickConnect() {
 				if (this.isConnecting) {
 					return;
+				}
+
+				if (this.noSleep) {
+					this.noSleep.enable();
 				}
 
 				this.isConnecting = true;
