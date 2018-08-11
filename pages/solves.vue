@@ -137,20 +137,22 @@
 
 					if (solve._ollCase !== null) {
 						const [ollName] = olls[solve._ollCase];
+
 						infos.push({
 							id: 'ollcase',
 							text: ollName,
-							color: 'yellow lighten-2',
+							color: ollName === 'OLL Skip' ? 'yellow accent-4' : 'yellow lighten-2',
 							textColor: '',
 						});
 					}
 
 					if (solve._pllCase !== null) {
 						const [pllName] = plls[solve._pllCase];
+
 						infos.push({
 							id: 'pllcase',
 							text: pllName,
-							color: 'red lighten-1',
+							color: pllName === 'PLL Skip' ? 'red accent-4' : 'red lighten-1',
 							textColor: 'white',
 						});
 					}
@@ -234,6 +236,7 @@
 		font-size: 10px;
 		margin-top: 0;
 		margin-bottom: 0;
+		z-index: 0;
 
 		.v-chip__content {
 			padding: 0 6px;
