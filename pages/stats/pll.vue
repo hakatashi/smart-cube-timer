@@ -66,7 +66,7 @@
 			this.solves = await getSolves();
 			this.cases = this.cases.map(({name}, index) => {
 				const solves = this.solves.filter(({_pllCase, isError}) => _pllCase === index && !isError);
-				const averageTime = meanBy(solves, (solve) => solve._pllTime) || NaN;
+				const averageTime = meanBy(solves, (solve) => solve._pllTime) || Infinity;
 
 				return {
 					index,

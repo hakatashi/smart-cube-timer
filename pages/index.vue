@@ -154,6 +154,7 @@
 	import GiiKER from 'giiker';
 	import Cube from 'cubejs';
 	import 'cubejs/lib/solve';
+	import NoSleep from 'nosleep.js';
 	import MoveSequence from '~/lib/MoveSequence.js';
 	import scrambles from '~/lib/scrambles.json';
 	import {findCross, formatTime, idealTextColor, isStageSatisfied, getNextStage, getRotation, getRotationNotation} from '~/lib/utils.js';
@@ -353,6 +354,9 @@
 		},
 		created() {
 			this.cube = new Cube();
+			if (process.browser) {
+				this.noSleep = new NoSleep();
+			}
 		},
 		async mounted() {
 			const scramble = sample(scrambles.sheets[0].scrambles);
@@ -360,6 +364,9 @@
 			this.initialScramble = MoveSequence.fromScramble(scramble, {mode: 'reduction'});
 			this.turns = new MoveSequence([], {mode: 'raw'});
 			this.placeholderMoves = this.scramble.moves.map((move) => ({...move}));
+			if (this.noSleep) {
+				this.noSleep.enable();
+			}
 		},
 		methods: {
 			onClickConnect() {
@@ -561,6 +568,9 @@
 			}
 			if (this.giiker) {
 				this.giiker.removeListener('move', this.onGiikerMove);
+			}
+			if (this.noSleep) {
+				this.noSleep.disable();
 			}
 		},
 		head() {

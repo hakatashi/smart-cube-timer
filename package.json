@@ -11,6 +11,7 @@
     "giiker": "^1.0.2",
     "lodash": "^4.17.10",
     "nanoid": "^1.1.0",
+    "nosleep.js": "^0.7.0",
     "nuxt": "latest",
     "precss": "^3.1.2",
     "sylvester": "0.0.21",
