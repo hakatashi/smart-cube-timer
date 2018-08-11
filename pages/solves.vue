@@ -1,28 +1,13 @@
 <template>
-	<v-container fluid grid-list-md>
-		<v-data-table
-			:headers="headers"
-			:items="solvesInfo"
-			:pagination.sync="pagination"
-			:rows-per-page-items="perPage"
-			class="elevation-1"
-		>
-			<template slot="headerCell" slot-scope="props">
-				{{props.header.text}}
-			</template>
-			<template slot="items" slot-scope="props">
-				<td><strong>{{props.item.timeText}}</strong></td>
-				<td>{{props.item.cross}}</td>
-				<td>{{props.item.f2l1}}</td>
-				<td>{{props.item.f2l2}}</td>
-				<td>{{props.item.f2l3}}</td>
-				<td>{{props.item.f2l4}}</td>
-				<td>{{props.item.oll}}</td>
-				<td>{{props.item.pll}}</td>
-				<td>{{props.item.auf}}</td>
-				<td><span class="date-text">{{props.item.dateText}}</span></td>
-			</template>
-		</v-data-table>
+	<v-container fluid grid-list-md text-xs-center>
+		<v-layout row wrap>
+			<v-flex v-for="solve in solvesInfo" :key="solve.date" xs3>
+				<v-card class="solve">
+					<v-card-text class="pa-0 subheading text-xs-center"><strong>{{solve.timeText}}</strong></v-card-text>
+					<v-card-text class="solve-date pa-0 text-xs-right">{{solve.dateText}}</v-card-text>
+				</v-card>
+			</v-flex>
+		</v-layout>
 	</v-container>
 </template>
 
@@ -119,22 +104,11 @@
 </script>
 
 <style>
-	.solve-stage {
-		height: 30px;
+	.solve {
+		padding: 0.3em;
 	}
 
-	.date-text {
-		display: inline-block;
-		width: 5rem;
-	}
-
-	th {
-		padding: 0 !important;
-	}
-
-	td {
-		padding: 0 0 0 0.8em !important;
-		text-align: right;
-		height: 36px !important;
+	.solve-date {
+		font-size: 10px;
 	}
 </style>
