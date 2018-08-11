@@ -9,10 +9,10 @@
 						</v-list-tile-title>
 					</v-list-tile-content>
 				</v-list-tile>
-				<v-list-tile >
+				<v-list-tile to="/faq">
 					<v-list-tile-content>
 						<v-list-tile-title>
-							Solves History
+							FAQ
 						</v-list-tile-title>
 					</v-list-tile-content>
 				</v-list-tile>
@@ -50,14 +50,14 @@
 			app
 			active="recent"
 			:height="50"
-			:value="true"
+			:value="'solves'"
 			absolute
 			color="purple darken-2"
 		>
 			<v-btn
 				color="white"
 				flat
-				value="recent"
+				value="timer"
 				class="pa-0"
 				to="/"
 				nuxt
@@ -67,7 +67,7 @@
 			<v-btn
 				color="white"
 				flat
-				value="favorites"
+				value="solves"
 				class="pa-0"
 				to="/solves"
 				nuxt
@@ -77,9 +77,9 @@
 			<v-btn
 				color="white"
 				flat
-				value="nearby"
+				value="stats"
 				class="pa-0"
-				to="/faq"
+				to="/stats"
 				nuxt
 			>
 				<v-icon>bar_chart</v-icon>

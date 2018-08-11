@@ -257,7 +257,7 @@
 
 						if (this.isXcross) {
 							infos.push({
-								text: `XCross`,
+								text: 'XCross',
 								color: '#4A148C',
 								textColor: idealTextColor('#4A148C'),
 							});
