@@ -454,7 +454,7 @@
 
 					for (const stage of config.stagesData.slice(1)) {
 						if (this.cubeStage === stage.id) {
-							const {result, oll, pll} = isStageSatisfied({cube: this.cube, stage: stage.id, cross: this.cross});
+							const {result, oll, pll} = isStageSatisfied({mode: 'cfop', cube: this.cube, stage: stage.id, cross: this.cross});
 
 							if (result === true) {
 								this.cubeStage = getNextStage(stage.id);
