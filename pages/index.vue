@@ -157,7 +157,7 @@
 	import NoSleep from 'nosleep.js';
 	import MoveSequence from '~/lib/MoveSequence.js';
 	import scrambles from '~/lib/scrambles.json';
-	import {findCross, formatTime, idealTextColor, isStageSatisfied, getNextStage, getRotation, getRotationNotation} from '~/lib/utils.js';
+	import {findCross, findRouxBlock, formatTime, idealTextColor, isStageSatisfied, getNextStage, getRotation, getRotationNotation} from '~/lib/utils.js';
 	import config from '~/lib/config.js';
 	import db, {saveSolve} from '~/lib/db.js';
 	import sample from 'lodash/sample';
@@ -390,7 +390,7 @@
 			},
 			onGiikerMove(move) {
 				const now = new Date();
-				this.cube.move(move.notation);
+				this.cube.move(move.notation.replace(/2'$/, '2'));
 
 				if (this.phase === 'scramble') {
 					this.scramble.unshift({
@@ -443,6 +443,7 @@
 
 					if (this.cubeStage === 'cross') {
 						const cross = findCross(this.cube);
+						console.log(findRouxBlock(this.cube));
 						if (cross) {
 							this.cubeStage = 'f2l1';
 							this.scrollToStage();
