@@ -426,6 +426,9 @@
 				if (this.phase === 'inspect') {
 					this.startTime = new Date();
 					this.cross = null;
+					this.cll = null;
+					this.pll = null;
+					this.oll = null;
 					this.rouxBlock = null;
 					this.phase = 'solve';
 					this.description = null;
