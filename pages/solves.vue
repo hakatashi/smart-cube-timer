@@ -5,13 +5,13 @@
 				<v-card class="solve">
 					<v-card-text class="pa-0 subheading text-xs-left solve-headline">
 						<strong>{{solve.timeText}}</strong>
-						<small class="solve-times">
+						<small class="solve-times" :class="[`mode-${solve.mode}`]">
 							<span
-								v-for="stage, index in ['cross', 'f2l1', 'f2l2', 'f2l3', 'f2l4', 'oll', 'pll', 'auf']"
-								:key="stage"
+								v-for="stage, index in solve.stages"
+								:key="stage.id"
 							>
 								<span v-if="index !== 0"> / </span>
-								<span class="solve-time" :class="[`solve-time-${stage}`]">{{solve[stage]}}</span>
+								<span class="solve-time" :class="[`solve-time-${stage.id}`]">{{stage.time}}</span>
 							</span>
 						</small>
 					</v-card-text>
@@ -42,7 +42,8 @@
 <script>
 	import {getSolves} from '~/lib/db.js';
 	import {formatTime, formatDate, idealTextColor} from '~/lib/utils.js';
-	import {olls, plls} from '~/lib/data.js';
+	import {clls, olls, plls} from '~/lib/data.js';
+	import config from '~/lib/config.js';
 
 	export default {
 		data() {
@@ -98,19 +99,28 @@
 						});
 					}
 
+					if (solve._cllCase !== null) {
+						const [cllName] = clls[solve._cllCase];
+
+						infos.push({
+							id: 'cllcase',
+							text: cllName,
+							color: cllName === 'CLL Skip' ? 'brown darken-4' : 'brown darken-2',
+							textColor: 'white',
+						});
+					}
+
+					const stages = config.stagesData[solve.mode].map(({id}) => ({
+						id,
+						time: formatTime(solve[`_${id}Time`]),
+					}));
+
 					return {
 						...solve,
 						infos,
 						timeText: formatTime(solve.time),
 						dateText: formatDate(solve.date),
-						cross: formatTime(solve._crossTime),
-						f2l1: formatTime(solve._f2l1Time),
-						f2l2: formatTime(solve._f2l2Time),
-						f2l3: formatTime(solve._f2l3Time),
-						f2l4: formatTime(solve._f2l4Time),
-						oll: formatTime(solve._ollTime),
-						pll: formatTime(solve._pllTime),
-						auf: formatTime(solve._aufTime),
+						stages,
 					};
 				})
 			},
@@ -152,7 +162,7 @@
 			opacity: 0.6;
 		}
 
-		&.solve-time-cross::after {
+		.mode-cfop &.solve-time-unknown::after {
 			background: #2196f3;
 		}
 
@@ -170,6 +180,26 @@
 
 		&.solve-time-auf::after {
 			background: #d0d0d0;
+		}
+
+		.mode-roux &.solve-time-unknown::after {
+			background: #689f38;
+		}
+
+		&.solve-time-block2::after {
+			background: #2e7d32;
+		}
+
+		&.solve-time-cll::after {
+			background: #5d4037;
+		}
+
+		&.solve-time-lseo::after {
+			background: #f57f17;
+		}
+
+		&.solve-time-lsep::after {
+			background: #dd2c00;
 		}
 	}
 

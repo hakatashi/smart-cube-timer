@@ -167,7 +167,7 @@
 	export default {
 		data() {
 			return {
-				mode: 'cfop',
+				mode: 'roux',
 				cross: null,
 				rouxBlock: null,
 				giiker: null,
@@ -186,6 +186,7 @@
 				isOll2Look: false,
 				pll: null,
 				pllLooks: [],
+				cll: null,
 				snackbar: '',
 				isSnackbarShown: false,
 				isFirstSolve: true,
@@ -299,6 +300,16 @@
 								text: 'Look',
 								color: 'green',
 								textColor: 'white',
+							});
+						}
+					}
+
+					if (id === 'cll') {
+						if (this.cll) {
+							infos.push({
+								text: this.cll.name,
+								color: '#FFEE58',
+								textColor: idealTextColor('#FFEE58'),
 							});
 						}
 					}
@@ -469,7 +480,7 @@
 
 					for (const stage of config.stagesData[this.mode].slice(1)) {
 						if (this.cubeStage === stage.id) {
-							const {result, oll, pll} = isStageSatisfied({
+							const {result, oll, pll, cll} = isStageSatisfied({
 								mode: this.mode,
 								cube: this.cube,
 								stage: stage.id,
@@ -486,6 +497,9 @@
 								}
 								if (stage.id === 'oll') {
 									this.pll = pll;
+								}
+								if (stage.id === 'block2') {
+									this.cll = cll;
 								}
 							} else {
 								if (stage.id === 'oll' && !this.oll.isEdgeOriented && oll !== undefined && oll.isEdgeOriented) {
@@ -526,6 +540,7 @@
 			},
 			finishSolve({isError}) {
 				saveSolve({
+					mode: this.mode,
 					date: this.startTime.getTime(),
 					time: this.time,
 					scramble: this.initialScramble.moves,
@@ -533,12 +548,15 @@
 					stages: this.getSerializedStages(),
 					isError,
 					moveCount: this.moveCount,
-					crossFace: this.cross,
+					crossFace: this.cross ? this.cross : null,
 					isXcross: this.isXcross,
 					pllCase: this.pll ? this.pll.index : null,
 					ollCase: this.oll ? this.oll.index : null,
 					pllLooks: this.pll ? this.pllLooks.length : null,
 					ollLooks: this.oll ? (this.isOll2Look ? 2 : 1) : null,
+					cllCase: this.cll ? this.cll.index : null,
+					rouxBlockSide: this.rouxBlock ? this.rouxBlock.side : null,
+					rouxBlockBottom: this.rouxBlock ? this.rouxBlock.bottom : null,
 				});
 
 				clearInterval(this.interval);
