@@ -167,6 +167,7 @@
 	export default {
 		data() {
 			return {
+				mode: 'cfop',
 				cross: null,
 				giiker: null,
 				startTime: null,
@@ -231,7 +232,7 @@
 				const stages = this.stages || {};
 				let previousTime = 0;
 
-				return config.stagesData.map(({id, name, color, dark}) => {
+				return config.stagesData.cfop.map(({id, name, color, dark}) => {
 					const stage = this.stages[id] || {time: null};
 					const deltaTime = previousTime === null ? 0 : (stage.time || this.time) - previousTime;
 
@@ -241,13 +242,13 @@
 					const speed = isStageFinished ? (moveCount / (deltaTime / 1000)).toFixed(2) : null;
 
 					const firstNonTrivialMove = stage.sequence && stage.sequence.getFirstNonTrivialMove({cross: this.cross});
-					const inspectionTime = (isStageFinished && id !== 'cross' && firstNonTrivialMove !== null) ? formatTime(firstNonTrivialMove.time - previousTime) : null;
+					const inspectionTime = (isStageFinished && id !== 'unknown' && firstNonTrivialMove !== null) ? formatTime(firstNonTrivialMove.time - previousTime) : null;
 					const executionTime = inspectionTime !== null ? formatTime(stage.time - firstNonTrivialMove.time) : null;
 
 					previousTime = stage.time;
 
 					const infos = [];
-					if (id === 'cross') {
+					if (id === 'unknown') {
 						if (this.cross) {
 							infos.push({
 								text: `${config.faceColors[this.cross].name} Cross`,
@@ -311,7 +312,7 @@
 						} else {
 							sequenceText = stage.sequence.toString({cross: this.cross});
 
-							if (id === 'cross' && this.cross !== null) {
+							if (id === 'unknown' && this.cross !== null) {
 								const rotationNotation = getRotationNotation({from: this.cross, to: 'D'});
 								if (rotationNotation !== '') {
 									sequenceText = `${rotationNotation} ${sequenceText}`;
@@ -339,7 +340,7 @@
 				return formatTime(this.time);
 			},
 			moveCount() {
-				return sumBy(config.stagesData, ({id}) => {
+				return sumBy(config.stagesData.cfop, ({id}) => {
 					const stage = this.stages[id] || {time: null};
 					return stage.time === null ? 0 : stage.sequence.length;
 				});
@@ -417,14 +418,21 @@
 					this.phase = 'solve';
 					this.description = null;
 					this.isDescriptionShown = false;
-					this.cubeStage = 'cross';
-					this.stages = Object.assign(...config.stagesData.map(({id}) => ({
-						[id]: {
-							sequence: new MoveSequence(),
-							firstMoveTime: null,
-							time: null,
-						},
-					})));
+					this.cubeStage = 'unknown';
+					this.stages = Object.assign(
+						...config.stagesData.cfop.map(({id}) => ({
+							[id]: {
+								sequence: new MoveSequence(),
+								time: null,
+							},
+						})),
+						...config.stagesData.roux.map(({id}) => ({
+							[id]: {
+								sequence: new MoveSequence(),
+								time: null,
+							},
+						})),
+					);
 					this.isOll2Look = false;
 					this.pllLooks = [];
 					this.interval = setInterval(this.onTick, 1000 / 30);
@@ -437,23 +445,20 @@
 					this.turns.push({time: this.time, ...move})
 
 					this.stages[this.cubeStage].sequence.push({time: this.time, ...move});
-					if (this.stages[this.cubeStage].firstMoveTime === null) {
-						this.stages[this.cubeStage].firstMoveTime = this.time;
-					}
 
-					if (this.cubeStage === 'cross') {
+					if (this.cubeStage === 'unknown') {
 						const cross = findCross(this.cube);
 						console.log(findRouxBlock(this.cube));
 						if (cross) {
 							this.cubeStage = 'f2l1';
 							this.scrollToStage();
-							this.stages.cross.time = this.time;
+							this.stages.unknown.time = this.time;
 							this.cross = cross;
 							// fall through
 						}
 					}
 
-					for (const stage of config.stagesData.slice(1)) {
+					for (const stage of config.stagesData.cfop.slice(1)) {
 						if (this.cubeStage === stage.id) {
 							const {result, oll, pll} = isStageSatisfied({mode: 'cfop', cube: this.cube, stage: stage.id, cross: this.cross});
 
@@ -532,14 +537,14 @@
 				document.getElementById('stages').scrollTop = 0;
 			},
 			getSerializedStages() {
-				return config.stagesData.map(({id}, index) => {
+				return config.stagesData.cfop.map(({id}, index) => {
 					const stage = this.stages[id];
 
 					if (!stage) {
 						return undefined;
 					}
 
-					const previousStage = index === 0 ? undefined : this.stages[config.stagesData[index - 1].id];
+					const previousStage = index === 0 ? undefined : this.stages[config.stagesData.cfop[index - 1].id];
 					const time = stage.time - (previousStage ? previousStage.time : 0);
 
 					if (!this.cross) {
@@ -552,7 +557,7 @@
 
 					const rotation = getRotation({from: this.cross, to: 'D'});
 					const turns = stage.sequence.toObject({cross: this.cross});
-					if (id === 'cross' && rotation.amount !== 0) {
+					if (id === 'unknown' && rotation.amount !== 0) {
 						turns.unshift(rotation)
 					}
 
