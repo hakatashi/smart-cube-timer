@@ -34,7 +34,7 @@
 		<v-content>
 			<nuxt/>
 		</v-content>
-		<v-footer app>
+		<v-footer app :height="40" :style="{lineHeight: '1.2em'}">
 			<v-flex
 				text-xs-center
 				xs12
@@ -44,6 +44,10 @@
 				</a> - <a href="https://twitter.com/hakatashi" target="_blank">
 					Twitter
 				</a>
+				<br>
+				<strong>
+					NEWS: Roux support is out!
+				</strong>
 			</v-flex>
 		</v-footer>
 		<v-bottom-nav

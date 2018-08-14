@@ -167,7 +167,7 @@
 	export default {
 		data() {
 			return {
-				mode: 'roux',
+				mode: 'cfop',
 				cross: null,
 				rouxBlock: null,
 				giiker: null,
