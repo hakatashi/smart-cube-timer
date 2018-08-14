@@ -1,13 +1,25 @@
 <template>
 	<v-container fluid grid-list-md text-xs-center>
-		<v-layout row wrap>
-			<v-flex v-for="solve in solvesInfo" :key="solve.id" xs12>
+		<v-progress-linear v-if="isLoading" :indeterminate="true"></v-progress-linear>
+		<v-data-iterator
+			:items="solvesInfo"
+			:rows-per-page-items="rowsPerPageItems"
+			:pagination.sync="pagination"
+			content-tag="v-layout"
+			row
+			wrap
+		>
+			<v-flex
+				slot="item"
+				slot-scope="props"
+				xs12
+			>
 				<v-card class="solve">
 					<v-card-text class="pa-0 subheading text-xs-left solve-headline">
-						<strong>{{solve.timeText}}</strong>
-						<small class="solve-times" :class="[`mode-${solve.mode}`]">
+						<strong>{{props.item.timeText}}</strong>
+						<small class="solve-times" :class="[`mode-${props.item.mode}`]">
 							<span
-								v-for="stage, index in solve.stages"
+								v-for="stage, index in props.item.stages"
 								:key="stage.id"
 							>
 								<span v-if="index !== 0"> / </span>
@@ -17,7 +29,7 @@
 					</v-card-text>
 					<v-layout class="solve-date pa-0">
 						<v-chip
-							v-for="info in solve.infos"
+							v-for="info in props.item.infos"
 							:key="info.id"
 							small
 							:color="info.color.startsWith('#') ? null : info.color"
@@ -31,11 +43,11 @@
 							{{info.text}}
 						</v-chip>
 						<v-spacer></v-spacer>
-						<div>{{solve.dateText}}</div>
+						<div>{{props.item.dateText}}</div>
 					</v-layout>
 				</v-card>
 			</v-flex>
-		</v-layout>
+		</v-data-iterator>
 	</v-container>
 </template>
 
@@ -48,11 +60,17 @@
 	export default {
 		data() {
 			return {
+				isLoading: true,
 				solves: [],
+				rowsPerPageItems: [50],
+				pagination: {
+					rowsPerPage: 50,
+				},
 			};
 		},
 		async mounted() {
 			this.solves = await getSolves();
+			this.isLoading = false;
 		},
 		computed: {
 			solvesInfo() {
