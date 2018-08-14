@@ -99,7 +99,7 @@
 						});
 					}
 
-					if (solve._cllCase !== null) {
+					if (typeof solve._cllCase === 'number') {
 						const [cllName] = clls[solve._cllCase];
 
 						infos.push({
