@@ -169,6 +169,7 @@
 			return {
 				mode: 'cfop',
 				cross: null,
+				rouxBlock: null,
 				giiker: null,
 				startTime: null,
 				time: 0,
@@ -340,9 +341,8 @@
 				return formatTime(this.time);
 			},
 			moveCount() {
-				return sumBy(config.stagesData.cfop, ({id}) => {
-					const stage = this.stages[id] || {time: null};
-					return stage.time === null ? 0 : stage.sequence.length;
+				return sumBy(Object.values(this.stages), ({time = null, sequence}) => {
+					return time === null ? 0 : sequence.length;
 				});
 			},
 			speed() {
@@ -415,6 +415,7 @@
 				if (this.phase === 'inspect') {
 					this.startTime = new Date();
 					this.cross = null;
+					this.rouxBlock = null;
 					this.phase = 'solve';
 					this.description = null;
 					this.isDescriptionShown = false;
@@ -448,12 +449,20 @@
 
 					if (this.cubeStage === 'unknown') {
 						const cross = findCross(this.cube);
-						console.log(findRouxBlock(this.cube));
+						const rouxBlock = findRouxBlock(this.cube);
 						if (cross) {
+							this.mode = 'cfop';
 							this.cubeStage = 'f2l1';
 							this.scrollToStage();
 							this.stages.unknown.time = this.time;
 							this.cross = cross;
+							// fall through
+						} else if (rouxBlock) {
+							this.mode = 'roux';
+							this.cubeStage = 'block2';
+							this.scrollToStage();
+							this.stages.unknown.time = this.time;
+							this.rouxBlock = rouxBlock;
 							// fall through
 						}
 					}
