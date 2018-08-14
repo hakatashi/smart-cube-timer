@@ -233,7 +233,7 @@
 				const stages = this.stages || {};
 				let previousTime = 0;
 
-				return config.stagesData.cfop.map(({id, name, color, dark}) => {
+				return config.stagesData[this.mode].map(({id, name, color, dark}) => {
 					const stage = this.stages[id] || {time: null};
 					const deltaTime = previousTime === null ? 0 : (stage.time || this.time) - previousTime;
 
@@ -467,9 +467,15 @@
 						}
 					}
 
-					for (const stage of config.stagesData.cfop.slice(1)) {
+					for (const stage of config.stagesData[this.mode].slice(1)) {
 						if (this.cubeStage === stage.id) {
-							const {result, oll, pll} = isStageSatisfied({mode: 'cfop', cube: this.cube, stage: stage.id, cross: this.cross});
+							const {result, oll, pll} = isStageSatisfied({
+								mode: this.mode,
+								cube: this.cube,
+								stage: stage.id,
+								cross: this.cross,
+								rouxBlock: this.rouxBlock,
+							});
 
 							if (result === true) {
 								this.cubeStage = getNextStage(stage.id);
@@ -546,14 +552,14 @@
 				document.getElementById('stages').scrollTop = 0;
 			},
 			getSerializedStages() {
-				return config.stagesData.cfop.map(({id}, index) => {
+				return config.stagesData[this.mode].map(({id}, index, stagesData) => {
 					const stage = this.stages[id];
 
 					if (!stage) {
 						return undefined;
 					}
 
-					const previousStage = index === 0 ? undefined : this.stages[config.stagesData.cfop[index - 1].id];
+					const previousStage = index === 0 ? undefined : this.stages[stagesData[index - 1].id];
 					const time = stage.time - (previousStage ? previousStage.time : 0);
 
 					if (!this.cross) {
