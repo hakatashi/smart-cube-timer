@@ -428,7 +428,7 @@
 			this.turns = new MoveSequence([], {mode: 'raw'});
 			this.placeholderMoves = this.scramble.moves.map((move) => ({...move}));
 
-			this.isDialogOpen = !navigator.bluetooth;
+			this.isDialogOpen = !navigator.bluetooth && typeof BluetoothDevice === 'undefined';
 			this.platform = navigator.platform;
 		},
 		methods: {
