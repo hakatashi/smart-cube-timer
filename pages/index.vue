@@ -154,7 +154,7 @@
 					I guess you are using <strong>Mac</strong>.
 					Download <a target="_blank" href="https://www.google.com/chrome/">latest Google Chrome</a> and it should help.
 				</v-card-text>
-				<v-card-text v-if="platform.startsWith('Android')">
+				<v-card-text v-if="platform.startsWith('Android') || platform.match(/linux/i)">
 					I guess you are using <strong>Android</strong>.
 					Download <a target="_blank" href="https://play.google.com/store/apps/details?id=com.android.chrome">latest Google Chrome</a> and it should help.
 				</v-card-text>
