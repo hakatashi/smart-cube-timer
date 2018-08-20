@@ -1,4 +1,5 @@
 const precss = require('precss');
+const importUrl = require('postcss-import-url');
 
 module.exports = {
 	router: {
@@ -40,6 +41,7 @@ module.exports = {
 	build: {
 		postcss: [
 			precss(),
+			importUrl(),
 		],
 		extend(config) {
 			// For sylvester
