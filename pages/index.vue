@@ -147,7 +147,7 @@
 				</v-card-text>
 				<v-card-text v-if="platform.startsWith('iP')">
 					I guess you are using <strong>{{platform}}</strong>.
-					Some people says that this timer works with <a target="_blank" href="https://itunes.apple.com/us/app/webble/id1193531073">WebBLE app</a> ($1.99) but I don't guarantee.
+					Some people says that this timer works with <a target="_blank" href="https://itunes.apple.com/us/app/webble/id1193531073">WebBLE browser</a> ($1.99) but I don't guarantee.
 					Try at your own risk.
 				</v-card-text>
 				<v-card-text v-if="platform.startsWith('Mac')">

@@ -15,6 +15,13 @@
 					</v-card-title>
 				</v-card>
 			</v-flex>
+			<v-flex xs12 sm6>
+				<v-card color="brown" class="white--text" to="/stats/cll" nuxt>
+					<v-card-title>
+						<div class="headline">CLL</div>
+					</v-card-title>
+				</v-card>
+			</v-flex>
 		</v-layout>
 	</v-container>
 </template>

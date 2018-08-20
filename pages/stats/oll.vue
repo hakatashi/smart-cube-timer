@@ -34,18 +34,22 @@
 					},
 					{
 						text: 'Count',
+						align: 'right',
 						value: 'count',
 					},
 					{
 						text: 'Time',
+						align: 'right',
 						value: 'averageTime',
 					},
 					{
 						text: 'Insp.',
+						align: 'right',
 						value: 'averageInspection',
 					},
 					{
 						text: 'Exec.',
+						align: 'right',
 						value: 'averageExecution',
 					},
 				],
