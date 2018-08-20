@@ -131,7 +131,7 @@ export default {
 </script>
 
 <style>
-@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+@import "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons";
 .v-chip.v-chip--small .v-avatar {
 	height: 24px !important;
 	margin-left: -13px;
