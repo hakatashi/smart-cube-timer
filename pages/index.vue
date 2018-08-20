@@ -285,7 +285,7 @@
 				const stages = this.stages || {};
 				let previousTime = 0;
 
-				return config.stagesData[this.mode].map(({id, name, color, dark}) => {
+				return config.stagesData[this.mode].map(({id, name, color, dark, showInspection}) => {
 					const stage = this.stages[id] || {time: null};
 					const deltaTime = previousTime === null ? 0 : (stage.time || this.time) - previousTime;
 
@@ -294,7 +294,7 @@
 					const moveCount = isStageFinished ? stage.sequence.length : null;
 					const speed = isStageFinished ? (moveCount / (deltaTime / 1000)).toFixed(2) : null;
 
-					const {inspection, execution} = (isStageFinished && id !== 'unknown') ?
+					const {inspection, execution} = (isStageFinished && showInspection) ?
 						getInspectionTime({stage, cross: this.cross, previousTime}) :
 						{inspection: null, execution: null};
 
@@ -394,8 +394,8 @@
 						time: formatTime(deltaTime),
 						moveCount,
 						speed,
-						inspectionTime: formatTime(inspection),
-						executionTime: formatTime(execution),
+						inspectionTime: inspection && formatTime(inspection),
+						executionTime: execution && formatTime(execution),
 					};
 				});
 			},
