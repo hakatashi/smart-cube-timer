@@ -130,6 +130,46 @@
 				</v-layout>
 			</v-flex>
 		</v-layout>
+		<v-dialog
+			v-model="isDialogOpen"
+			max-width="400"
+		>
+			<v-card>
+				<v-card-title class="headline">Your browser is not supported</v-card-title>
+				<v-card-text>
+					It seems your browser doesn't support Web Bluetooth API.
+					So this timer cannot communicate with GiiKER and totally not works.
+				</v-card-text>
+				<v-card-text v-if="platform.startsWith('Win')">
+					I guess you are using <strong>Windows</strong>.
+					You can try Chrome Dev with new Bluetooth implementation but it's very beta.
+					If you are so smart to try out beta, follow <a target="_blank" href="https://github.com/hakatashi/smart-cube-timer/wiki/Windows-Guide">this instruction</a> at your own risk.
+				</v-card-text>
+				<v-card-text v-if="platform.startsWith('iP')">
+					I guess you are using <strong>{{platform}}</strong>.
+					Some people says that this timer works with <a target="_blank" href="https://itunes.apple.com/us/app/webble/id1193531073">WebBLE app</a> ($1.99) but I don't guarantee.
+					Try at your own risk.
+				</v-card-text>
+				<v-card-text v-if="platform.startsWith('Mac')">
+					I guess you are using <strong>Mac</strong>.
+					Download <a target="_blank" href="https://www.google.com/chrome/">latest Google Chrome</a> and it should help.
+				</v-card-text>
+				<v-card-text v-if="platform.startsWith('Android')">
+					I guess you are using <strong>Android</strong>.
+					Download <a target="_blank" href="https://play.google.com/store/apps/details?id=com.android.chrome">latest Google Chrome</a> and it should help.
+				</v-card-text>
+				<v-card-actions>
+					<v-spacer></v-spacer>
+					<v-btn
+						color="green darken-1"
+						flat="flat"
+						@click="isDialogOpen = false"
+					>
+						Close
+					</v-btn>
+				</v-card-actions>
+			</v-card>
+		</v-dialog>
 		<v-snackbar
 			v-model="isSnackbarShown"
 			color="error"
@@ -176,6 +216,7 @@
 	export default {
 		data() {
 			return {
+				platform: '',
 				mode: 'cfop',
 				cross: null,
 				rouxBlock: null,
@@ -199,6 +240,7 @@
 				snackbar: '',
 				isSnackbarShown: false,
 				isFirstSolve: true,
+				isDialogOpen: false,
 			};
 		},
 		computed: {
@@ -385,6 +427,9 @@
 			this.initialScramble = MoveSequence.fromScramble(scramble, {mode: 'reduction'});
 			this.turns = new MoveSequence([], {mode: 'raw'});
 			this.placeholderMoves = this.scramble.moves.map((move) => ({...move}));
+
+			this.isDialogOpen = !navigator.bluetooth;
+			this.platform = navigator.platform;
 		},
 		methods: {
 			onClickConnect() {
