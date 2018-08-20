@@ -13,6 +13,8 @@
 				slot="item"
 				slot-scope="props"
 				xs12
+				md6
+				lg4
 			>
 				<v-card class="solve">
 					<v-card-text class="pa-0 subheading text-xs-left solve-headline">

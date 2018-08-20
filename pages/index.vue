@@ -58,13 +58,14 @@
 				<v-layout wrap>
 					<v-flex
 						v-for="stage in stagesInfo"
-						lg3
 						xs12
+						lg4
+						xl3
 						:key="stage.id"
 						:id="stage.id"
 					>
 						<v-card :dark="stage.dark" :color="stage.color" :class="stage.class">
-							<v-card-title class="stage-info">
+							<v-card-title>
 								<div :style="{width: '100%'}">
 									<h2 class="display-1 font-weight-bold">
 										{{stage.name}}
@@ -94,19 +95,17 @@
 										<strong :style="{color: 'inherit'}">
 											{{stage.time}}
 										</strong>
-											<small v-if="stage.inspectionTime !== null" class="inspection-time">
-												<span class="time-info">
-													{{stage.inspectionTime}}
-													<span class="label">Inspection</span>
-												</span>
-												<span class="time-spacer">
-													/
-												</span>
-												<span class="time-info">
-													{{stage.executionTime}}
-													<span class="label">Execution</span>
-												</span>
-											</small>
+										<small v-if="stage.inspectionTime !== null" class="inspection-time">
+											<span class="time-info">
+												{{stage.inspectionTime}}
+											</span>
+											<span class="time-spacer">
+												/
+											</span>
+											<span class="time-info">
+												{{stage.executionTime}}
+											</span>
+										</small>
 										<v-spacer></v-spacer>
 										<div
 											v-if="stage.moveCount !== null"
@@ -157,7 +156,17 @@
 	import NoSleep from 'nosleep.js';
 	import MoveSequence from '~/lib/MoveSequence.js';
 	import scrambles from '~/lib/scrambles.json';
-	import {findCross, findRouxBlock, formatTime, idealTextColor, isStageSatisfied, getNextStage, getRotation, getRotationNotation} from '~/lib/utils.js';
+	import {
+		findCross,
+		findRouxBlock,
+		formatTime,
+		idealTextColor,
+		isStageSatisfied,
+		getNextStage,
+		getRotation,
+		getRotationNotation,
+		getInspectionTime,
+	} from '~/lib/utils.js';
 	import config from '~/lib/config.js';
 	import db, {saveSolve} from '~/lib/db.js';
 	import sample from 'lodash/sample';
@@ -243,9 +252,9 @@
 					const moveCount = isStageFinished ? stage.sequence.length : null;
 					const speed = isStageFinished ? (moveCount / (deltaTime / 1000)).toFixed(2) : null;
 
-					const firstNonTrivialMove = stage.sequence && stage.sequence.getFirstNonTrivialMove({cross: this.cross});
-					const inspectionTime = (isStageFinished && id !== 'unknown' && firstNonTrivialMove !== null) ? formatTime(firstNonTrivialMove.time - previousTime) : null;
-					const executionTime = inspectionTime !== null ? formatTime(stage.time - firstNonTrivialMove.time) : null;
+					const {inspection, execution} = (isStageFinished && id !== 'unknown') ?
+						getInspectionTime({stage, cross: this.cross, previousTime}) :
+						{inspection: null, execution: null};
 
 					previousTime = stage.time;
 
@@ -343,8 +352,8 @@
 						time: formatTime(deltaTime),
 						moveCount,
 						speed,
-						inspectionTime,
-						executionTime,
+						inspectionTime: formatTime(inspection),
+						executionTime: formatTime(execution),
 					};
 				});
 			},
@@ -542,6 +551,14 @@
 				this.isDescriptionShown = true;
 			},
 			finishSolve({isError}) {
+				const {inspection: ollInspection} = (this.stages.oll.time !== null && this.stages.oll.sequence.length !== 0) ?
+					getInspectionTime({stage: this.stages.oll, cross: this.cross, previousTime: this.stages.f2l4.time}) :
+					{inspection: null};
+
+				const {inspection: pllInspection} = (this.stages.pll.time !== null && this.stages.pll.sequence.length !== 0) ?
+					getInspectionTime({stage: this.stages.pll, cross: this.cross, previousTime: this.stages.oll.time}) :
+					{inspection: null};
+
 				saveSolve({
 					mode: this.mode,
 					date: this.startTime.getTime(),
@@ -553,10 +570,12 @@
 					moveCount: this.moveCount,
 					crossFace: this.cross ? this.cross : null,
 					isXcross: this.isXcross,
-					pllCase: this.pll ? this.pll.index : null,
 					ollCase: this.oll ? this.oll.index : null,
-					pllLooks: this.pll ? this.pllLooks.length : null,
+					pllCase: this.pll ? this.pll.index : null,
 					ollLooks: this.oll ? (this.isOll2Look ? 2 : 1) : null,
+					pllLooks: this.pll ? this.pllLooks.length : null,
+					ollInspection,
+					pllInspection,
 					cllCase: this.cll ? this.cll.index : null,
 					rouxBlockSide: this.rouxBlock ? this.rouxBlock.side : null,
 					rouxBlockBottom: this.rouxBlock ? this.rouxBlock.bottom : null,
@@ -631,9 +650,11 @@
 	}
 
 	.scramble {
+		max-width: 110vmin;
 		font-size: 8vmin;
 		font-weight: bold;
 		line-height: 1.2em;
+		margin: 0 auto;
 	}
 
 	.timer {
@@ -646,6 +667,10 @@
 		flex: 1 1 0;
 		padding-top: 0 !important;
 		overflow-y: auto;
+	}
+
+	.stage-info {
+		line-height: 1 !important;
 	}
 
 	.stage-info-right {
@@ -667,15 +692,6 @@
 	.time-info {
 		position: relative;
 		align-self: flex-end;
-	}
-
-	.time-info .label {
-		position: absolute;
-		bottom: calc(100% - 0.5em);
-		left: 50%;
-		transform: translate(-50%);
-		font-size: 40%;
-		line-height: 1em;
 	}
 
 	.time-spacer {
