@@ -49,4 +49,13 @@ module.exports = {
 			config.externals = (config.externals || []).concat(['lapack']);
 		},
 	},
+
+	modules: [
+		['@nuxtjs/google-analytics', {
+			id: 'UA-43802516-6',
+			debug: {
+				sendHitTask: process.env.NODE_ENV === 'production',
+			},
+		}],
+	],
 };

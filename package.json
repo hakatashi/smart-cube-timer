@@ -5,6 +5,7 @@
   "author": "Koki Takahashi <hakatasiloving@gmail.com>",
   "private": true,
   "dependencies": {
+    "@nuxtjs/google-analytics": "^2.0.2",
     "@nuxtjs/pwa": "latest",
     "cubejs": "^1.1.0",
     "dexie": "^2.0.4",
@@ -21,7 +22,7 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "cross-env DEPLOY_ENV=GH_PAGES nuxt generate",
+    "generate": "cross-env NODE_ENV=production DEPLOY_ENV=GH_PAGES nuxt generate",
     "deploy": "npm run generate && cd dist && git init && git remote add origin https://github.com/hakatashi/smart-cube-timer.git && git fetch && git symbolic-ref HEAD refs/remotes/origin/gh-pages && git add . && git commit -m \"Update build\" && git push -u origin HEAD:gh-pages && cd ..",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint"
