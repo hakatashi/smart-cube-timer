@@ -537,10 +537,10 @@
 			padding-top: 0 !important;
 			overflow-y: auto;
 		}
-	}
 
-	.solve-info {
-		margin: 0 0.2rem;
+		.solve-info {
+			margin: 0 0.2rem;
+		}
 	}
 
 	.inspection-time {

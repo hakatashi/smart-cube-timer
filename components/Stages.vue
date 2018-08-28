@@ -11,7 +11,7 @@
 			<v-card :dark="stage.dark" :color="stage.color" :class="stage.class">
 				<v-card-title>
 					<div :style="{width: '100%'}">
-						<h2 class="display-1 font-weight-bold">
+						<h2 class="display-1 font-weight-bold text-xs-left">
 							{{stage.name}}
 							<v-chip
 								v-for="info in stage.infos"
@@ -64,7 +64,7 @@
 								{{stage.speed}} tps
 							</div>
 						</v-layout>
-						<div class="content">
+						<div class="content text-xs-left">
 							{{stage.sequenceText}}
 						</div>
 					</div>
@@ -78,6 +78,7 @@
 	import config from '~/lib/config.js';
 	import {
 		formatTime,
+		idealTextColor,
 	} from '~/lib/utils.js';
 
 	export default {

@@ -46,7 +46,7 @@
 				</a>
 				<br>
 				<strong>
-					NEWS: Roux support is out!
+					NEWS: Details of solve history are available!
 				</strong>
 			</v-flex>
 		</v-footer>
