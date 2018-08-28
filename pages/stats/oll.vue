@@ -18,7 +18,7 @@
 </template>
 
 <script>
-	import {getSolves} from '~/lib/db.js';
+	import {getOllStats} from '~/lib/db.js';
 	import {formatTime, formatDate, idealTextColor} from '~/lib/utils.js';
 	import {olls} from '~/lib/data.js';
 	import meanBy from 'lodash/meanBy';
@@ -53,7 +53,7 @@
 						value: 'averageExecution',
 					},
 				],
-				solves: [],
+				stats: [],
 				cases: olls.map(([name]) => ({
 					name,
 					count: 0,
@@ -64,21 +64,23 @@
 			};
 		},
 		async mounted() {
-			this.solves = await getSolves();
+			this.stats = await getOllStats();
 			this.cases = this.cases.map(({name}, index) => {
-				const solves = this.solves.filter(({_ollCase, isError}) => _ollCase === index && !isError);
-				const averageTime = meanBy(solves, (solve) => solve._ollTime) || Infinity;
+				const stat = this.stats.find(({id}) => id === index);
+				const averageTime = stat ? stat.times / stat.count : Infinity;
+				const averageInspection = stat ? stat.inspectionTimes / stat.count : Infinity;
+				const averageExecution = stat ? stat.executionTimes / stat.count : Infinity;
 
 				return {
 					index,
 					name,
-					count: solves.length,
+					count: stat ? stat.count: 0,
 					averageTime,
 					averageTimeText: formatTime(averageTime),
-					averageInspection: 0,
-					averageInspectionText: '-',
-					averageExecution: 0,
-					averageExecutionText: '-',
+					averageInspection,
+					averageInspectionText: formatTime(averageInspection),
+					averageExecution,
+					averageExecutionText: formatTime(averageExecution),
 				};
 			});
 		},

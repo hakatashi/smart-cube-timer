@@ -143,13 +143,13 @@
 			max-width: 110vmin;
 			font-size: 4vmin;
 			line-height: 1.2em;
-			margin: 0.5em auto 0;
+			margin: 0.3em auto 0;
 		}
 
 		.timer {
 			font-size: 20vmin;
 			font-weight: bold;
-			line-height: 1em;
+			line-height: 0.9em;
 		}
 
 		.solve-info {
