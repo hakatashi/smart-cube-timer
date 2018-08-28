@@ -59,15 +59,15 @@
 </template>
 
 <script>
-import sumBy from 'lodash/sumBy';
-import get from 'lodash/get';
-import qs from 'querystring';
-import Stages from '~/components/Stages.vue';
-import MoveSequence from '~/lib/MoveSequence.js';
-import {getSolve} from '~/lib/db.js';
-import {faces, formatTime, getRotationNotation} from '~/lib/utils.js';
 import {clls, olls, plls} from '~/lib/data.js';
+import {faces, formatTime, getRotationNotation} from '~/lib/utils.js';
+import MoveSequence from '~/lib/MoveSequence.js';
+import Stages from '~/components/Stages.vue';
 import config from '~/lib/config.js';
+import get from 'lodash/get';
+import {getSolve} from '~/lib/db.js';
+import qs from 'querystring';
+import sumBy from 'lodash/sumBy';
 
 export default {
 	components: {

@@ -43,7 +43,7 @@
 							:class="[`mode-${props.item.mode}`]"
 							class="solve-times">
 							<span
-								v-for="stage, index in props.item.stages"
+								v-for="(stage, index) in props.item.stages"
 								:key="stage.id"
 							>
 								<span v-if="index !== 0"> / </span>
@@ -78,9 +78,9 @@
 </template>
 
 <script>
+import {clls, olls, plls} from '~/lib/data.js';
 import {exportTimes, getSolves} from '~/lib/db.js';
 import {formatDate, formatTime, idealTextColor} from '~/lib/utils.js';
-import {clls, olls, plls} from '~/lib/data.js';
 import config from '~/lib/config.js';
 
 export default {

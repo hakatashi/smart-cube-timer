@@ -20,7 +20,9 @@ module.exports = {
 		'vue/html-indent': ['error', 'tab'],
 		'vue/mustache-interpolation-spacing': ['error', 'never'],
 		'node/no-unsupported-features': 'off',
+		'private-props/no-use-outside': 'off',
 		'max-params': 'off',
+		'no-underscore-dangle': 'off',
 	},
 	globals: {},
 };

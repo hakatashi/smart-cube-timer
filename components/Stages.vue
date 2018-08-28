@@ -81,13 +81,13 @@
 </template>
 
 <script>
-import config from '~/lib/config.js';
 import {
 	formatTime,
 	getInspectionTime,
 	getRotationNotation,
 	idealTextColor,
 } from '~/lib/utils.js';
+import config from '~/lib/config.js';
 
 export default {
 	props: [

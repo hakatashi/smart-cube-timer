@@ -16,8 +16,8 @@
 				</v-alert>
 				<v-btn
 					v-if="giiker === null"
-					:disabled="this.isConnecting"
-					:loading="this.isConnecting"
+					:disabled="isConnecting"
+					:loading="isConnecting"
 					color="info"
 					large
 					@click="onClickConnect"
@@ -29,7 +29,7 @@
 					class="scramble"
 				>
 					<span
-						v-for="move, index in scrambleMoves"
+						v-for="(move, index) in scrambleMoves"
 						:key="index"
 						:style="{color: move.grey ? '#CCC' : ''}">
 						{{move.text}}
@@ -150,16 +150,7 @@
 </template>
 
 <script>
-import assert from 'assert';
-import GiiKER from 'giiker';
-import Cube from 'cubejs';
 import 'cubejs/lib/solve';
-import NoSleep from 'nosleep.js';
-import sample from 'lodash/sample';
-import uniq from 'lodash/uniq';
-import sumBy from 'lodash/sumBy';
-import MoveSequence from '~/lib/MoveSequence.js';
-import scrambles from '~/lib/scrambles.json';
 import {
 	findCross,
 	findRouxBlock,
@@ -167,13 +158,20 @@ import {
 	getInspectionTime,
 	getNextStage,
 	getRotation,
-	getRotationNotation,
-	idealTextColor,
 	isStageSatisfied,
 } from '~/lib/utils.js';
-import config from '~/lib/config.js';
-import db, {saveSolve} from '~/lib/db.js';
+import Cube from 'cubejs';
+import GiiKER from 'giiker';
+import MoveSequence from '~/lib/MoveSequence.js';
+import NoSleep from 'nosleep.js';
 import Stages from '~/components/Stages.vue';
+import assert from 'assert';
+import config from '~/lib/config.js';
+import sample from 'lodash/sample';
+import {saveSolve} from '~/lib/db.js';
+import scrambles from '~/lib/scrambles.json';
+import sumBy from 'lodash/sumBy';
+import uniq from 'lodash/uniq';
 
 export default {
 	components: {
@@ -266,7 +264,7 @@ export default {
 			this.noSleep = new NoSleep();
 		}
 	},
-	async mounted() {
+	mounted() {
 		const scramble = sample(scrambles.sheets[0].scrambles);
 		this.scramble = MoveSequence.fromScramble(scramble, {mode: 'reduction'});
 		this.initialScramble = MoveSequence.fromScramble(scramble, {mode: 'reduction'});
@@ -320,7 +318,7 @@ export default {
 					amount: -move.amount,
 				});
 				if (this.scramble.length > this.placeholderMoves.length) {
-					this.placeholderMoves = this.scramble.moves.map((move) => ({...move}));
+					this.placeholderMoves = this.scramble.moves.map((m) => ({...m}));
 				}
 				if (this.scramble.length === 0) {
 					this.phase = 'inspect';
