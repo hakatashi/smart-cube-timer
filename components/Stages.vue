@@ -15,6 +15,7 @@
 							{{stage.name}}
 							<v-chip
 								v-for="info in stage.infos"
+								class="stage-info-chip"
 								:key="info.id"
 								small
 								:color="info.color.startsWith('#') ? null : info.color"
@@ -79,6 +80,8 @@
 	import {
 		formatTime,
 		idealTextColor,
+		getRotationNotation,
+		getInspectionTime,
 	} from '~/lib/utils.js';
 
 	export default {
@@ -226,7 +229,30 @@
 		line-height: 1 !important;
 	}
 
+	.stage-info-chip {
+		z-index: 0;
+	}
+
+	.inspection-time {
+		font-size: 70%;
+		opacity: 0.7;
+		display: flex;
+		line-height: 1.5em;
+		margin-left: 0.5em;
+	}
+
 	.stage-info-right {
 		margin-left: 0.6rem;
+	}
+
+	.time-info {
+		position: relative;
+		align-self: flex-end;
+	}
+
+	.time-spacer {
+		width: 0.8em;
+		text-align: center;
+		align-self: flex-end;
 	}
 </style>

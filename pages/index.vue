@@ -550,15 +550,4 @@
 		line-height: 1.5em;
 		margin-left: 0.5em;
 	}
-
-	.time-info {
-		position: relative;
-		align-self: flex-end;
-	}
-
-	.time-spacer {
-		width: 0.8em;
-		text-align: center;
-		align-self: flex-end;
-	}
 </style>

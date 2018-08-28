@@ -32,16 +32,16 @@
 					{{scrambleText}}
 				</div>
 				<stages
-					:stages="solve.stages"
+					:stages="stages"
 					:mode="solve.mode"
 					:time="solve.time"
 					:cross="solve._crossFace"
 					:isXcross="solve._isXcross"
-					:oll="solve._oll"
+					:oll="oll"
 					:isOll2Look="solve._ollLooks === 2"
-					:pll="solve._pll"
+					:pll="pll"
 					:pllLooks="solve._pllLooks"
-					:cll="solve._cll"
+					:cll="cll"
 				></stages>
 			</v-flex>
 		</v-layout>
@@ -53,7 +53,8 @@
 	import Stages from '~/components/Stages.vue';
 	import MoveSequence from '~/lib/MoveSequence.js';
 	import {getSolve} from '~/lib/db.js';
-	import {formatTime} from '~/lib/utils.js';
+	import {faces, formatTime} from '~/lib/utils.js';
+	import {clls, olls, plls} from '~/lib/data.js';
 
 	export default {
 		components: {
@@ -84,6 +85,53 @@
 				}
 
 				return (this.moveCount / (this.solve.time / 1000)).toFixed(2);
+			},
+			stages() {
+				let timeSum = 0;
+				return Object.assign(...this.solve.stages.map((stage) => {
+					timeSum += stage.time;
+					return {
+						[stage.id]: {
+							...stage,
+							// Why abnormal faces are recorded in db?
+							sequence: new MoveSequence(stage.turns.filter(({face}) => faces.includes(face))),
+							time: timeSum,
+						},
+					};
+				}));
+			},
+			oll() {
+				if (this.solve._ollCase === null){
+					return null;
+				}
+
+				const [name] = olls[this.solve._ollCase];
+				return {
+					index: this.solve._ollCase,
+					name,
+				};
+			},
+			pll() {
+				if (this.solve._pllCase === null){
+					return null;
+				}
+
+				const [name] = plls[this.solve._pllCase];
+				return {
+					index: this.solve._pllCase,
+					name,
+				};
+			},
+			cll() {
+				if (this.solve._cllCase === null){
+					return null;
+				}
+
+				const [name] = clls[this.solve._cllCase];
+				return {
+					index: this.solve._cllCase,
+					name,
+				};
 			},
 		}
 	}
