@@ -1,6 +1,9 @@
 <template>
 	<v-container fluid grid-list-md text-xs-center>
 		<v-progress-linear v-if="isLoading" :indeterminate="true"></v-progress-linear>
+		<v-btn fab dark fixed bottom left small color="purple" @click="onExport" :style="{bottom: '100px'}">
+			<v-icon>get_app</v-icon>
+		</v-btn>
 		<v-data-iterator
 			:items="solvesInfo"
 			:rows-per-page-items="rowsPerPageItems"
@@ -54,7 +57,7 @@
 </template>
 
 <script>
-	import {getSolves} from '~/lib/db.js';
+	import {getSolves, exportTimes} from '~/lib/db.js';
 	import {formatTime, formatDate, idealTextColor} from '~/lib/utils.js';
 	import {clls, olls, plls} from '~/lib/data.js';
 	import config from '~/lib/config.js';
@@ -143,6 +146,11 @@
 						stages,
 					};
 				})
+			},
+		},
+		methods: {
+			onExport() {
+				exportTimes();
 			},
 		},
 		head() {
