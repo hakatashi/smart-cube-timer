@@ -37,9 +37,9 @@
 						small
 						color="error"
 						class="ma-0"
-						@click="onClickSolved"
+						@click="onClickReset"
 					>
-						It's solved!
+						Reset
 					</v-btn>
 				</div>
 				<div
@@ -410,7 +410,7 @@
 					element.scrollIntoView({block: 'end', inline: 'nearest', behavior: 'smooth'});
 				}
 			},
-			onClickSolved() {
+			onClickReset() {
 				if (this.phase !== 'solve') {
 					return;
 				}
