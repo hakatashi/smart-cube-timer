@@ -499,7 +499,7 @@
 				clearInterval(this.interval);
 			}
 			if (this.giiker) {
-				this.giiker.removeListener('move', this.onGiikerMove);
+				this.giiker.off('move', this.onGiikerMove);
 			}
 			if (this.noSleep) {
 				this.noSleep.disable();
@@ -532,22 +532,14 @@
 			line-height: 1em;
 		}
 
-		.times {
-			flex: 1 1 0;
-			padding-top: 0 !important;
-			overflow-y: auto;
-		}
-
 		.solve-info {
 			margin: 0 0.2rem;
 		}
 	}
 
-	.inspection-time {
-		font-size: 70%;
-		opacity: 0.7;
-		display: flex;
-		line-height: 1.5em;
-		margin-left: 0.5em;
+	.times {
+		flex: 1 1 0;
+		padding-top: 0 !important;
+		overflow-y: auto;
 	}
 </style>
