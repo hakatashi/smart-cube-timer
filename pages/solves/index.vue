@@ -19,7 +19,7 @@
 				md6
 				lg4
 			>
-				<v-card class="solve">
+				<v-card class="solve" :to="`/solves/${props.item.id}`" nuxt>
 					<v-card-text class="pa-0 subheading text-xs-left solve-headline">
 						<strong>{{props.item.timeText}}</strong>
 						<small class="solve-times" :class="[`mode-${props.item.mode}`]">

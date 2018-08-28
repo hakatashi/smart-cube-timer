@@ -517,26 +517,26 @@
 	.controls {
 		text-align: center;
 		flex: 0 0 auto;
-	}
 
-	.scramble {
-		max-width: 110vmin;
-		font-size: 8vmin;
-		font-weight: bold;
-		line-height: 1.2em;
-		margin: 0 auto;
-	}
+		.scramble {
+			max-width: 110vmin;
+			font-size: 8vmin;
+			font-weight: bold;
+			line-height: 1.2em;
+			margin: 0 auto;
+		}
 
-	.timer {
-		font-size: 20vmin;
-		font-weight: bold;
-		line-height: 1em;
-	}
+		.timer {
+			font-size: 20vmin;
+			font-weight: bold;
+			line-height: 1em;
+		}
 
-	.times {
-		flex: 1 1 0;
-		padding-top: 0 !important;
-		overflow-y: auto;
+		.times {
+			flex: 1 1 0;
+			padding-top: 0 !important;
+			overflow-y: auto;
+		}
 	}
 
 	.solve-info {
