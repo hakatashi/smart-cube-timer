@@ -1,5 +1,7 @@
 <template>
-	<v-container grid-list-lg reverse>
+	<v-container
+		grid-list-lg
+		reverse>
 		<div>
 			<h3>What can I do with this?</h3>
 			<p><a href="https://youtu.be/10ONTpO0mBM">https://youtu.be/10ONTpO0mBM</a></p>
@@ -11,13 +13,13 @@
 </template>
 
 <script>
-	export default {
-		head() {
-			return {
-				title: 'FAQ',
-			};
-		},
-	}
+export default {
+	head() {
+		return {
+			title: 'FAQ',
+		};
+	},
+};
 </script>
 
 <style>

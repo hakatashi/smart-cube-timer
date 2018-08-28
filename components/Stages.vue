@@ -2,28 +2,31 @@
 	<v-layout wrap>
 		<v-flex
 			v-for="stage in stagesInfo"
+			:key="stage.id"
+			:id="stage.id"
 			xs12
 			lg4
 			xl3
-			:key="stage.id"
-			:id="stage.id"
 		>
-			<v-card :dark="stage.dark" :color="stage.color" :class="stage.class">
+			<v-card
+				:dark="stage.dark"
+				:color="stage.color"
+				:class="stage.class">
 				<v-card-title>
 					<div :style="{width: '100%'}">
 						<h2 class="display-1 font-weight-bold text-xs-left">
 							{{stage.name}}
 							<v-chip
 								v-for="info in stage.infos"
-								class="stage-info-chip"
 								:key="info.id"
-								small
 								:color="info.color.startsWith('#') ? null : info.color"
 								:text-color="info.textColor.startsWith('#') ? null : info.textColor"
 								:style="{
 									backgroundColor: info.color.startsWith('#') ? info.color : '',
 									color: info.textColor.startsWith('#') ? info.textColor : '',
 								}"
+								class="stage-info-chip"
+								small
 							>
 								<v-avatar
 									v-if="info.avatar"
@@ -40,7 +43,9 @@
 							<strong :style="{color: 'inherit'}">
 								{{stage.time}}
 							</strong>
-							<small v-if="stage.inspectionTime !== null" class="inspection-time">
+							<small
+								v-if="stage.inspectionTime !== null"
+								class="inspection-time">
 								<span class="time-info">
 									{{stage.inspectionTime}}
 								</span>
@@ -51,7 +56,7 @@
 									{{stage.executionTime}}
 								</span>
 							</small>
-							<v-spacer></v-spacer>
+							<v-spacer/>
 							<div
 								v-if="stage.moveCount !== null"
 								class="subheading stage-info-right"
@@ -76,152 +81,152 @@
 </template>
 
 <script>
-	import config from '~/lib/config.js';
-	import {
-		formatTime,
-		idealTextColor,
-		getRotationNotation,
-		getInspectionTime,
-	} from '~/lib/utils.js';
+import config from '~/lib/config.js';
+import {
+	formatTime,
+	getInspectionTime,
+	getRotationNotation,
+	idealTextColor,
+} from '~/lib/utils.js';
 
-	export default {
-		props: [
-			'stages',
-			'mode',
-			'time',
-			'cross',
-			'isXcross',
-			'oll',
-			'isOll2Look',
-			'pll',
-			'pllLooks',
-			'cll',
-		],
-		data() {
-			return {
-			};
-		},
-		computed: {
-			stagesInfo() {
-				const stages = this.stages || {};
-				let previousTime = 0;
+export default {
+	props: [
+		'stages',
+		'mode',
+		'time',
+		'cross',
+		'isXcross',
+		'oll',
+		'isOll2Look',
+		'pll',
+		'pllLooks',
+		'cll',
+	],
+	data() {
+		return {
+		};
+	},
+	computed: {
+		stagesInfo() {
+			const stages = this.stages || {};
+			let previousTime = 0;
 
-				return config.stagesData[this.mode].map(({id, name, color, dark, showInspection}) => {
-					const stage = this.stages[id] || {time: null};
-					const deltaTime = previousTime === null ? 0 : (stage.time || this.time) - previousTime;
+			return config.stagesData[this.mode].map(({id, name, color, dark, showInspection}) => {
+				const stage = this.stages[id] || {time: null};
+				const deltaTime = previousTime === null ? 0 : (stage.time || this.time) - previousTime;
 
-					const isStageFinished = stage.time !== null && stage.sequence.length !== 0;
+				const isStageFinished = stage.time !== null && stage.sequence.length !== 0;
 
-					const moveCount = isStageFinished ? stage.sequence.length : null;
-					const speed = isStageFinished ? (moveCount / (deltaTime / 1000)).toFixed(2) : null;
+				const moveCount = isStageFinished ? stage.sequence.length : null;
+				const speed = isStageFinished ? (moveCount / (deltaTime / 1000)).toFixed(2) : null;
 
-					const {inspection, execution} = (isStageFinished && showInspection) ?
-						getInspectionTime({stage, cross: this.cross, previousTime}) :
-						{inspection: null, execution: null};
+				const {inspection, execution} = (isStageFinished && showInspection)
+					? getInspectionTime({stage, cross: this.cross, previousTime})
+					: {inspection: null, execution: null};
 
-					previousTime = stage.time;
+				previousTime = stage.time;
 
-					const infos = [];
-					if (id === 'unknown') {
-						if (this.cross) {
-							infos.push({
-								text: `${config.faceColors[this.cross].name} Cross`,
-								color: config.faceColors[this.cross].color,
-								textColor: idealTextColor(config.faceColors[this.cross].color),
-							});
-						}
-
-						if (this.isXcross) {
-							infos.push({
-								text: 'XCross',
-								color: '#4A148C',
-								textColor: idealTextColor('#4A148C'),
-							});
-						}
+				const infos = [];
+				if (id === 'unknown') {
+					if (this.cross) {
+						infos.push({
+							text: `${config.faceColors[this.cross].name} Cross`,
+							color: config.faceColors[this.cross].color,
+							textColor: idealTextColor(config.faceColors[this.cross].color),
+						});
 					}
 
-					if (id === 'oll') {
-						if (this.oll) {
-							infos.push({
-								text: this.oll.name,
-								color: '#f5f5f5',
-								textColor: idealTextColor('#f5f5f5'),
-							});
-						}
-						if (this.isOll2Look) {
-							infos.push({
-								avatar: '2',
-								text: 'Look',
-								color: 'green',
-								textColor: 'white',
-							});
-						}
+					if (this.isXcross) {
+						infos.push({
+							text: 'XCross',
+							color: '#4A148C',
+							textColor: idealTextColor('#4A148C'),
+						});
 					}
+				}
 
-					if (id === 'pll') {
-						if (this.pll) {
-							infos.push({
-								text: this.pll.name,
-								color: '#FFEE58',
-								textColor: idealTextColor('#FFEE58'),
-							});
-						}
-						if (this.pllLooks.length > 1) {
-							infos.push({
-								avatar: this.pllLooks.length.toString(),
-								text: 'Look',
-								color: 'green',
-								textColor: 'white',
-							});
-						}
+				if (id === 'oll') {
+					if (this.oll) {
+						infos.push({
+							text: this.oll.name,
+							color: '#f5f5f5',
+							textColor: idealTextColor('#f5f5f5'),
+						});
 					}
-
-					if (id === 'cll') {
-						if (this.cll) {
-							infos.push({
-								text: this.cll.name,
-								color: '#FFEE58',
-								textColor: idealTextColor('#FFEE58'),
-							});
-						}
+					if (this.isOll2Look) {
+						infos.push({
+							avatar: '2',
+							text: 'Look',
+							color: 'green',
+							textColor: 'white',
+						});
 					}
+				}
 
-					let sequenceText = '--';
+				if (id === 'pll') {
+					if (this.pll) {
+						infos.push({
+							text: this.pll.name,
+							color: '#FFEE58',
+							textColor: idealTextColor('#FFEE58'),
+						});
+					}
+					if (this.pllLooks.length > 1) {
+						infos.push({
+							avatar: this.pllLooks.length.toString(),
+							text: 'Look',
+							color: 'green',
+							textColor: 'white',
+						});
+					}
+				}
 
-					if (stage.sequence) {
-						if (stage.sequence.length === 0) {
-							if (stage.time !== null && stage.sequence.length === 0) {
-								sequenceText = '(Skipped)';
+				if (id === 'cll') {
+					if (this.cll) {
+						infos.push({
+							text: this.cll.name,
+							color: '#FFEE58',
+							textColor: idealTextColor('#FFEE58'),
+						});
+					}
+				}
+
+				let sequenceText = '--';
+
+				if (stage.sequence) {
+					if (stage.sequence.length === 0) {
+						if (stage.time !== null && stage.sequence.length === 0) {
+							sequenceText = '(Skipped)';
+						}
+					} else {
+						sequenceText = stage.sequence.toString({cross: this.cross});
+
+						if (id === 'unknown' && this.cross !== null) {
+							const rotationNotation = getRotationNotation({from: this.cross, to: 'D'});
+							if (rotationNotation !== '') {
+								sequenceText = `${rotationNotation} ${sequenceText}`;
 							}
-						} else {
-							sequenceText = stage.sequence.toString({cross: this.cross});
-
-							if (id === 'unknown' && this.cross !== null) {
-								const rotationNotation = getRotationNotation({from: this.cross, to: 'D'});
-								if (rotationNotation !== '') {
-									sequenceText = `${rotationNotation} ${sequenceText}`;
-								}
-							}
 						}
 					}
+				}
 
-					return {
-						id,
-						name,
-						infos,
-						color,
-						dark,
-						sequenceText,
-						time: formatTime(deltaTime),
-						moveCount,
-						speed,
-						inspectionTime: inspection && formatTime(inspection),
-						executionTime: execution && formatTime(execution),
-					};
-				});
-			},
+				return {
+					id,
+					name,
+					infos,
+					color,
+					dark,
+					sequenceText,
+					time: formatTime(deltaTime),
+					moveCount,
+					speed,
+					inspectionTime: inspection && formatTime(inspection),
+					executionTime: execution && formatTime(execution),
+				};
+			});
 		},
-	}
+	},
+};
 </script>
 
 <style>

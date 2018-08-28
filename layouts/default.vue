@@ -1,8 +1,12 @@
 <template>
 	<v-app>
-		<v-navigation-drawer v-model="drawer" app>
+		<v-navigation-drawer
+			v-model="drawer"
+			app>
 			<v-list class="pt-0">
-				<v-list-tile to="/" nuxt>
+				<v-list-tile
+					to="/"
+					nuxt>
 					<v-list-tile-content>
 						<v-list-tile-title>
 							Home
@@ -18,15 +22,23 @@
 				</v-list-tile>
 			</v-list>
 		</v-navigation-drawer>
-		<v-toolbar dense app dark color="purple">
-			<v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+		<v-toolbar
+			dense
+			app
+			dark
+			color="purple">
+			<v-toolbar-side-icon @click.stop="drawer = !drawer"/>
 			<v-toolbar-title>
-				<nuxt-link to="/" class="white--text">
+				<nuxt-link
+					to="/"
+					class="white--text">
 					Smart Cube Timer
 				</nuxt-link>
 			</v-toolbar-title>
-			<v-spacer></v-spacer>
-			<v-btn icon @click="onClickFullscreen">
+			<v-spacer/>
+			<v-btn
+				icon
+				@click="onClickFullscreen">
 				<v-icon v-if="isFullscreen">fullscreen_exit</v-icon>
 				<v-icon v-else>fullscreen</v-icon>
 			</v-btn>
@@ -34,14 +46,21 @@
 		<v-content>
 			<nuxt/>
 		</v-content>
-		<v-footer app :height="40" :style="{lineHeight: '1.2em'}">
+		<v-footer
+			:height="40"
+			:style="{lineHeight: '1.2em'}"
+			app>
 			<v-flex
 				text-xs-center
 				xs12
 			>
-				This timer is under development - <a href="https://github.com/hakatashi/smart-cube-timer" target="_blank">
+				This timer is under development - <a
+					href="https://github.com/hakatashi/smart-cube-timer"
+					target="_blank">
 					GitHub
-				</a> - <a href="https://twitter.com/hakatashi" target="_blank">
+				</a> - <a
+					href="https://twitter.com/hakatashi"
+					target="_blank">
 					Twitter
 				</a>
 				<br>
@@ -51,10 +70,10 @@
 			</v-flex>
 		</v-footer>
 		<v-bottom-nav
-			app
-			active="recent"
 			:height="50"
 			:value="'solves'"
+			app
+			active="recent"
 			absolute
 			color="purple darken-2"
 		>
@@ -127,7 +146,7 @@ export default {
 			}
 		},
 	},
-}
+};
 </script>
 
 <style>

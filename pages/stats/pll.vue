@@ -1,12 +1,17 @@
 <template>
-	<v-container fluid grid-list-md text-xs-center>
+	<v-container
+		fluid
+		grid-list-md
+		text-xs-center>
 		<v-data-table
 			:headers="headers"
 			:items="cases"
 			hide-actions
 			class="elevation-1"
 		>
-			<template slot="items" slot-scope="props">
+			<template
+				slot="items"
+				slot-scope="props">
 				<th class="row-header text-xs-left">{{props.item.name}}</th>
 				<td class="text-xs-right">{{props.item.count}}</td>
 				<td class="text-xs-right">{{props.item.averageTimeText}}</td>
@@ -18,83 +23,83 @@
 </template>
 
 <script>
-	import {getPllStats} from '~/lib/db.js';
-	import {formatTime, formatDate, idealTextColor} from '~/lib/utils.js';
-	import {plls} from '~/lib/data.js';
-	import meanBy from 'lodash/meanBy';
+import {getPllStats} from '~/lib/db.js';
+import {formatDate, formatTime, idealTextColor} from '~/lib/utils.js';
+import {plls} from '~/lib/data.js';
+import meanBy from 'lodash/meanBy';
 
-	export default {
-		data() {
-			return {
-				headers: [
-					{
-						text: 'Case',
-						align: 'left',
-						value: 'index',
-					},
-					{
-						text: 'Count',
-						align: 'right',
-						value: 'count',
-					},
-					{
-						text: 'Time',
-						align: 'right',
-						value: 'averageTime',
-					},
-					{
-						text: 'Insp.',
-						align: 'right',
-						value: 'averageInspection',
-					},
-					{
-						text: 'Exec.',
-						align: 'right',
-						value: 'averageExecution',
-					},
-				],
-				stats: [],
-				cases: plls.map(([name]) => ({
-					name,
-					count: null,
-					averageTime: 0,
-					averageTimeText: '',
-					averageInspection: 0,
-					averageInspectionText: '',
-					averageExecution: 0,
-					averageExecutionText: '',
-				})),
-			};
-		},
-		async mounted() {
-			this.stats = await getPllStats();
-			this.cases = this.cases.map(({name}, index) => {
-				const stat = this.stats.find(({id}) => id === index);
-				const averageTime = stat ? stat.times / stat.count : Infinity;
-				const averageInspection = stat ? stat.inspectionTimes / stat.count : Infinity;
-				const averageExecution = stat ? stat.executionTimes / stat.count : Infinity;
+export default {
+	data() {
+		return {
+			headers: [
+				{
+					text: 'Case',
+					align: 'left',
+					value: 'index',
+				},
+				{
+					text: 'Count',
+					align: 'right',
+					value: 'count',
+				},
+				{
+					text: 'Time',
+					align: 'right',
+					value: 'averageTime',
+				},
+				{
+					text: 'Insp.',
+					align: 'right',
+					value: 'averageInspection',
+				},
+				{
+					text: 'Exec.',
+					align: 'right',
+					value: 'averageExecution',
+				},
+			],
+			stats: [],
+			cases: plls.map(([name]) => ({
+				name,
+				count: null,
+				averageTime: 0,
+				averageTimeText: '',
+				averageInspection: 0,
+				averageInspectionText: '',
+				averageExecution: 0,
+				averageExecutionText: '',
+			})),
+		};
+	},
+	computed: {
+	},
+	async mounted() {
+		this.stats = await getPllStats();
+		this.cases = this.cases.map(({name}, index) => {
+			const stat = this.stats.find(({id}) => id === index);
+			const averageTime = stat ? stat.times / stat.count : Infinity;
+			const averageInspection = stat ? stat.inspectionTimes / stat.count : Infinity;
+			const averageExecution = stat ? stat.executionTimes / stat.count : Infinity;
 
-				return {
-					index,
-					name,
-					count: stat ? stat.count: 0,
-					averageTime,
-					averageTimeText: formatTime(averageTime),
-					averageInspection,
-					averageInspectionText: formatTime(averageInspection),
-					averageExecution,
-					averageExecutionText: formatTime(averageExecution),
-				};
-			});
-		},
-		computed: {
-		},
-		head() {
 			return {
-				title: 'PLL Stats',
+				index,
+				name,
+				count: stat ? stat.count : 0,
+				averageTime,
+				averageTimeText: formatTime(averageTime),
+				averageInspection,
+				averageInspectionText: formatTime(averageInspection),
+				averageExecution,
+				averageExecutionText: formatTime(averageExecution),
 			};
-		},
-	}
+		});
+	},
+	head() {
+		return {
+			title: 'PLL Stats',
+		};
+	},
+};
 </script>
 
 <style>

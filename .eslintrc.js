@@ -18,6 +18,7 @@ module.exports = {
 	// add your custom rules here
 	rules: {
 		'vue/html-indent': ['error', 'tab'],
+		'vue/mustache-interpolation-spacing': ['error', 'never'],
 		'node/no-unsupported-features': 'off',
 		'max-params': 'off',
 	},

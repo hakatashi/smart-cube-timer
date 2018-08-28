@@ -1,7 +1,21 @@
 <template>
-	<v-container fluid grid-list-md text-xs-center>
-		<v-progress-linear v-if="isLoading" :indeterminate="true"></v-progress-linear>
-		<v-btn fab dark fixed bottom left small color="purple" @click="onExport" :style="{bottom: '100px'}">
+	<v-container
+		fluid
+		grid-list-md
+		text-xs-center>
+		<v-progress-linear
+			v-if="isLoading"
+			:indeterminate="true"/>
+		<v-btn
+			:style="{bottom: '100px'}"
+			fab
+			dark
+			fixed
+			bottom
+			left
+			small
+			color="purple"
+			@click="onExport">
 			<v-icon>get_app</v-icon>
 		</v-btn>
 		<v-data-iterator
@@ -19,16 +33,23 @@
 				md6
 				lg4
 			>
-				<v-card class="solve" :to="`/solves/${props.item.id}`" nuxt>
+				<v-card
+					:to="`/solves/${props.item.id}`"
+					class="solve"
+					nuxt>
 					<v-card-text class="pa-0 subheading text-xs-left solve-headline">
 						<strong>{{props.item.timeText}}</strong>
-						<small class="solve-times" :class="[`mode-${props.item.mode}`]">
+						<small
+							:class="[`mode-${props.item.mode}`]"
+							class="solve-times">
 							<span
 								v-for="stage, index in props.item.stages"
 								:key="stage.id"
 							>
 								<span v-if="index !== 0"> / </span>
-								<span class="solve-time" :class="[`solve-time-${stage.id}`]">{{stage.time}}</span>
+								<span
+									:class="[`solve-time-${stage.id}`]"
+									class="solve-time">{{stage.time}}</span>
 							</span>
 						</small>
 					</v-card-text>
@@ -36,18 +57,18 @@
 						<v-chip
 							v-for="info in props.item.infos"
 							:key="info.id"
-							small
 							:color="info.color.startsWith('#') ? null : info.color"
 							:text-color="info.textColor.startsWith('#') ? null : info.textColor"
 							:style="{
 								backgroundColor: info.color.startsWith('#') ? info.color : '',
 								color: info.textColor.startsWith('#') ? info.textColor : '',
 							}"
+							small
 							class="solve-chip"
 						>
 							{{info.text}}
 						</v-chip>
-						<v-spacer></v-spacer>
+						<v-spacer/>
 						<div>{{props.item.dateText}}</div>
 					</v-layout>
 				</v-card>
@@ -57,108 +78,108 @@
 </template>
 
 <script>
-	import {getSolves, exportTimes} from '~/lib/db.js';
-	import {formatTime, formatDate, idealTextColor} from '~/lib/utils.js';
-	import {clls, olls, plls} from '~/lib/data.js';
-	import config from '~/lib/config.js';
+import {exportTimes, getSolves} from '~/lib/db.js';
+import {formatDate, formatTime, idealTextColor} from '~/lib/utils.js';
+import {clls, olls, plls} from '~/lib/data.js';
+import config from '~/lib/config.js';
 
-	export default {
-		data() {
-			return {
-				isLoading: true,
-				solves: [],
-				rowsPerPageItems: [50],
-				pagination: {
-					rowsPerPage: 50,
-				},
-			};
-		},
-		async mounted() {
-			this.solves = await getSolves();
-			this.isLoading = false;
-		},
-		computed: {
-			solvesInfo() {
-				return this.solves.map((solve) => {
-					const infos = [];
-
-					if (solve.isError) {
-						infos.push({
-							id: 'error',
-							text: 'Error',
-							color: 'orange darken-4',
-							textColor: 'white'
-						});
-					}
-
-					if (solve._isXcross) {
-						infos.push({
-							id: 'xcross',
-							text: 'XCross',
-							color: '#4A148C',
-							textColor: idealTextColor('#4A148C'),
-						});
-					}
-
-					if (solve._ollCase !== null) {
-						const [ollName] = olls[solve._ollCase];
-
-						infos.push({
-							id: 'ollcase',
-							text: ollName,
-							color: ollName === 'OLL Skip' ? 'yellow accent-4' : 'yellow lighten-2',
-							textColor: '',
-						});
-					}
-
-					if (solve._pllCase !== null) {
-						const [pllName] = plls[solve._pllCase];
-
-						infos.push({
-							id: 'pllcase',
-							text: pllName,
-							color: pllName === 'PLL Skip' ? 'red accent-4' : 'red lighten-1',
-							textColor: 'white',
-						});
-					}
-
-					if (typeof solve._cllCase === 'number') {
-						const [cllName] = clls[solve._cllCase];
-
-						infos.push({
-							id: 'cllcase',
-							text: cllName,
-							color: cllName === 'CLL Skip' ? 'brown darken-4' : 'brown darken-2',
-							textColor: 'white',
-						});
-					}
-
-					const stages = config.stagesData[solve.mode].map(({id}) => ({
-						id,
-						time: formatTime(solve[`_${id}Time`]),
-					}));
-
-					return {
-						...solve,
-						infos,
-						timeText: formatTime(solve.time),
-						dateText: formatDate(solve.date),
-						stages,
-					};
-				})
+export default {
+	data() {
+		return {
+			isLoading: true,
+			solves: [],
+			rowsPerPageItems: [50],
+			pagination: {
+				rowsPerPage: 50,
 			},
+		};
+	},
+	computed: {
+		solvesInfo() {
+			return this.solves.map((solve) => {
+				const infos = [];
+
+				if (solve.isError) {
+					infos.push({
+						id: 'error',
+						text: 'Error',
+						color: 'orange darken-4',
+						textColor: 'white',
+					});
+				}
+
+				if (solve._isXcross) {
+					infos.push({
+						id: 'xcross',
+						text: 'XCross',
+						color: '#4A148C',
+						textColor: idealTextColor('#4A148C'),
+					});
+				}
+
+				if (solve._ollCase !== null) {
+					const [ollName] = olls[solve._ollCase];
+
+					infos.push({
+						id: 'ollcase',
+						text: ollName,
+						color: ollName === 'OLL Skip' ? 'yellow accent-4' : 'yellow lighten-2',
+						textColor: '',
+					});
+				}
+
+				if (solve._pllCase !== null) {
+					const [pllName] = plls[solve._pllCase];
+
+					infos.push({
+						id: 'pllcase',
+						text: pllName,
+						color: pllName === 'PLL Skip' ? 'red accent-4' : 'red lighten-1',
+						textColor: 'white',
+					});
+				}
+
+				if (typeof solve._cllCase === 'number') {
+					const [cllName] = clls[solve._cllCase];
+
+					infos.push({
+						id: 'cllcase',
+						text: cllName,
+						color: cllName === 'CLL Skip' ? 'brown darken-4' : 'brown darken-2',
+						textColor: 'white',
+					});
+				}
+
+				const stages = config.stagesData[solve.mode].map(({id}) => ({
+					id,
+					time: formatTime(solve[`_${id}Time`]),
+				}));
+
+				return {
+					...solve,
+					infos,
+					timeText: formatTime(solve.time),
+					dateText: formatDate(solve.date),
+					stages,
+				};
+			});
 		},
-		methods: {
-			onExport() {
-				exportTimes();
-			},
+	},
+	async mounted() {
+		this.solves = await getSolves();
+		this.isLoading = false;
+	},
+	methods: {
+		onExport() {
+			exportTimes();
 		},
-		head() {
-			return {
-				title: 'History',
-			};
-		},
-	}
+	},
+	head() {
+		return {
+			title: 'History',
+		};
+	},
+};
 </script>
 
 <style>
