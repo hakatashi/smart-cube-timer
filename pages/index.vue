@@ -15,7 +15,7 @@
 					{{description}}
 				</v-alert>
 				<v-btn
-					v-if="giiker === null"
+					v-if="!isGiikerConnected"
 					:disabled="isConnecting"
 					:loading="isConnecting"
 					color="info"
@@ -160,8 +160,7 @@ import {
 	getRotation,
 	isStageSatisfied,
 } from '~/lib/utils.js';
-import Cube from 'cubejs';
-import GiiKER from 'giiker';
+import GiiKER from '~/lib/giiker.js';
 import MoveSequence from '~/lib/MoveSequence.js';
 import NoSleep from 'nosleep.js';
 import Stages from '~/components/Stages.vue';
@@ -183,7 +182,7 @@ export default {
 			mode: 'cfop',
 			cross: null,
 			rouxBlock: null,
-			giiker: null,
+			isGiikerConnected: null,
 			startTime: null,
 			time: 0,
 			phase: 'scramble',
@@ -259,7 +258,6 @@ export default {
 		},
 	},
 	created() {
-		this.cube = new Cube();
 		if (process.browser) {
 			this.noSleep = new NoSleep();
 		}
@@ -278,8 +276,8 @@ export default {
 		if (this.interval) {
 			clearInterval(this.interval);
 		}
-		if (this.giiker) {
-			this.giiker.off('move', this.onGiikerMove);
+		if (GiiKER.isConnected) {
+			GiiKER.off('move', this.onGiikerMove);
 		}
 		if (this.noSleep) {
 			this.noSleep.disable();
@@ -297,9 +295,9 @@ export default {
 
 			this.isConnecting = true;
 
-			GiiKER.connect().then((giiker) => {
-				this.giiker = giiker;
-				this.giiker.on('move', this.onGiikerMove);
+			GiiKER.connect().then(() => {
+				this.isGiikerConnected = true;
+				GiiKER.on('move', this.onGiikerMove);
 				this.description = 'Follow the scramble.';
 				this.isDescriptionShown = true;
 			}, (error) => {
@@ -310,7 +308,7 @@ export default {
 		},
 		onGiikerMove(move) {
 			const now = new Date();
-			this.cube.move(move.notation.replace(/2'$/, '2'));
+			GiiKER.cube.move(move.notation.replace(/2'$/, '2'));
 
 			if (this.phase === 'scramble') {
 				this.scramble.unshift({
@@ -370,8 +368,8 @@ export default {
 				this.stages[this.cubeStage].sequence.push({time: this.time, ...move});
 
 				if (this.cubeStage === 'unknown') {
-					const cross = findCross(this.cube);
-					const rouxBlock = findRouxBlock(this.cube);
+					const cross = findCross(GiiKER.cube);
+					const rouxBlock = findRouxBlock(GiiKER.cube);
 					if (cross) {
 						this.mode = 'cfop';
 						this.cubeStage = 'f2l1';
@@ -393,7 +391,7 @@ export default {
 					if (this.cubeStage === stage.id) {
 						const {result, oll, pll, cll} = isStageSatisfied({
 							mode: this.mode,
-							cube: this.cube,
+							cube: GiiKER.cube,
 							stage: stage.id,
 							cross: this.cross,
 							rouxBlock: this.rouxBlock,
@@ -422,7 +420,7 @@ export default {
 					}
 				}
 
-				if (this.cube.isSolved()) {
+				if (GiiKER.cube.isSolved()) {
 					this.finishSolve({isError: false});
 				}
 			}
@@ -443,7 +441,7 @@ export default {
 			}
 
 			this.finishSolve({isError: true});
-			this.cube.identity();
+			GiiKER.cube.identity();
 			this.description = 'Oops...';
 			this.isDescriptionShown = true;
 		},
