@@ -1,24 +1,30 @@
 <template>
-	<v-container
-		fill-height
-		grid-list-lg
-		pa-0>
-		<v-layout
-			column
-			fill-height
-			ma-0>
+	<v-container fill-height grid-list-lg pa-0>
+		<v-layout column fill-height ma-0>
 			<v-flex class="controls">
 				<v-alert
-					v-if="description"
+					v-if="isFirstSolve"
 					v-model="isDescriptionShown"
-					type="success">
-					{{description}}
+					:type="phase === 'prescramble' ? 'warning' : 'info'"
+				>
+					<span v-if="phase === 'connect'">
+						Make sure GiiKER is solved state, and press "Connect Cube" to link cube.
+					</span>
+					<span v-if="phase === 'prescramble'">
+						Solve the cube before starting scramble.
+					</span>
+					<span v-if="phase === 'scramble'">
+						Follow the scramble.
+					</span>
+					<span v-if="phase === 'inspect'">
+						Now start solving when you're ready.
+					</span>
 				</v-alert>
 				<v-btn
 					v-if="!isGiikerConnected"
 					:disabled="isConnecting"
 					:loading="isConnecting"
-					color="info"
+					color="success"
 					large
 					@click="onClickConnect"
 				>
@@ -35,9 +41,7 @@
 						{{move.text}}
 					</span>
 				</div>
-				<div
-					class="timer"
-				>
+				<div class="timer">
 					{{displayTime}}
 				</div>
 				<div
@@ -66,9 +70,7 @@
 					</span>
 				</div>
 			</v-flex>
-			<v-flex
-				id="stages"
-				class="times">
+			<v-flex id="stages" class="times">
 				<stages
 					:stages="stages"
 					:mode="mode"
@@ -83,10 +85,7 @@
 				/>
 			</v-flex>
 		</v-layout>
-		<v-dialog
-			v-model="isDialogOpen"
-			max-width="400"
-		>
+		<v-dialog v-model="isDialogOpen" max-width="400">
 			<v-card>
 				<v-card-title class="headline">Your browser is not supported</v-card-title>
 				<v-card-text>
@@ -185,9 +184,8 @@ export default {
 			isGiikerConnected: null,
 			startTime: null,
 			time: 0,
-			phase: 'scramble',
+			phase: 'connect',
 			isConnecting: false,
-			description: 'Make sure GiiKER is solved state, and press "Connect Cube" to link cube.',
 			isDescriptionShown: true,
 			placeholderMoves: [],
 			scramble: null,
@@ -261,6 +259,15 @@ export default {
 		if (process.browser) {
 			this.noSleep = new NoSleep();
 		}
+		this.isGiikerConnected = GiiKER.isConnected;
+		if (GiiKER.isConnected) {
+			if (GiiKER.cube.isSolved()) {
+				this.phase = 'scramble';
+			} else {
+				this.phase = 'prescramble';
+			}
+			GiiKER.on('move', this.onGiikerMove);
+		}
 	},
 	mounted() {
 		const scramble = sample(scrambles.sheets[0].scrambles);
@@ -298,8 +305,7 @@ export default {
 			GiiKER.connect().then(() => {
 				this.isGiikerConnected = true;
 				GiiKER.on('move', this.onGiikerMove);
-				this.description = 'Follow the scramble.';
-				this.isDescriptionShown = true;
+				this.phase = 'scramble';
 			}, (error) => {
 				this.isSnackbarShown = true;
 				this.snackbar = error.message;
@@ -308,7 +314,13 @@ export default {
 		},
 		onGiikerMove(move) {
 			const now = new Date();
-			GiiKER.cube.move(move.notation.replace(/2'$/, '2'));
+
+			if (this.phase === 'prescramble') {
+				if (GiiKER.cube.isSolved()) {
+					this.phase = 'scramble';
+				}
+				return;
+			}
 
 			if (this.phase === 'scramble') {
 				this.scramble.unshift({
@@ -321,10 +333,6 @@ export default {
 				if (this.scramble.length === 0) {
 					this.phase = 'inspect';
 					this.time = 0;
-					if (this.isFirstSolve) {
-						this.description = 'Now start solving when you\'re ready.';
-						this.isDescriptionShown = true;
-					}
 				}
 				return;
 			}
@@ -337,7 +345,7 @@ export default {
 				this.oll = null;
 				this.rouxBlock = null;
 				this.phase = 'solve';
-				this.description = null;
+				this.isFirstSolve = false;
 				this.isDescriptionShown = false;
 				this.cubeStage = 'unknown';
 				this.stages = Object.assign(
@@ -442,8 +450,6 @@ export default {
 
 			this.finishSolve({isError: true});
 			GiiKER.cube.identity();
-			this.description = 'Oops...';
-			this.isDescriptionShown = true;
 		},
 		finishSolve({isError}) {
 			const {inspection: ollInspection} = (this.stages.oll.time !== null && this.stages.oll.sequence.length !== 0)
