@@ -42,7 +42,51 @@
 					</span>
 				</div>
 				<div class="timer">
+					<v-btn
+						v-if="phase === 'scramble' && previousSolve !== null"
+						icon
+						flat
+						disabled
+						class="ma-0"
+					/>
 					{{displayTime}}
+					<v-dialog
+						v-if="phase === 'scramble' && previousSolve !== null"
+						v-model="isDeleteDialogOpen"
+					>
+						<v-btn
+							slot="activator"
+							icon
+							flat
+							color="red lighten-2"
+							class="ma-0"
+						>
+							<v-icon dark>delete</v-icon>
+						</v-btn>
+						<v-card>
+							<v-card-text>
+								Delete solve?
+							</v-card-text>
+							<v-divider/>
+							<v-card-actions>
+								<v-spacer/>
+								<v-btn
+									color="primary"
+									flat
+									@click="isDeleteDialogOpen = false"
+								>
+									Cancel
+								</v-btn>
+								<v-btn
+									color="red lighten-1"
+									flat
+									@click="onClickDelete"
+								>
+									Delete
+								</v-btn>
+							</v-card-actions>
+						</v-card>
+					</v-dialog>
 				</div>
 				<div
 					v-if="phase === 'solve'"
@@ -150,6 +194,7 @@
 
 <script>
 import 'cubejs/lib/solve';
+import {deleteSolve, saveSolve} from '~/lib/db.js';
 import {
 	findCross,
 	findRouxBlock,
@@ -166,7 +211,6 @@ import Stages from '~/components/Stages.vue';
 import assert from 'assert';
 import config from '~/lib/config.js';
 import sample from 'lodash/sample';
-import {saveSolve} from '~/lib/db.js';
 import scrambles from '~/lib/scrambles.json';
 import sumBy from 'lodash/sumBy';
 import uniq from 'lodash/uniq';
@@ -193,6 +237,7 @@ export default {
 			cubeStage: null,
 			stages: {},
 			oll: null,
+			previousSolve: null,
 			isOll2Look: false,
 			pll: null,
 			pllLooks: [],
@@ -201,6 +246,7 @@ export default {
 			isSnackbarShown: false,
 			isFirstSolve: true,
 			isDialogOpen: false,
+			isDeleteDialogOpen: false,
 		};
 	},
 	computed: {
@@ -451,7 +497,9 @@ export default {
 			this.finishSolve({isError: true});
 			GiiKER.cube.identity();
 		},
-		finishSolve({isError}) {
+		async finishSolve({isError}) {
+			clearInterval(this.interval);
+
 			const {inspection: ollInspection} = (this.stages.oll.time !== null && this.stages.oll.sequence.length !== 0)
 				? getInspectionTime({stage: this.stages.oll, cross: this.cross, previousTime: this.stages.f2l4.time})
 				: {inspection: null};
@@ -460,7 +508,7 @@ export default {
 				? getInspectionTime({stage: this.stages.pll, cross: this.cross, previousTime: this.stages.oll.time})
 				: {inspection: null};
 
-			saveSolve({
+			const {solve} = await saveSolve({
 				mode: this.mode,
 				date: this.startTime.getTime(),
 				time: this.time,
@@ -482,7 +530,7 @@ export default {
 				rouxBlockBottom: this.rouxBlock ? this.rouxBlock.bottom : null,
 			});
 
-			clearInterval(this.interval);
+			this.previousSolve = solve;
 			this.phase = 'scramble';
 			this.isFirstSolve = false;
 			const scramble = sample(scrambles.sheets[0].scrambles);
@@ -524,6 +572,15 @@ export default {
 				};
 			}).filter((stage) => stage);
 		},
+		async onClickDelete() {
+			if (this.previousSolve === null) {
+				return;
+			}
+
+			await deleteSolve(this.previousSolve);
+			this.previousSolve = null;
+			this.isDeleteDialogOpen = false;
+		},
 	},
 	head() {
 		return {
@@ -550,6 +607,13 @@ export default {
 			font-size: 20vmin;
 			font-weight: bold;
 			line-height: 1em;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.timer .v-dialog__activator {
+			display: flex;
 		}
 
 		.solve-info {

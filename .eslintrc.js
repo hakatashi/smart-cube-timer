@@ -19,6 +19,13 @@ module.exports = {
 	rules: {
 		'vue/html-indent': ['error', 'tab'],
 		'vue/mustache-interpolation-spacing': ['error', 'never'],
+		'vue/max-attributes-per-line': ['error', {
+			singleline: 3,
+			multiline: {
+				max: 1,
+				allowFirstLine: false,
+			},
+		}],
 		'node/no-unsupported-features': 'off',
 		'private-props/no-use-outside': 'off',
 		'max-params': 'off',
