@@ -17,14 +17,52 @@
 		</v-layout>
 		<v-layout v-else>
 			<v-flex class="solve-details">
-				<div
-					class="timer"
-				>
+				<div class="timer">
+					<v-btn
+						icon
+						flat
+						disabled
+						class="ma-0"
+					/>
 					{{displayTime}}
+					<v-dialog
+						v-model="isDeleteDialogOpen"
+					>
+						<v-btn
+							slot="activator"
+							icon
+							flat
+							color="red lighten-2"
+							class="ma-0"
+						>
+							<v-icon dark>delete</v-icon>
+						</v-btn>
+						<v-card>
+							<v-card-text>
+								Delete solve?
+							</v-card-text>
+							<v-divider/>
+							<v-card-actions>
+								<v-spacer/>
+								<v-btn
+									color="primary"
+									flat
+									@click="isDeleteDialogOpen = false"
+								>
+									Cancel
+								</v-btn>
+								<v-btn
+									color="red lighten-1"
+									flat
+									@click="onClickDelete"
+								>
+									Delete
+								</v-btn>
+							</v-card-actions>
+						</v-card>
+					</v-dialog>
 				</div>
-				<div
-					class="solve-infos"
-				>
+				<div class="solve-infos">
 					<span class="solve-info headline">
 						{{moveCount}} turns
 					</span>
@@ -32,9 +70,7 @@
 						{{speed}} tps
 					</span>
 				</div>
-				<div
-					class="scramble"
-				>
+				<div class="scramble">
 					{{scrambleText}}
 				</div>
 				<v-btn
@@ -60,12 +96,12 @@
 
 <script>
 import {clls, olls, plls} from '~/lib/data.js';
+import {deleteSolve, getSolve} from '~/lib/db.js';
 import {faces, formatTime, getRotationNotation} from '~/lib/utils.js';
 import MoveSequence from '~/lib/MoveSequence.js';
 import Stages from '~/components/Stages.vue';
 import config from '~/lib/config.js';
 import get from 'lodash/get';
-import {getSolve} from '~/lib/db.js';
 import qs from 'querystring';
 import sumBy from 'lodash/sumBy';
 
@@ -76,6 +112,7 @@ export default {
 	data() {
 		return {
 			solve: null,
+			isDeleteDialogOpen: false,
 		};
 	},
 	computed: {
@@ -169,6 +206,14 @@ export default {
 		this.solve = solve;
 		this.scrambleText = new MoveSequence(solve.scramble).toString();
 	},
+	methods: {
+		async onClickDelete() {
+			await deleteSolve(this.solve.id);
+			this.$router.push({
+				path: '/solves',
+			});
+		},
+	},
 };
 </script>
 
@@ -185,6 +230,13 @@ export default {
 			font-size: 20vmin;
 			font-weight: bold;
 			line-height: 0.9em;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.timer .v-dialog__activator {
+			display: flex;
 		}
 
 		.solve-info {
