@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Proof-of-concept smart timer for GiiKER",
   "author": "Koki Takahashi <hakatasiloving@gmail.com>",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "@nuxtjs/google-analytics": "^2.0.2",
