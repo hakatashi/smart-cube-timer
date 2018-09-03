@@ -1,6 +1,9 @@
 {
   "name": "smart-cube-timer",
   "version": "1.0.0",
+	"engines": {
+		"node": ">=10.3.0"
+	},
   "description": "Proof-of-concept smart timer for GiiKER",
   "author": "Koki Takahashi <hakatasiloving@gmail.com>",
   "private": true,
