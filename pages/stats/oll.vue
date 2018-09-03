@@ -23,10 +23,9 @@
 </template>
 
 <script>
+import {formatTime} from '~/lib/utils.js';
 import {getOllStats} from '~/lib/db.js';
-import {formatDate, formatTime, idealTextColor} from '~/lib/utils.js';
 import {olls} from '~/lib/data.js';
-import meanBy from 'lodash/meanBy';
 
 export default {
 	data() {

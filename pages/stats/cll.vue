@@ -23,9 +23,9 @@
 </template>
 
 <script>
-import {getSolves} from '~/lib/db.js';
-import {formatDate, formatTime, idealTextColor} from '~/lib/utils.js';
 import {clls} from '~/lib/data.js';
+import {formatTime} from '~/lib/utils.js';
+import {getSolves} from '~/lib/db.js';
 import meanBy from 'lodash/meanBy';
 
 export default {
