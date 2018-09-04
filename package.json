@@ -1,9 +1,9 @@
 {
   "name": "smart-cube-timer",
   "version": "1.0.0",
-	"engines": {
-		"node": ">=10.3.0"
-	},
+  "engines": {
+    "node": ">=10.3.0"
+  },
   "description": "Record your times with detailed statistics, thanks to the power of “smart cubes!”",
   "author": "Koki Takahashi <hakatasiloving@gmail.com>",
   "license": "MIT",
@@ -21,6 +21,7 @@
     "nuxt": "latest",
     "postcss-import-url": "^3.0.4",
     "precss": "^3.1.2",
+    "scrambo": "github:nickcolley/scrambo",
     "sylvester": "0.0.21",
     "vuetify": "^1.2.1"
   },

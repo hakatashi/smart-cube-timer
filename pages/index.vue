@@ -193,7 +193,6 @@
 </template>
 
 <script>
-import 'cubejs/lib/solve';
 import {deleteSolve, saveSolve} from '~/lib/db.js';
 import {
 	findCross,
@@ -212,6 +211,7 @@ import assert from 'assert';
 import config from '~/lib/config.js';
 import sample from 'lodash/sample';
 import scrambles from '~/lib/scrambles.json';
+import scrambo from 'scrambo/lib/scramblers/333';
 import sumBy from 'lodash/sumBy';
 import uniq from 'lodash/uniq';
 
@@ -357,6 +357,9 @@ export default {
 				this.snackbar = error.message;
 				this.isConnecting = false;
 			});
+			console.time('scrambo.initialize took');
+			scrambo.initialize(Math);
+			console.timeEnd('scrambo.initialize took');
 		},
 		onGiikerMove(move) {
 			const now = new Date();
@@ -533,7 +536,7 @@ export default {
 			this.previousSolve = solve;
 			this.phase = 'scramble';
 			this.isFirstSolve = false;
-			const scramble = sample(scrambles.sheets[0].scrambles);
+			const scramble = scrambo.getRandomScramble().replace(/ +/g, ' ').trim();
 			this.scramble = MoveSequence.fromScramble(scramble, {mode: 'reduction'});
 			this.initialScramble = MoveSequence.fromScramble(scramble, {mode: 'reduction'});
 			this.turns = new MoveSequence([], {mode: 'raw'});
