@@ -1,36 +1,71 @@
-importScripts('https://hakatashi.github.io/smart-cube-timer/workbox.3de3418b.js')
+importScripts('/_nuxt/workbox.42554690.js')
 
-const workboxSW = new self.WorkboxSW({
-  "cacheId": "nuxt",
-  "clientsClaim": true,
-  "directoryIndex": "/"
+workbox.precaching.precacheAndRoute([
+  {
+    "url": "/_nuxt/app.6c6ddd381df32daafa6b.js",
+    "revision": "3063386ac800e415118efb825b82bb72"
+  },
+  {
+    "url": "/_nuxt/layouts_default.f601000c77ba9fe6cec7.js",
+    "revision": "a2fb392ce22ec004c22102b304288089"
+  },
+  {
+    "url": "/_nuxt/manifest.4d2ffe6a174b3a3e1a96.js",
+    "revision": "c3c5cddf25e94854c93f137bf271fa43"
+  },
+  {
+    "url": "/_nuxt/pages_faq.47dd49e142e0e9ca9d94.js",
+    "revision": "97e7d6c61c7aac371a1cb122004c5773"
+  },
+  {
+    "url": "/_nuxt/pages_index.60733347d64079a6af63.js",
+    "revision": "fdbd00e0d8eb4d646f3e0c598b92f78d"
+  },
+  {
+    "url": "/_nuxt/pages_solves__id.376c9c6e8e1612c3bac8.js",
+    "revision": "bfa043e280344bfb180b9c7143370584"
+  },
+  {
+    "url": "/_nuxt/pages_solves_index.8a317c9be819f0a47fab.js",
+    "revision": "79ce9d42e65ba456a63d2b5411f378bd"
+  },
+  {
+    "url": "/_nuxt/pages_stats_cll.80aec3249253ed991533.js",
+    "revision": "dc8e2b3ce7a6a9f22a5ce5ba9a77b593"
+  },
+  {
+    "url": "/_nuxt/pages_stats_index.e096cbd34377a58d78b1.js",
+    "revision": "efe7a07f3a151a104345137d9c39b6c9"
+  },
+  {
+    "url": "/_nuxt/pages_stats_oll.5f8d76c2b58da18dbf43.js",
+    "revision": "fa7deafcb261c2d0c2584318af9bb488"
+  },
+  {
+    "url": "/_nuxt/pages_stats_pll.63f2b91c98b1470dbe0f.js",
+    "revision": "2b9c538cabe4383baaa4db8bd6b9fcdb"
+  },
+  {
+    "url": "/_nuxt/vendor.27fe32bfd0388ef5ad97.js",
+    "revision": "ccdb869c969edf5a2a8484e36cc68596"
+  }
+], {
+  "cacheId": "smart-cube-timer",
+  "directoryIndex": "/",
+  "cleanUrls": false
 })
 
-workboxSW.precache([
-  {
-    "url": "https://hakatashi.github.io/smart-cube-timer/app.e8319bd48fb459158279.js",
-    "revision": "86da474f6633b31fc11e1647fde6dbd1"
-  },
-  {
-    "url": "https://hakatashi.github.io/smart-cube-timer/layouts_default.4146977e09a9df14ab4f.js",
-    "revision": "658bd8e4ef3f28ad8bb7b30754a5ce16"
-  },
-  {
-    "url": "https://hakatashi.github.io/smart-cube-timer/manifest.d4ebdd31d6af9b20e82a.js",
-    "revision": "e50057ccb5d661fbaadfbe1e6d3d3f71"
-  },
-  {
-    "url": "https://hakatashi.github.io/smart-cube-timer/pages_index.89491d912b9b72ac2063.js",
-    "revision": "2074560436a87e718aa1a38fd85e57e9"
-  },
-  {
-    "url": "https://hakatashi.github.io/smart-cube-timer/vendor.82700a98d93f5cae2550.js",
-    "revision": "cf1209de8fd593d3e6ef33dbbc2928aa"
-  }
-])
 
 
-workboxSW.router.registerRoute(new RegExp('https://hakatashi.github.io/smart-cube-timer/.*'), workboxSW.strategies.cacheFirst({}), 'GET')
+workbox.clientsClaim()
+workbox.skipWaiting()
 
-workboxSW.router.registerRoute(new RegExp('/.*'), workboxSW.strategies.networkFirst({}), 'GET')
+
+workbox.routing.registerRoute(new RegExp('/_nuxt/.*'), workbox.strategies.cacheFirst({}), 'GET')
+
+workbox.routing.registerRoute(new RegExp('/.*'), workbox.strategies.networkFirst({}), 'GET')
+
+
+
+
 
