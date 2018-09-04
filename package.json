@@ -4,7 +4,7 @@
 	"engines": {
 		"node": ">=10.3.0"
 	},
-  "description": "Proof-of-concept smart timer for GiiKER",
+  "description": "Record your times with detailed statistics, thanks to the power of “smart cubes!”",
   "author": "Koki Takahashi <hakatasiloving@gmail.com>",
   "private": true,
   "dependencies": {

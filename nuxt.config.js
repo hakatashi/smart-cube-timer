@@ -11,11 +11,14 @@ module.exports = {
 	},
 
 	loading: {
-		color: '#3B8070',
+		color: '#9c27b0',
 	},
 
 	manifest: {
-		theme_color: '#3B8070',
+		name: 'Smart Cube Timer',
+		short_name: 'Smart Cube Timer',
+		theme_color: '#9c27b0',
+		gcm_sender_id: '103953800507',
 	},
 
 	plugins: [
@@ -49,6 +52,7 @@ module.exports = {
 	},
 
 	modules: [
+		'@nuxtjs/pwa',
 		['@nuxtjs/google-analytics', {
 			id: 'UA-43802516-6',
 			debug: {
