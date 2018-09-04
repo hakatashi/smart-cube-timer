@@ -4,6 +4,12 @@ const importUrl = require('postcss-import-url');
 module.exports = {
 	mode: 'spa',
 
+	router: {
+		...(process.env.DEPLOY_ENV === 'GH_PAGES' ? {
+			base: '/smart-cube-timer/',
+		} : {}),
+	},
+
 	head: {
 		meta: [
 			{name: 'viewport', content: 'width=device-width, initial-scale=1'},
@@ -52,7 +58,7 @@ module.exports = {
 	},
 
 	modules: [
-		'@nuxtjs/pwa',
+		// '@nuxtjs/pwa',
 		['@nuxtjs/google-analytics', {
 			id: 'UA-43802516-6',
 			debug: {
