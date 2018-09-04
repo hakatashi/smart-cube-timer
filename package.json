@@ -6,6 +6,7 @@
 	},
   "description": "Record your times with detailed statistics, thanks to the power of “smart cubes!”",
   "author": "Koki Takahashi <hakatasiloving@gmail.com>",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "@nuxtjs/google-analytics": "^2.0.2",
