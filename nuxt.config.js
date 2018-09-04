@@ -2,11 +2,7 @@ const precss = require('precss');
 const importUrl = require('postcss-import-url');
 
 module.exports = {
-	router: {
-		...(process.env.DEPLOY_ENV === 'GH_PAGES' ? {
-			base: '/smart-cube-timer/',
-		} : {}),
-	},
+	mode: 'spa',
 
 	head: {
 		meta: [
