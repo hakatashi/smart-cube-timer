@@ -1,0 +1,17 @@
+language: node_js
+node_js: node
+dist: trusty
+sudo: false
+install: npm install
+script: npm run generate
+branches:
+  except:
+    - "/^v\\d+\\.\\d+\\.\\d+$/"
+    - gh-pages
+notifications:
+  webhooks: http://webhook.hakatashi.com/travis
+deploy:
+  provider: firebase
+  skip_cleanup: true
+  token:
+    secure: kVoeTL8fsRJ5e+QHHF72XACqz78sg+v9gNEljS3xPHCiJL8lhlKYtROpO6YKxsaQW1XRSoTc4KR5j4fa0UZH8UeAeL2+mV8Vi3hsefZKUtXPb3DgfOirE3jVd+51py2P/PQj6ycG+HZx8AwEwFo/kdjuEn9JGHF6qy9B74iyiF4jcmdc+0GHKnHTpR6ojUDH2z4pLf1/2v9HFwddSLl8x94o7JjbnR058hAKTaYvBr/groZ4YwnbqsRJQYDo7UDISh7GdSG3THgfjAw0JgyLcJDEY7FMxULOvVtkgS6dKl/qP4J7agWDOqdfVoZiK9VGH2V9GlrGOE82y2atfyekOJSWSXD/8iItj9NN1Msz6eg1HqrTPJs/OZRWlteJNl7DDou6UvuGsp3Ls25+YJXCNCMu/mr5c6027syUBN9+p9USUEjc235k7h0fIIxT81fVI9TsoAZJKXHSkOI8uI3ucM0/1WjcLv4kE34OT0XERRBh2TZ/N8Lr8d+N1/32KiIPLyEpXLYQSgRl48AAnNvuue+1MTpm0mNy9xg59+HAnJupqse8s3uqYksuBumTFCBi3Ccj4IMPyCh5n7gFHrr3rtQTfCVybSbROKONY6eAHQiX0TL2F/JReRkzTA71uBJm3NkmfI63xISAeB4EAAz2gDbdHTene5fBlbkWXRfZIEg=
