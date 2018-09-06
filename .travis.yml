@@ -6,6 +6,7 @@ install: npm install
 script:
   - npm test
   - npm run generate
+after_script: npx codecov
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"

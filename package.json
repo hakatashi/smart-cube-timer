@@ -34,7 +34,7 @@
     "deploy": "npm run generate:old && cd dist && git init && git remote add origin https://github.com/hakatashi/smart-cube-timer.git && git fetch && git symbolic-ref HEAD refs/remotes/origin/gh-pages && git add . && git commit -m \"Update build\" && git push -u origin HEAD:gh-pages && cd ..",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
-    "test": "jest"
+    "test": "jest --verbose --coverage"
   },
   "devDependencies": {
     "@hakatashi/eslint-config": "^1.7.0",
@@ -67,6 +67,12 @@
     },
     "moduleNameMapper": {
       "^~(.*)$": "<rootDir>$1"
-    }
+    },
+    "collectCoverageFrom": [
+      "**/*.{js,vue}",
+      "!**/node_modules/**",
+      "!**/coverage/**",
+      "!**/dist/**"
+    ]
   }
 }
