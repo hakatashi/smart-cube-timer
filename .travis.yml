@@ -3,7 +3,9 @@ node_js: node
 dist: trusty
 sudo: false
 install: npm install
-script: npm run generate
+script:
+  - npm test
+  - npm run generate
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"

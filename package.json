@@ -33,14 +33,40 @@
     "generate:old": "cross-env NODE_ENV=production DEPLOY_ENV=GH_PAGES nuxt generate",
     "deploy": "npm run generate:old && cd dist && git init && git remote add origin https://github.com/hakatashi/smart-cube-timer.git && git fetch && git symbolic-ref HEAD refs/remotes/origin/gh-pages && git add . && git commit -m \"Update build\" && git push -u origin HEAD:gh-pages && cd ..",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint"
+    "precommit": "npm run lint",
+    "test": "jest"
   },
   "devDependencies": {
     "@hakatashi/eslint-config": "^1.7.0",
+    "@vue/test-utils": "^1.0.0-beta.24",
     "babel-eslint": "^9.0.0",
+    "babel-jest": "^23.4.2",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "babel-preset-vue-app": "^2.0.0",
     "cross-env": "^5.2.0",
     "eslint": "^5.5.0",
     "eslint-loader": "^2.1.0",
-    "eslint-plugin-vue": "^4.7.1"
+    "eslint-plugin-vue": "^4.7.1",
+    "jest": "^23.5.0",
+    "vue-jest": "^2.6.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+    },
+    "globals": {
+      "vue-jest": {
+        "babelRcFile": ".babelrc"
+      }
+    },
+    "moduleNameMapper": {
+      "^~(.*)$": "<rootDir>$1"
+    }
   }
 }
