@@ -48,7 +48,8 @@
     "eslint-loader": "^2.1.0",
     "eslint-plugin-vue": "^4.7.1",
     "jest": "^23.5.0",
-    "vue-jest": "^2.6.0"
+    "vue-jest": "^2.6.0",
+    "vue-server-renderer": "^2.5.17"
   },
   "jest": {
     "moduleFileExtensions": [
