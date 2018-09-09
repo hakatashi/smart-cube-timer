@@ -206,6 +206,7 @@ import {
 import GiiKER from '~/lib/giiker.js';
 import MoveSequence from '~/lib/MoveSequence.js';
 import NoSleep from 'nosleep.js';
+import SolveAnalyzer from '~/lib/SolveAnalyzer.js';
 import Stages from '~/components/Stages.vue';
 import assert from 'assert';
 import config from '~/lib/config.js';
@@ -324,6 +325,7 @@ export default {
 
 		this.isDialogOpen = !navigator.bluetooth && typeof BluetoothDevice === 'undefined';
 		this.platform = navigator.platform;
+		this.analyzer = null;
 	},
 	destroyed() {
 		if (this.interval) {
@@ -388,6 +390,13 @@ export default {
 
 			if (this.phase === 'inspect') {
 				this.startTime = new Date();
+				this.analyzer = new SolveAnalyzer({scramble: this.initialScramble.moves});
+				this.analyzer.on('statechange', (key, value) => {
+					if (key === 'cubeStage') {
+						this.scrollToStage();
+					}
+					console.log(key, value);
+				});
 				this.cross = null;
 				this.cll = null;
 				this.pll = null;
@@ -422,6 +431,7 @@ export default {
 				this.time = now.getTime() - this.startTime.getTime();
 				this.turns.push({time: this.time, ...move});
 
+				this.analyzer.addMoves([{time: this.time, ...move}]);
 				this.stages[this.cubeStage].sequence.push({time: this.time, ...move});
 
 				if (this.cubeStage === 'unknown') {
