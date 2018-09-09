@@ -116,16 +116,16 @@
 			</v-flex>
 			<v-flex id="stages" class="times">
 				<stages
-					:stages="stages"
-					:mode="mode"
+					:stages="analyzerState.stages"
+					:mode="analyzerState.mode || 'cfop'"
 					:time="time"
-					:cross="cross"
+					:cross="analyzerState.cross"
 					:is-xcross="isXcross"
-					:oll="oll"
-					:is-oll2look="isOll2Look"
-					:pll="pll"
-					:pll-looks="pllLooks"
-					:cll="cll"
+					:oll="analyzerState.oll"
+					:is-oll2look="analyzerState.isOll2Look"
+					:pll="analyzerState.pll"
+					:pll-looks="analyzerState.pllLooks"
+					:cll="analyzerState.cll"
 				/>
 			</v-flex>
 		</v-layout>
@@ -193,28 +193,17 @@
 </template>
 
 <script>
-import {deleteSolve, saveSolve} from '~/lib/db.js';
-import {
-	findCross,
-	findRouxBlock,
-	formatTime,
-	getInspectionTime,
-	getNextStage,
-	getRotation,
-	isStageSatisfied,
-} from '~/lib/utils.js';
 import GiiKER from '~/lib/giiker.js';
 import MoveSequence from '~/lib/MoveSequence.js';
 import NoSleep from 'nosleep.js';
 import SolveAnalyzer from '~/lib/SolveAnalyzer.js';
 import Stages from '~/components/Stages.vue';
 import assert from 'assert';
-import config from '~/lib/config.js';
+import {deleteSolve} from '~/lib/db.js';
+import {formatTime} from '~/lib/utils.js';
 import sample from 'lodash/sample';
 import scrambles from '~/lib/scrambles.json';
 import scrambo from 'scrambo/lib/scramblers/333';
-import sumBy from 'lodash/sumBy';
-import uniq from 'lodash/uniq';
 
 export default {
 	components: {
@@ -222,10 +211,19 @@ export default {
 	},
 	data() {
 		return {
+			analyzerState: {
+				mode: null,
+				cross: null,
+				rouxBlock: null,
+				cubeStage: null,
+				stages: {},
+				oll: null,
+				isOll2Look: false,
+				pll: null,
+				pllLooks: [],
+				cll: null,
+			},
 			platform: '',
-			mode: 'cfop',
-			cross: null,
-			rouxBlock: null,
 			isGiikerConnected: null,
 			startTime: null,
 			time: 0,
@@ -234,15 +232,7 @@ export default {
 			isDescriptionShown: true,
 			placeholderMoves: [],
 			scramble: null,
-			solveSequence: null,
-			cubeStage: null,
-			stages: {},
-			oll: null,
 			previousSolve: null,
-			isOll2Look: false,
-			pll: null,
-			pllLooks: [],
-			cll: null,
 			snackbar: '',
 			isSnackbarShown: false,
 			isFirstSolve: true,
@@ -286,13 +276,17 @@ export default {
 			});
 		},
 		isXcross() {
-			return this.stages.f2l1 && this.stages.f2l1.time !== null && this.stages.f2l1.sequence.length === 0;
+			return (
+				this.analyzerState.stages.f2l1 &&
+				this.analyzerState.stages.f2l1.time !== null &&
+				this.analyzerState.stages.f2l1.sequence.length === 0
+			);
 		},
 		displayTime() {
 			return formatTime(this.time);
 		},
 		moveCount() {
-			return sumBy(Object.values(this.stages), ({time = null, sequence}) => time === null ? 0 : sequence.length);
+			return this.analyzer.getMoveCount();
 		},
 		speed() {
 			if (this.time === 0) {
@@ -320,7 +314,6 @@ export default {
 		const scramble = sample(scrambles.sheets[0].scrambles);
 		this.scramble = MoveSequence.fromScramble(scramble, {mode: 'reduction'});
 		this.initialScramble = MoveSequence.fromScramble(scramble, {mode: 'reduction'});
-		this.turns = new MoveSequence([], {mode: 'raw'});
 		this.placeholderMoves = this.scramble.moves.map((move) => ({...move}));
 
 		this.isDialogOpen = !navigator.bluetooth && typeof BluetoothDevice === 'undefined';
@@ -391,37 +384,16 @@ export default {
 			if (this.phase === 'inspect') {
 				this.startTime = new Date();
 				this.analyzer = new SolveAnalyzer({scramble: this.initialScramble.moves});
+				this.analyzerState = this.analyzer.state;
 				this.analyzer.on('statechange', (key, value) => {
+					this.$set(this.analyzerState, key, value);
 					if (key === 'cubeStage') {
 						this.scrollToStage();
 					}
-					console.log(key, value);
 				});
-				this.cross = null;
-				this.cll = null;
-				this.pll = null;
-				this.oll = null;
-				this.rouxBlock = null;
 				this.phase = 'solve';
 				this.isFirstSolve = false;
 				this.isDescriptionShown = false;
-				this.cubeStage = 'unknown';
-				this.stages = Object.assign(
-					...config.stagesData.cfop.map(({id}) => ({
-						[id]: {
-							sequence: new MoveSequence(),
-							time: null,
-						},
-					})),
-					...config.stagesData.roux.map(({id}) => ({
-						[id]: {
-							sequence: new MoveSequence(),
-							time: null,
-						},
-					})),
-				);
-				this.isOll2Look = false;
-				this.pllLooks = [];
 				this.interval = setInterval(this.onTick, 1000 / 30);
 				this.scrollToStage();
 				// fall through
@@ -429,63 +401,7 @@ export default {
 
 			if (this.phase === 'solve') {
 				this.time = now.getTime() - this.startTime.getTime();
-				this.turns.push({time: this.time, ...move});
-
-				this.analyzer.addMoves([{time: this.time, ...move}]);
-				this.stages[this.cubeStage].sequence.push({time: this.time, ...move});
-
-				if (this.cubeStage === 'unknown') {
-					const cross = findCross(GiiKER.cube);
-					const rouxBlock = findRouxBlock(GiiKER.cube);
-					if (cross) {
-						this.mode = 'cfop';
-						this.cubeStage = 'f2l1';
-						this.scrollToStage();
-						this.stages.unknown.time = this.time;
-						this.cross = cross;
-						// fall through
-					} else if (rouxBlock) {
-						this.mode = 'roux';
-						this.cubeStage = 'block2';
-						this.scrollToStage();
-						this.stages.unknown.time = this.time;
-						this.rouxBlock = rouxBlock;
-						// fall through
-					}
-				}
-
-				for (const stage of config.stagesData[this.mode].slice(1)) {
-					if (this.cubeStage === stage.id) {
-						const {result, oll, pll, cll} = isStageSatisfied({
-							mode: this.mode,
-							cube: GiiKER.cube,
-							stage: stage.id,
-							cross: this.cross,
-							rouxBlock: this.rouxBlock,
-						});
-
-						if (result === true) {
-							this.cubeStage = getNextStage(stage.id);
-							this.scrollToStage();
-							this.stages[stage.id].time = this.time;
-							if (stage.id === 'f2l4') {
-								this.oll = oll;
-							}
-							if (stage.id === 'oll') {
-								this.pll = pll;
-							}
-							if (stage.id === 'block2') {
-								this.cll = cll;
-							}
-						} else if (stage.id === 'oll' && !this.oll.isEdgeOriented && oll !== undefined && oll.isEdgeOriented) {
-							this.isOll2Look = true;
-						}
-
-						if (pll !== undefined && pll.name !== 'PLL Skip') {
-							this.pllLooks = uniq([...this.pllLooks, pll.name]);
-						}
-					}
-				}
+				this.analyzer.pushMoves([{time: this.time, ...move}]);
 
 				if (GiiKER.cube.isSolved()) {
 					this.finishSolve({isError: false});
@@ -497,7 +413,7 @@ export default {
 			this.time = now.getTime() - this.startTime.getTime();
 		},
 		scrollToStage() {
-			const element = document.getElementById(this.cubeStage);
+			const element = document.getElementById(this.analyzerState.cubeStage);
 			if (element) {
 				element.scrollIntoView({block: 'end', inline: 'nearest', behavior: 'smooth'});
 			}
@@ -513,77 +429,22 @@ export default {
 		async finishSolve({isError}) {
 			clearInterval(this.interval);
 
-			const {inspection: ollInspection} = (this.stages.oll.time !== null && this.stages.oll.sequence.length !== 0)
-				? getInspectionTime({stage: this.stages.oll, cross: this.cross, previousTime: this.stages.f2l4.time})
-				: {inspection: null};
-
-			const {inspection: pllInspection} = (this.stages.pll.time !== null && this.stages.pll.sequence.length !== 0)
-				? getInspectionTime({stage: this.stages.pll, cross: this.cross, previousTime: this.stages.oll.time})
-				: {inspection: null};
-
-			const {solve} = await saveSolve({
-				mode: this.mode,
+			const {solve} = await this.analyzer.save({
 				date: this.startTime.getTime(),
 				time: this.time,
-				scramble: this.initialScramble.moves,
-				turns: this.turns.moves,
-				stages: this.getSerializedStages(),
 				isError,
-				moveCount: this.moveCount,
-				crossFace: this.cross ? this.cross : null,
-				isXcross: this.isXcross,
-				ollCase: this.oll ? this.oll.index : null,
-				pllCase: this.pll ? this.pll.index : null,
-				ollLooks: this.oll ? (this.isOll2Look ? 2 : 1) : null,
-				pllLooks: this.pll ? this.pllLooks.length : null,
-				ollInspection,
-				pllInspection,
-				cllCase: this.cll ? this.cll.index : null,
-				rouxBlockSide: this.rouxBlock ? this.rouxBlock.side : null,
-				rouxBlockBottom: this.rouxBlock ? this.rouxBlock.bottom : null,
 			});
 
 			this.previousSolve = solve;
 			this.phase = 'scramble';
 			this.isFirstSolve = false;
+
 			const scramble = scrambo.getRandomScramble().replace(/ +/g, ' ').trim();
 			this.scramble = MoveSequence.fromScramble(scramble, {mode: 'reduction'});
 			this.initialScramble = MoveSequence.fromScramble(scramble, {mode: 'reduction'});
-			this.turns = new MoveSequence([], {mode: 'raw'});
+
 			this.placeholderMoves = this.scramble.moves.map((move) => ({...move}));
 			document.getElementById('stages').scrollTop = 0;
-		},
-		getSerializedStages() {
-			return config.stagesData[this.mode].map(({id}, index, stagesData) => {
-				const stage = this.stages[id];
-
-				if (!stage) {
-					return undefined;
-				}
-
-				const previousStage = index === 0 ? undefined : this.stages[stagesData[index - 1].id];
-				const time = stage.time - (previousStage ? previousStage.time : 0);
-
-				if (!this.cross) {
-					return {
-						id,
-						time,
-						turns: stage.sequence.toObject(),
-					};
-				}
-
-				const rotation = getRotation({from: this.cross, to: 'D'});
-				const turns = stage.sequence.toObject({cross: this.cross});
-				if (id === 'unknown' && rotation.amount !== 0) {
-					turns.unshift(rotation);
-				}
-
-				return {
-					id,
-					time,
-					turns,
-				};
-			}).filter((stage) => stage);
 		},
 		async onClickDelete() {
 			if (this.previousSolve === null) {
