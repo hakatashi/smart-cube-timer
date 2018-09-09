@@ -352,8 +352,10 @@ export default {
 				this.snackbar = error.message;
 				this.isConnecting = false;
 			});
+			// eslint-disable-next-line no-console
 			console.time('scrambo.initialize took');
 			scrambo.initialize(Math);
+			// eslint-disable-next-line no-console
 			console.timeEnd('scrambo.initialize took');
 		},
 		onGiikerMove(move) {

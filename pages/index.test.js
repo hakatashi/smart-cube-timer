@@ -5,8 +5,8 @@ import Index from './index.vue';
 import {shallowMount} from '@vue/test-utils';
 
 describe('index', () => {
-	test('mode is cfop', () => {
+	test('mode is null', () => {
 		const wrapper = shallowMount(Index);
-		expect(wrapper.vm.mode).toEqual('cfop');
+		expect(wrapper.vm.analyzerState.mode).toEqual(null);
 	});
 });
