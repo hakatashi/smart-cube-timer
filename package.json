@@ -22,7 +22,7 @@
     "postcss-import-url": "^3.0.4",
     "precss": "^3.1.2",
     "scrambo": "github:nickcolley/scrambo",
-    "sylvester": "0.0.21",
+    "sylvester": "github:hakatashi/node-sylvester#0.0.21-hakatashi-0",
     "vuetify": "^1.2.1"
   },
   "scripts": {
