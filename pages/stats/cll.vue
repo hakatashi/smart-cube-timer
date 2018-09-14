@@ -87,7 +87,7 @@ export default {
 	},
 	head() {
 		return {
-			title: 'OLL Stats',
+			title: 'CLL Stats',
 		};
 	},
 };
