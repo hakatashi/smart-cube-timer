@@ -92,7 +92,6 @@
 
 <script>
 import {
-	faces,
 	formatTime,
 	getInspectionTime,
 	getRelativeFaceFromFaces,
@@ -131,15 +130,16 @@ export default {
 				const stage = this.stages[id] || {time: null};
 				const previousStage = index === 0 ? null : this.stages[stages[index - 1].id];
 				const previousTime = previousStage ? previousStage.time : null;
-				const deltaTime = previousTime === null ? 0 : (stage.time || this.time) - previousTime;
+				const deltaTime = (stage.time || this.time) - (previousTime === null ? 0 : previousTime);
 
 				const isStageFinished = stage.time !== null && stage.sequence.length !== 0;
 
 				const moveCount = isStageFinished ? stage.sequence.length : null;
 				const speed = isStageFinished ? (moveCount / (deltaTime / 1000)).toFixed(2) : null;
 
+				const downFace = (this.mode === 'roux' && previousStage && previousStage.orientation) ? previousStage.orientation.down : this.cross;
 				const {inspection, execution} = (isStageFinished && showInspection)
-					? getInspectionTime({stage, cross: this.cross, previousTime})
+					? getInspectionTime({stage, cross: downFace, previousTime})
 					: {inspection: null, execution: null};
 
 				const infos = [];

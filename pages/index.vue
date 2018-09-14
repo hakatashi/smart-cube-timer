@@ -195,6 +195,7 @@
 </template>
 
 <script>
+import {deleteSolve, saveSolve} from '~/lib/db.js';
 import {formatTime, getNotation} from '~/lib/utils.js';
 import GiiKER from '~/lib/giiker.js';
 import MoveSequence from '~/lib/MoveSequence.js';
@@ -202,7 +203,6 @@ import NoSleep from 'nosleep.js';
 import SolveAnalyzer from '~/lib/SolveAnalyzer.js';
 import Stages from '~/components/Stages.vue';
 import assert from 'assert';
-import {deleteSolve} from '~/lib/db.js';
 import sample from 'lodash/sample';
 import scrambles from '~/lib/scrambles.json';
 import scrambo from 'scrambo/lib/scramblers/333';
@@ -433,11 +433,11 @@ export default {
 		async finishSolve({isError}) {
 			clearInterval(this.interval);
 
-			const {solve} = await this.analyzer.save({
+			const {solve} = await saveSolve(this.analyzer.toSolveEntry({
 				date: this.startTime.getTime(),
 				time: this.time,
 				isError,
-			});
+			}));
 
 			this.previousSolve = solve;
 			this.phase = 'scramble';
