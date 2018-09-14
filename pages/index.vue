@@ -116,6 +116,7 @@
 			</v-flex>
 			<v-flex id="stages" class="times">
 				<stages
+					:replay="false"
 					:stages="analyzerState.stages"
 					:mode="analyzerState.mode || 'cfop'"
 					:time="time"

@@ -1,87 +1,98 @@
 <template>
-	<v-layout wrap>
-		<v-flex
-			v-for="stage in stagesInfo"
-			:key="stage.id"
-			:id="stage.id"
-			xs12
-			lg4
-			xl3
+	<div>
+		<v-btn
+			v-if="replay"
+			:href="replayUrl"
+			color="success"
+			target="_blank"
 		>
-			<v-card
-				:dark="stage.dark"
-				:color="stage.color"
-				:class="stage.class">
-				<v-card-title>
-					<div :style="{width: '100%'}">
-						<h2 class="display-1 font-weight-bold text-xs-left">
-							{{stage.name}}
-							<v-chip
-								v-for="info in stage.infos"
-								:key="info.id"
-								:color="info.color.startsWith('#') ? null : info.color"
-								:text-color="info.textColor.startsWith('#') ? null : info.textColor"
-								:style="{
-									backgroundColor: info.color.startsWith('#') ? info.color : '',
-									color: info.textColor.startsWith('#') ? info.textColor : '',
-								}"
-								class="stage-info-chip"
-								small
-							>
-								<v-avatar
-									v-if="info.avatar"
+			Replay on alg.cubing.net
+		</v-btn>
+		<v-layout wrap>
+			<v-flex
+				v-for="stage in stagesInfo"
+				:key="stage.id"
+				:id="stage.id"
+				xs12
+				lg4
+				xl3
+			>
+				<v-card
+					:dark="stage.dark"
+					:color="stage.color"
+					:class="stage.class">
+					<v-card-title>
+						<div :style="{width: '100%'}">
+							<h2 class="display-1 font-weight-bold text-xs-left">
+								{{stage.name}}
+								<v-chip
+									v-for="info in stage.infos"
+									:key="info.id"
 									:color="info.color.startsWith('#') ? null : info.color"
 									:text-color="info.textColor.startsWith('#') ? null : info.textColor"
-									class="darken-3"
+									:style="{
+										backgroundColor: info.color.startsWith('#') ? info.color : '',
+										color: info.textColor.startsWith('#') ? info.textColor : '',
+									}"
+									class="stage-info-chip"
+									small
 								>
-									{{info.avatar}}
-								</v-avatar>
-								{{info.text}}
-							</v-chip>
-						</h2>
-						<v-layout class="stage-info headline ma-0">
-							<strong :style="{color: 'inherit'}">
-								{{stage.time}}
-							</strong>
-							<small
-								v-if="stage.inspectionTime !== null"
-								class="inspection-time">
-								<span class="time-info">
-									{{stage.inspectionTime}}
-								</span>
-								<span class="time-spacer">
-									/
-								</span>
-								<span class="time-info">
-									{{stage.executionTime}}
-								</span>
-							</small>
-							<v-spacer/>
-							<div
-								v-if="stage.moveCount !== null"
-								class="subheading stage-info-right"
-							>
-								{{stage.moveCount}} turns
+									<v-avatar
+										v-if="info.avatar"
+										:color="info.color.startsWith('#') ? null : info.color"
+										:text-color="info.textColor.startsWith('#') ? null : info.textColor"
+										class="darken-3"
+									>
+										{{info.avatar}}
+									</v-avatar>
+									{{info.text}}
+								</v-chip>
+							</h2>
+							<v-layout class="stage-info headline ma-0">
+								<strong :style="{color: 'inherit'}">
+									{{stage.time}}
+								</strong>
+								<small
+									v-if="stage.inspectionTime !== null"
+									class="inspection-time">
+									<span class="time-info">
+										{{stage.inspectionTime}}
+									</span>
+									<span class="time-spacer">
+										/
+									</span>
+									<span class="time-info">
+										{{stage.executionTime}}
+									</span>
+								</small>
+								<v-spacer/>
+								<div
+									v-if="stage.moveCount !== null"
+									class="subheading stage-info-right"
+								>
+									{{stage.moveCount}} turns
+								</div>
+								<div
+									v-if="stage.speed !== null"
+									class="subheading stage-info-right"
+								>
+									{{stage.speed}} tps
+								</div>
+							</v-layout>
+							<div class="content text-xs-left">
+								{{stage.sequenceText}}
 							</div>
-							<div
-								v-if="stage.speed !== null"
-								class="subheading stage-info-right"
-							>
-								{{stage.speed}} tps
-							</div>
-						</v-layout>
-						<div class="content text-xs-left">
-							{{stage.sequenceText}}
 						</div>
-					</div>
-				</v-card-title>
-			</v-card>
-		</v-flex>
-	</v-layout>
+					</v-card-title>
+				</v-card>
+			</v-flex>
+		</v-layout>
+	</div>
 </template>
 
 <script>
 import {
+	faces,
 	formatTime,
 	getInspectionTime,
 	getRelativeFaceFromFaces,
@@ -89,11 +100,15 @@ import {
 	getRotationNotationFromFaces,
 	idealTextColor,
 } from '~/lib/utils.js';
+import MoveSequence from '~/lib/MoveSequence.js';
 import assert from 'assert';
 import config from '~/lib/config.js';
+import get from 'lodash/get';
+import qs from 'querystring';
 
 export default {
 	props: [
+		'replay',
 		'stages',
 		'mode',
 		'time',
@@ -105,6 +120,7 @@ export default {
 		'pllLooks',
 		'cll',
 		'rouxBlock',
+		'scrambleText',
 	],
 	data() {
 		return {
@@ -286,6 +302,22 @@ export default {
 					executionTime: execution && formatTime(execution),
 				};
 			});
+		},
+		replayUrl() {
+			const lines = this.stagesInfo.map((stageInfo) => {
+				const stage = this.stages[stageInfo.id];
+				if (!stage.sequence || stage.sequence.length === 0) {
+					return null;
+				}
+				const stageDatum = get(config.stagesData, [this.mode], []).find(({id}) => stage.id === id);
+				const stageName = stageDatum ? ` // ${stageDatum.name}` : '';
+				const line = `${stageInfo.sequenceText}${stageName}`;
+				return line;
+			}).filter((line) => line !== null);
+
+			const alg = lines.join('\n');
+			const setup = this.scrambleText;
+			return `https://alg.cubing.net/?${qs.encode({alg, setup})}`;
 		},
 	},
 };

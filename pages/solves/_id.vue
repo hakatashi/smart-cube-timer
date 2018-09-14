@@ -1,12 +1,6 @@
 <template>
-	<v-container
-		fill-height
-		grid-list-lg
-		text-xs-center>
-		<v-layout
-			v-if="!solve"
-			align-center
-			fill-height>
+	<v-container fill-height grid-list-lg text-xs-center>
+		<v-layout v-if="!solve" align-center fill-height>
 			<v-flex text-xs-center>
 				<v-progress-circular
 					:size="70"
@@ -25,9 +19,7 @@
 						class="ma-0"
 					/>
 					{{displayTime}}
-					<v-dialog
-						v-model="isDeleteDialogOpen"
-					>
+					<v-dialog v-model="isDeleteDialogOpen">
 						<v-btn
 							slot="activator"
 							icon
@@ -73,11 +65,8 @@
 				<div class="scramble">
 					{{scrambleText}}
 				</div>
-				<v-btn
-					:href="replayUrl"
-					color="success"
-					target="_blank">Replay on alg.cubing.net</v-btn>
 				<stages
+					:replay="true"
 					:stages="stages"
 					:mode="solve.mode"
 					:time="solve.time"
@@ -89,6 +78,7 @@
 					:pll-looks="solve._pllLooks"
 					:roux-block="solve._rouxBlock"
 					:cll="cll"
+					:scramble-text="scrambleText"
 				/>
 			</v-flex>
 		</v-layout>
@@ -98,12 +88,9 @@
 <script>
 import {clls, olls, plls} from '~/lib/data.js';
 import {deleteSolve, getSolve} from '~/lib/db.js';
-import {faces, formatTime, getRotationNotation} from '~/lib/utils.js';
+import {faces, formatTime} from '~/lib/utils.js';
 import MoveSequence from '~/lib/MoveSequence.js';
 import Stages from '~/components/Stages.vue';
-import config from '~/lib/config.js';
-import get from 'lodash/get';
-import qs from 'querystring';
 import sumBy from 'lodash/sumBy';
 
 export default {
@@ -176,30 +163,6 @@ export default {
 				index: this.solve._cllCase,
 				name,
 			};
-		},
-		replayUrl() {
-			const lines = this.solve.stages.map((stage) => {
-				if (stage.turns.length === 0) {
-					return null;
-				}
-				const sequence = new MoveSequence(stage.turns.filter(({face}) => faces.includes(face)));
-				const stageDatum = get(config.stagesData, [this.solve.mode], []).find(({id}) => stage.id === id);
-				const stageName = stageDatum ? ` // ${stageDatum.name}` : '';
-				let line = `${sequence.toString({cross: this.solve._crossFace})}${stageName}`;
-
-				if (stage.id === 'unknown' && this.solve._crossFace !== null) {
-					const rotationNotation = getRotationNotation({from: this.solve._crossFace, to: 'D'});
-					if (rotationNotation !== '') {
-						line = `${rotationNotation} ${line}`;
-					}
-				}
-
-				return line;
-			}).filter((line) => line !== null);
-
-			const alg = lines.join('\n');
-			const setup = this.scrambleText;
-			return `https://alg.cubing.net/?${qs.encode({alg, setup})}`;
 		},
 	},
 	async mounted() {
