@@ -1,17 +1,12 @@
 <template>
-	<v-container
-		fluid
-		grid-list-md
-		text-xs-center>
+	<v-container fluid grid-list-md text-xs-center>
 		<v-data-table
 			:headers="headers"
 			:items="cases"
 			hide-actions
 			class="elevation-1"
 		>
-			<template
-				slot="items"
-				slot-scope="props">
+			<template slot="items" slot-scope="props">
 				<th class="row-header text-xs-left">{{props.item.name}}</th>
 				<td class="text-xs-right">{{props.item.count}}</td>
 				<td class="text-xs-right">{{props.item.averageTimeText}}</td>
@@ -25,8 +20,7 @@
 <script>
 import {clls} from '~/lib/data.js';
 import {formatTime} from '~/lib/utils.js';
-import {getSolves} from '~/lib/db.js';
-import meanBy from 'lodash/meanBy';
+import {getCllStats} from '~/lib/db.js';
 
 export default {
 	data() {
@@ -58,43 +52,42 @@ export default {
 					value: 'averageExecution',
 				},
 			],
-			solves: [],
+			stats: [],
 			cases: clls.map(([name]) => ({
 				name,
-				count: null,
+				count: 0,
 				averageTime: 0,
-				averageTimeText: '',
 				averageInspection: 0,
-				averageInspectionText: '',
 				averageExecution: 0,
-				averageExecutionText: '',
 			})),
 		};
 	},
 	computed: {
 	},
 	async mounted() {
-		this.solves = await getSolves();
+		this.stats = await getCllStats();
 		this.cases = this.cases.map(({name}, index) => {
-			const solves = this.solves.filter(({_cllCase, isError}) => _cllCase === index && !isError);
-			const averageTime = meanBy(solves, (solve) => solve._cllTime) || Infinity;
+			const stat = this.stats.find(({id}) => id === index);
+			const averageTime = stat ? stat.times / stat.count : Infinity;
+			const averageInspection = stat ? stat.inspectionTimes / stat.count : Infinity;
+			const averageExecution = stat ? stat.executionTimes / stat.count : Infinity;
 
 			return {
 				index,
 				name,
-				count: solves.length,
+				count: stat ? stat.count : 0,
 				averageTime,
 				averageTimeText: formatTime(averageTime),
-				averageInspection: 0,
-				averageInspectionText: '-',
-				averageExecution: 0,
-				averageExecutionText: '-',
+				averageInspection,
+				averageInspectionText: formatTime(averageInspection),
+				averageExecution,
+				averageExecutionText: formatTime(averageExecution),
 			};
 		});
 	},
 	head() {
 		return {
-			title: 'PLL Stats',
+			title: 'OLL Stats',
 		};
 	},
 };

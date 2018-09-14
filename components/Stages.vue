@@ -20,7 +20,8 @@
 				<v-card
 					:dark="stage.dark"
 					:color="stage.color"
-					:class="stage.class">
+					:class="stage.class"
+				>
 					<v-card-title>
 						<div :style="{width: '100%'}">
 							<h2 class="display-1 font-weight-bold text-xs-left">

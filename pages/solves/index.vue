@@ -71,7 +71,7 @@
 			<v-card>
 				<v-card-title class="headline">Save history as a file</v-card-title>
 				<v-card-text>
-					<strong>Export</strong> file includes <i>time</i> and <i>scramble</i> and <i>date</i>, delimited by semicolon.
+					<strong>Export</strong> file includes <i>time</i>, <i>scramble</i> and <i>date</i> of each solves, delimited by semicolon.
 					This format is compatible with <strong>TwistyTimer</strong> and few other apps.
 				</v-card-text>
 				<v-card-text>
@@ -79,18 +79,17 @@
 					You can programatically process this file or use this as a backup of history.
 					In near future this timer will be able to import this file into history tab.
 				</v-card-text>
-				<v-card-actions>
-					<v-spacer/>
+				<v-card-actions :style="{flexWrap: 'wrap', justifyContent: 'flex-end'}">
 					<v-btn
 						color="green darken-1"
-						flat="flat"
+						flat
 						@click="onExport"
 					>
 						Export (for other timers)
 					</v-btn>
 					<v-btn
 						color="green darken-1"
-						flat="flat"
+						flat
 						@click="onDump"
 					>
 						Dump (full data)

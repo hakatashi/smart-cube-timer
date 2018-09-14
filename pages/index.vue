@@ -168,7 +168,7 @@
 					<v-spacer/>
 					<v-btn
 						color="green darken-1"
-						flat="flat"
+						flat
 						@click="isDialogOpen = false"
 					>
 						Close
