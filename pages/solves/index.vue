@@ -1,11 +1,6 @@
 <template>
-	<v-container
-		fluid
-		grid-list-md
-		text-xs-center>
-		<v-progress-linear
-			v-if="isLoading"
-			:indeterminate="true"/>
+	<v-container fluid grid-list-md text-xs-center>
+		<v-progress-linear v-if="isLoading" :indeterminate="true"/>
 		<v-btn
 			:style="{bottom: '100px'}"
 			fab
@@ -14,9 +9,10 @@
 			bottom
 			left
 			small
-			color="purple"
-			@click="onExport">
-			<v-icon>get_app</v-icon>
+			color="blue darken-2"
+			@click="isSaveDialogOpen = true"
+		>
+			<v-icon>arrow_downward</v-icon>
 		</v-btn>
 		<v-data-iterator
 			:items="solvesInfo"
@@ -33,10 +29,7 @@
 				md6
 				lg4
 			>
-				<v-card
-					:to="`/solves/${props.item.id}`"
-					class="solve"
-					nuxt>
+				<v-card :to="`/solves/${props.item.id}`" class="solve" nuxt>
 					<v-card-text class="pa-0 subheading text-xs-left solve-headline">
 						<strong>{{props.item.timeText}}</strong>
 						<small
@@ -74,12 +67,43 @@
 				</v-card>
 			</v-flex>
 		</v-data-iterator>
+		<v-dialog v-model="isSaveDialogOpen" max-width="600">
+			<v-card>
+				<v-card-title class="headline">Save history as a file</v-card-title>
+				<v-card-text>
+					<strong>Export</strong> file includes <i>time</i> and <i>scramble</i> and <i>date</i>, delimited by semicolon.
+					This format is compatible with <strong>TwistyTimer</strong> and few other apps.
+				</v-card-text>
+				<v-card-text>
+					<strong>Dump</strong> file is a JSON file which includes all information of your solves.
+					You can programatically process this file or use this as a backup of history.
+					In near future this timer will be able to import this file into history tab.
+				</v-card-text>
+				<v-card-actions>
+					<v-spacer/>
+					<v-btn
+						color="green darken-1"
+						flat="flat"
+						@click="onExport"
+					>
+						Export (for other timers)
+					</v-btn>
+					<v-btn
+						color="green darken-1"
+						flat="flat"
+						@click="onDump"
+					>
+						Dump (full data)
+					</v-btn>
+				</v-card-actions>
+			</v-card>
+		</v-dialog>
 	</v-container>
 </template>
 
 <script>
 import {clls, olls, plls} from '~/lib/data.js';
-import {exportTimes, getSolves} from '~/lib/db.js';
+import {dump, exportTimes, getSolves} from '~/lib/db.js';
 import {formatDate, formatTime, idealTextColor} from '~/lib/utils.js';
 import config from '~/lib/config.js';
 
@@ -87,6 +111,8 @@ export default {
 	data() {
 		return {
 			isLoading: true,
+			isDialOpen: false,
+			isSaveDialogOpen: false,
 			solves: [],
 			rowsPerPageItems: [50],
 			pagination: {
@@ -172,6 +198,9 @@ export default {
 	methods: {
 		onExport() {
 			exportTimes();
+		},
+		onDump() {
+			dump();
 		},
 	},
 	head() {
