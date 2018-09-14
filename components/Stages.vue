@@ -84,10 +84,12 @@
 import {
 	formatTime,
 	getInspectionTime,
+	getRelativeFaceFromFaces,
 	getRotationNotation,
 	getRotationNotationFromFaces,
 	idealTextColor,
 } from '~/lib/utils.js';
+import assert from 'assert';
 import config from '~/lib/config.js';
 
 export default {
@@ -110,10 +112,10 @@ export default {
 	},
 	computed: {
 		stagesInfo() {
-			let previousTime = 0;
-
-			return config.stagesData[this.mode].map(({id, name, color, dark, showInspection}) => {
+			return config.stagesData[this.mode].map(({id, name, color, dark, showInspection}, index, stages) => {
 				const stage = this.stages[id] || {time: null};
+				const previousStage = index === 0 ? null : this.stages[stages[index - 1].id];
+				const previousTime = previousStage ? previousStage.time : null;
 				const deltaTime = previousTime === null ? 0 : (stage.time || this.time) - previousTime;
 
 				const isStageFinished = stage.time !== null && stage.sequence.length !== 0;
@@ -124,8 +126,6 @@ export default {
 				const {inspection, execution} = (isStageFinished && showInspection)
 					? getInspectionTime({stage, cross: this.cross, previousTime})
 					: {inspection: null, execution: null};
-
-				previousTime = stage.time;
 
 				const infos = [];
 				if (id === 'unknown') {
@@ -211,16 +211,61 @@ export default {
 						// eslint-disable-next-line no-negated-condition
 					} else if (this.rouxBlock !== null) {
 						if (id === 'unknown') {
-							sequenceText = stage.sequence.toString({rouxBlock: this.rouxBlock, fixDirection: false});
+							sequenceText = stage.sequence.toString({
+								rouxBlock: {
+									side: stage.orientation.left,
+									bottomDirection: stage.orientation.down,
+								},
+								fixDirection: false,
+							});
 							const rotationNotation = getRotationNotationFromFaces({
-								from: [this.rouxBlock.side, this.rouxBlock.bottomDirection],
+								from: [stage.orientation.left, stage.orientation.down],
 								to: ['L', 'D'],
 							});
 							if (rotationNotation !== '') {
 								sequenceText = `${rotationNotation} ${sequenceText}`;
 							}
 						} else {
-							sequenceText = stage.sequence.toString({rouxBlock: this.rouxBlock, fixDirection: true});
+							const result = stage.sequence.toText({
+								rouxBlock: {
+									side: previousStage.orientation.left,
+									bottomDirection: previousStage.orientation.down,
+								},
+								fixDirection: true,
+							});
+
+							sequenceText = result.text;
+
+							if (stage.orientation !== null) {
+								const [
+									relativeDownFrom,
+									relativeLeftFrom,
+									relativeDownTo,
+									relativeLeftTo,
+								] = [
+									result.orientation.down,
+									result.orientation.left,
+									stage.orientation.down,
+									stage.orientation.left,
+								].map((face) => (
+									getRelativeFaceFromFaces(face, {
+										from: [previousStage.orientation.left, previousStage.orientation.down],
+										to: ['L', 'D'],
+									})
+								));
+
+								assert(relativeLeftFrom === 'L');
+								assert(relativeLeftTo === 'L');
+
+								const rotationNotation = getRotationNotationFromFaces({
+									from: ['L', relativeDownFrom],
+									to: ['L', relativeDownTo],
+								});
+
+								if (rotationNotation !== '') {
+									sequenceText += ` ${rotationNotation}`;
+								}
+							}
 						}
 					} else {
 						sequenceText = stage.sequence.toString();
