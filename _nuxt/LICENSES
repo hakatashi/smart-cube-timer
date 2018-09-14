@@ -234,6 +234,8 @@
 
 /*! ../../stylus/components/_breadcrumbs.styl */
 
+/*! ../../mixins/themeable */
+
 /*!*********************************************************!*\
   !*** ./src/components/VBreadcrumbs/VBreadcrumbsItem.js ***!
   \*********************************************************/
@@ -778,7 +780,7 @@
 
 /*! ../../util/helpers */
 
-/*! ../../util/SlotProvider */
+/*! ../../util/ThemeProvider */
 
 /*!*****************************************!*\
   !*** ./src/components/VDialog/index.js ***!
@@ -1216,7 +1218,7 @@
 
 /*! ../../util/helpers */
 
-/*! ../../util/SlotProvider */
+/*! ../../util/ThemeProvider */
 
 /*!***************************************!*\
   !*** ./src/components/VMenu/index.js ***!
@@ -3112,13 +3114,15 @@
 
 /*! no static exports found */
 
-/*!**********************************!*\
-  !*** ./src/util/SlotProvider.ts ***!
-  \**********************************/
+/*!***********************************!*\
+  !*** ./src/util/ThemeProvider.ts ***!
+  \***********************************/
 
 /*! exports provided: default */
 
-/*! vue */
+/*! ../mixins/themeable */
+
+/*! ./mixins */
 
 /*!*******************************************!*\
   !*** ./src/util/color/transformCIELAB.ts ***!
@@ -3207,7 +3211,7 @@
  * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
  * @license   Licensed under MIT license
  *            See https://raw.githubusercontent.com/stefanpenner/es6-promise/master/LICENSE
- * @version   v4.2.4+314e4831
+ * @version   v4.2.5+7f2b526d
  */
 
 /**
