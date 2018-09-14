@@ -85,6 +85,7 @@ import {
 	formatTime,
 	getInspectionTime,
 	getRotationNotation,
+	getRotationNotationFromFaces,
 	idealTextColor,
 } from '~/lib/utils.js';
 import config from '~/lib/config.js';
@@ -101,6 +102,7 @@ export default {
 		'pll',
 		'pllLooks',
 		'cll',
+		'rouxBlock',
 	],
 	data() {
 		return {
@@ -108,7 +110,6 @@ export default {
 	},
 	computed: {
 		stagesInfo() {
-			const stages = this.stages || {};
 			let previousTime = 0;
 
 			return config.stagesData[this.mode].map(({id, name, color, dark, showInspection}) => {
@@ -198,15 +199,31 @@ export default {
 						if (stage.time !== null && stage.sequence.length === 0) {
 							sequenceText = '(Skipped)';
 						}
-					} else {
+					} else if (this.cross !== null) {
 						sequenceText = stage.sequence.toString({cross: this.cross});
 
-						if (id === 'unknown' && this.cross !== null) {
+						if (id === 'unknown') {
 							const rotationNotation = getRotationNotation({from: this.cross, to: 'D'});
 							if (rotationNotation !== '') {
 								sequenceText = `${rotationNotation} ${sequenceText}`;
 							}
 						}
+						// eslint-disable-next-line no-negated-condition
+					} else if (this.rouxBlock !== null) {
+						if (id === 'unknown') {
+							sequenceText = stage.sequence.toString({rouxBlock: this.rouxBlock, fixDirection: false});
+							const rotationNotation = getRotationNotationFromFaces({
+								from: [this.rouxBlock.side, this.rouxBlock.bottomDirection],
+								to: ['L', 'D'],
+							});
+							if (rotationNotation !== '') {
+								sequenceText = `${rotationNotation} ${sequenceText}`;
+							}
+						} else {
+							sequenceText = stage.sequence.toString({rouxBlock: this.rouxBlock, fixDirection: true});
+						}
+					} else {
+						sequenceText = stage.sequence.toString();
 					}
 				}
 

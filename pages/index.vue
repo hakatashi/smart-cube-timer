@@ -125,6 +125,7 @@
 					:is-oll2look="analyzerState.isOll2Look"
 					:pll="analyzerState.pll"
 					:pll-looks="analyzerState.pllLooks"
+					:roux-block="analyzerState.rouxBlock"
 					:cll="analyzerState.cll"
 				/>
 			</v-flex>
@@ -193,6 +194,7 @@
 </template>
 
 <script>
+import {formatTime, getNotation} from '~/lib/utils.js';
 import GiiKER from '~/lib/giiker.js';
 import MoveSequence from '~/lib/MoveSequence.js';
 import NoSleep from 'nosleep.js';
@@ -200,7 +202,6 @@ import SolveAnalyzer from '~/lib/SolveAnalyzer.js';
 import Stages from '~/components/Stages.vue';
 import assert from 'assert';
 import {deleteSolve} from '~/lib/db.js';
-import {formatTime} from '~/lib/utils.js';
 import sample from 'lodash/sample';
 import scrambles from '~/lib/scrambles.json';
 import scrambo from 'scrambo/lib/scramblers/333';
@@ -253,7 +254,7 @@ export default {
 			return this.placeholderMoves.map((move, index) => {
 				if (index < greyedMovesCount) {
 					return {
-						text: MoveSequence.moveToString(move),
+						text: getNotation(move),
 						grey: true,
 					};
 				}
@@ -263,14 +264,14 @@ export default {
 				if (index === greyedMovesCount) {
 					if (move.face === actualMove.face) {
 						return {
-							text: MoveSequence.moveToString(move),
+							text: getNotation(move),
 							grey: false,
 						};
 					}
 				}
 
 				return {
-					text: MoveSequence.moveToString(actualMove),
+					text: getNotation(actualMove),
 					grey: false,
 				};
 			});
@@ -311,7 +312,7 @@ export default {
 		}
 	},
 	mounted() {
-		const scramble = sample(scrambles.sheets[0].scrambles);
+		const scramble = "B L2 B D2 B2 U L2 D2 R U L R2 D R D U2 L' U2"; // sample(scrambles.sheets[0].scrambles);
 		this.scramble = MoveSequence.fromScramble(scramble, {mode: 'reduction'});
 		this.initialScramble = MoveSequence.fromScramble(scramble, {mode: 'reduction'});
 		this.placeholderMoves = this.scramble.moves.map((move) => ({...move}));

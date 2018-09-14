@@ -87,6 +87,7 @@
 					:is-oll2look="solve._ollLooks === 2"
 					:pll="pll"
 					:pll-looks="solve._pllLooks"
+					:roux-block="solve._rouxBlock"
 					:cll="cll"
 				/>
 			</v-flex>
@@ -203,7 +204,10 @@ export default {
 	},
 	async mounted() {
 		const solve = await getSolve(this.$route.params.id);
-		this.solve = solve;
+		this.solve = {
+			...solve,
+			_rouxBlock: solve._rouxBlockSide ? {side: solve._rouxBlockSide, bottom: solve._rouxBlockBottom} : null,
+		};
 		this.scrambleText = new MoveSequence(solve.scramble).toString();
 	},
 	methods: {
