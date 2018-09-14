@@ -313,7 +313,7 @@ export default {
 		}
 	},
 	mounted() {
-		const scramble = "B L2 B D2 B2 U L2 D2 R U L R2 D R D U2 L' U2"; // sample(scrambles.sheets[0].scrambles);
+		const scramble = sample(scrambles.sheets[0].scrambles);
 		this.scramble = MoveSequence.fromScramble(scramble, {mode: 'reduction'});
 		this.initialScramble = MoveSequence.fromScramble(scramble, {mode: 'reduction'});
 		this.placeholderMoves = this.scramble.moves.map((move) => ({...move}));

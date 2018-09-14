@@ -100,7 +100,6 @@ import {
 	getRotationNotationFromFaces,
 	idealTextColor,
 } from '~/lib/utils.js';
-import MoveSequence from '~/lib/MoveSequence.js';
 import assert from 'assert';
 import config from '~/lib/config.js';
 import get from 'lodash/get';
