@@ -16,14 +16,14 @@
     "file-saver": "^1.3.8",
     "giiker": "^2.0.1",
     "lodash": "^4.17.10",
-    "nanoid": "^1.2.2",
+    "nanoid": "^1.2.3",
     "nosleep.js": "^0.7.0",
     "nuxt": "latest",
     "postcss-import-url": "^3.0.4",
     "precss": "^3.1.2",
     "scrambo": "github:nickcolley/scrambo",
     "sylvester": "github:hakatashi/node-sylvester#0.0.21-hakatashi-0",
-    "vuetify": "^1.2.1"
+    "vuetify": "^1.2.3"
   },
   "scripts": {
     "dev": "nuxt",
@@ -38,16 +38,16 @@
   },
   "devDependencies": {
     "@hakatashi/eslint-config": "^1.7.0",
-    "@vue/test-utils": "^1.0.0-beta.24",
+    "@vue/test-utils": "^1.0.0-beta.25",
     "babel-eslint": "^9.0.0",
-    "babel-jest": "^23.4.2",
+    "babel-jest": "^23.6.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "babel-preset-vue-app": "^2.0.0",
     "cross-env": "^5.2.0",
     "eslint": "^5.5.0",
     "eslint-loader": "^2.1.0",
     "eslint-plugin-vue": "^4.7.1",
-    "jest": "^23.5.0",
+    "jest": "^23.6.0",
     "vue-jest": "^2.6.0"
   },
   "jest": {
