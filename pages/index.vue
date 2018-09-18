@@ -37,7 +37,8 @@
 					<span
 						v-for="(move, index) in scrambleMoves"
 						:key="index"
-						:style="{color: move.grey ? '#CCC' : ''}">
+						:style="{color: move.grey ? '#CCC' : ''}"
+					>
 						{{move.text}}
 					</span>
 				</div>
@@ -143,26 +144,38 @@
 					You can try Chrome Dev with new Bluetooth implementation but it's very beta.
 					If you are so smart to try out beta, follow <a
 						target="_blank"
-						href="https://github.com/hakatashi/smart-cube-timer/wiki/Windows-Guide">this instruction</a> at your own risk.
+						href="https://github.com/hakatashi/smart-cube-timer/wiki/Windows-Guide"
+					>
+						this instruction
+					</a> at your own risk.
 				</v-card-text>
 				<v-card-text v-if="platform.startsWith('iP')">
 					I guess you are using <strong>{{platform}}</strong>.
 					Some people says that this timer works with <a
 						target="_blank"
-						href="https://itunes.apple.com/us/app/webble/id1193531073">WebBLE browser</a> ($1.99) but I don't guarantee.
-						Try at your own risk.
+						href="https://itunes.apple.com/us/app/webble/id1193531073"
+					>
+						WebBLE browser
+					</a> ($1.99) but I don't guarantee.
+					Try at your own risk.
 				</v-card-text>
 				<v-card-text v-if="platform.startsWith('Mac')">
 					I guess you are using <strong>Mac</strong>.
 					Download <a
 						target="_blank"
-						href="https://www.google.com/chrome/">latest Google Chrome</a> and it should help.
+						href="https://www.google.com/chrome/"
+					>
+						latest Google Chrome
+					</a> and it should help.
 				</v-card-text>
 				<v-card-text v-if="platform.startsWith('Android') || platform.match(/linux/i)">
 					I guess you are using <strong>Android</strong>.
 					Download <a
 						target="_blank"
-						href="https://play.google.com/store/apps/details?id=com.android.chrome">latest Google Chrome</a> and it should help.
+						href="https://play.google.com/store/apps/details?id=com.android.chrome"
+					>
+						latest Google Chrome
+					</a> and it should help.
 				</v-card-text>
 				<v-card-actions>
 					<v-spacer/>

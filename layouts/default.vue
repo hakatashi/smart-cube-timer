@@ -2,11 +2,13 @@
 	<v-app>
 		<v-navigation-drawer
 			v-model="drawer"
-			app>
+			app
+		>
 			<v-list class="pt-0">
 				<v-list-tile
 					to="/"
-					nuxt>
+					nuxt
+				>
 					<v-list-tile-content>
 						<v-list-tile-title>
 							Home
@@ -26,19 +28,22 @@
 			dense
 			app
 			dark
-			color="purple">
+			color="purple"
+		>
 			<v-toolbar-side-icon @click.stop="drawer = !drawer"/>
 			<v-toolbar-title>
 				<nuxt-link
 					to="/"
-					class="white--text">
+					class="white--text"
+				>
 					Smart Cube Timer
 				</nuxt-link>
 			</v-toolbar-title>
 			<v-spacer/>
 			<v-btn
 				icon
-				@click="onClickFullscreen">
+				@click="onClickFullscreen"
+			>
 				<v-icon v-if="isFullscreen">fullscreen_exit</v-icon>
 				<v-icon v-else>fullscreen</v-icon>
 			</v-btn>
@@ -49,18 +54,21 @@
 		<v-footer
 			:height="40"
 			:style="{lineHeight: '1.2em'}"
-			app>
+			app
+		>
 			<v-flex
 				text-xs-center
 				xs12
 			>
 				This timer is under development - <a
 					href="https://github.com/hakatashi/smart-cube-timer"
-					target="_blank">
+					target="_blank"
+				>
 					GitHub
 				</a> - <a
 					href="https://twitter.com/hakatashi"
-					target="_blank">
+					target="_blank"
+				>
 					Twitter
 				</a>
 				<br>

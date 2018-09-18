@@ -11,8 +11,8 @@
 		<v-layout wrap>
 			<v-flex
 				v-for="stage in stagesInfo"
-				:key="stage.id"
 				:id="stage.id"
+				:key="stage.id"
 				xs12
 				lg4
 				xl3
@@ -55,7 +55,8 @@
 								</strong>
 								<small
 									v-if="stage.inspectionTime !== null"
-									class="inspection-time">
+									class="inspection-time"
+								>
 									<span class="time-info">
 										{{stage.inspectionTime}}
 									</span>

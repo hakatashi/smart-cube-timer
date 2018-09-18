@@ -2,7 +2,8 @@
 	<v-container
 		fluid
 		grid-list-md
-		text-xs-center>
+		text-xs-center
+	>
 		<v-data-table
 			:headers="headers"
 			:items="cases"
@@ -11,7 +12,8 @@
 		>
 			<template
 				slot="items"
-				slot-scope="props">
+				slot-scope="props"
+			>
 				<th class="row-header text-xs-left">{{props.item.name}}</th>
 				<td class="text-xs-right">{{props.item.count}}</td>
 				<td class="text-xs-right">{{props.item.averageTimeText}}</td>

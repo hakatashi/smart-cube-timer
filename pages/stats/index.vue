@@ -1,17 +1,21 @@
 <template>
 	<v-container
 		grid-list-lg
-		reverse>
+		reverse
+	>
 		<v-layout
 			row
-			wrap>
+			wrap
+		>
 			<v-flex
 				xs12
-				sm6>
+				sm6
+			>
 				<v-card
 					color="yellow"
 					to="/stats/oll"
-					nuxt>
+					nuxt
+				>
 					<v-card-title>
 						<div class="headline">OLL</div>
 					</v-card-title>
@@ -19,12 +23,14 @@
 			</v-flex>
 			<v-flex
 				xs12
-				sm6>
+				sm6
+			>
 				<v-card
 					color="red"
 					class="white--text"
 					to="/stats/pll"
-					nuxt>
+					nuxt
+				>
 					<v-card-title>
 						<div class="headline">PLL</div>
 					</v-card-title>
@@ -32,12 +38,14 @@
 			</v-flex>
 			<v-flex
 				xs12
-				sm6>
+				sm6
+			>
 				<v-card
 					color="brown"
 					class="white--text"
 					to="/stats/cll"
-					nuxt>
+					nuxt
+				>
 					<v-card-title>
 						<div class="headline">CLL</div>
 					</v-card-title>

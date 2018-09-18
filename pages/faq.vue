@@ -1,7 +1,8 @@
 <template>
 	<v-container
 		grid-list-lg
-		reverse>
+		reverse
+	>
 		<div>
 			<h3>What can I do with this?</h3>
 			<p>
@@ -23,7 +24,9 @@
 					href="https://github.com/hakatashi/smart-cube-timer/commits/master"
 					target="_blank"
 					rel="noopener"
-				>Commit Logs</a>.
+				>
+					Commit Logs
+				</a>.
 			</p>
 		</div>
 	</v-container>

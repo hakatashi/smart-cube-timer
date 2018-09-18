@@ -34,7 +34,8 @@
 						<strong>{{props.item.timeText}}</strong>
 						<small
 							:class="[`mode-${props.item.mode}`]"
-							class="solve-times">
+							class="solve-times"
+						>
 							<span
 								v-for="(stage, index) in props.item.stages"
 								:key="stage.id"
@@ -42,7 +43,10 @@
 								<span v-if="index !== 0"> / </span>
 								<span
 									:class="[`solve-time-${stage.id}`]"
-									class="solve-time">{{stage.time}}</span>
+									class="solve-time"
+								>
+									{{stage.time}}
+								</span>
 							</span>
 						</small>
 					</v-card-text>
