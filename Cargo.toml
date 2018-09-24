@@ -1,0 +1,13 @@
+[package]
+name = "smart-cube-timer"
+version = "0.1.0"
+authors = ["Koki Takahashi <hakatasiloving@gmail.com>"]
+
+[dependencies]
+rubik = { git = "https://github.com/PeterBeard/rubik.git" }
+
+[lib]
+crate-type = ["cdylib"]
+
+[build]
+target = "wasm32-unknown-unknown"

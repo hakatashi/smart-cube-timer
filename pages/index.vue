@@ -219,6 +219,7 @@ import assert from 'assert';
 import sample from 'lodash/sample';
 import scrambles from '~/lib/scrambles.json';
 import scrambo from 'scrambo/lib/scramblers/333';
+import scrambler from '~/src/lib.rs';
 
 export default {
 	components: {
@@ -334,6 +335,10 @@ export default {
 		this.isDialogOpen = !navigator.bluetooth && typeof BluetoothDevice === 'undefined';
 		this.platform = navigator.platform;
 		this.analyzer = null;
+		(async () => {
+			const {instance} = await scrambler();
+			console.log(instance.exports.add(1, 2));
+		})();
 	},
 	destroyed() {
 		if (this.interval) {

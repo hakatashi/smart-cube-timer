@@ -54,6 +54,18 @@ module.exports = {
 				fs: 'empty',
 			};
 			config.externals = (config.externals || []).concat(['lapack']);
+
+			config.module.rules.push({
+				test: /\.rs$/,
+				use: [{
+					loader: 'wasm-loader',
+				}, {
+					loader: 'rust-native-wasm-loader',
+					options: {
+						release: false,
+					},
+				}],
+			});
 		},
 	},
 
