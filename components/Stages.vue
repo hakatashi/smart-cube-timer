@@ -128,7 +128,7 @@ export default {
 	},
 	computed: {
 		stagesInfo() {
-			return config.stagesData[this.mode].map(({id, name, color, dark, showInspection}, index, stages) => {
+			return config.stagesData[this.mode || 'cfop'].map(({id, name, color, dark, showInspection}, index, stages) => {
 				const stage = this.stages[id] || {time: null};
 				const previousStage = index === 0 ? null : this.stages[stages[index - 1].id];
 				const previousTime = previousStage ? previousStage.time : null;
@@ -189,7 +189,7 @@ export default {
 							textColor: idealTextColor('#FFEE58'),
 						});
 					}
-					if (this.pllLooks.length > 1) {
+					if (this.pllLooks && this.pllLooks.length > 1) {
 						infos.push({
 							avatar: this.pllLooks.length.toString(),
 							text: 'Look',

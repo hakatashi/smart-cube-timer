@@ -179,7 +179,7 @@ export default {
 					});
 				}
 
-				const stages = config.stagesData[solve.mode].map(({id}) => ({
+				const stages = config.stagesData[solve.mode || 'cfop'].map(({id}) => ({
 					id,
 					time: formatTime(solve[`_${id}Time`]),
 				}));
