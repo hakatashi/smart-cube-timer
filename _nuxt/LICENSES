@@ -8,53 +8,32 @@
 /*! @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
 
 /*!
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
- * @license  MIT
- */
-
-/*! @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
-
-/*!
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
- * @license  MIT
- */
-
-/*! @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
-
-/*!
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
- * @license  MIT
- */
-
-/*! @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
-
-/*!
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
- * @license  MIT
- */
-
-/*! @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
-
-/*!
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
- * @license  MIT
- */
-
-/*! @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
-
-/*!
  * Vue.js v2.5.17
  * (c) 2014-2018 Evan You
+ * Released under the MIT License.
+ */
+
+/**
+  * vue-router v3.0.1
+  * (c) 2017 Evan You
+  * @license MIT
+  */
+
+/**
+ * vue-meta v1.5.4
+ * (c) 2018 Declan de Wet & Sébastien Chopin (@Atinux)
+ * @license MIT
+ */
+
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+
+/*!
+ * vue-no-ssr v1.0.0
+ * (c) 2018-present egoist <0x142857@gmail.com>
  * Released under the MIT License.
  */
 
@@ -365,7 +344,7 @@
 /*! vue */
 
 /*!***********************************************!*\
-  !*** ./src/components/VCarousel/VCarousel.js ***!
+  !*** ./src/components/VCarousel/VCarousel.ts ***!
   \***********************************************/
 
 /*! exports provided: default */
@@ -382,8 +361,10 @@
 
 /*! ../../directives/touch */
 
+/*! ../../util/mixins */
+
 /*!***************************************************!*\
-  !*** ./src/components/VCarousel/VCarouselItem.js ***!
+  !*** ./src/components/VCarousel/VCarouselItem.ts ***!
   \***************************************************/
 
 /*! exports provided: default */
@@ -392,8 +373,10 @@
 
 /*! ../../mixins/registrable */
 
+/*! ../../util/mixins */
+
 /*!*******************************************!*\
-  !*** ./src/components/VCarousel/index.js ***!
+  !*** ./src/components/VCarousel/index.ts ***!
   \*******************************************/
 
 /*! exports provided: VCarousel, VCarouselItem, default */
@@ -2205,7 +2188,7 @@
 /*! ../../../util/easing-patterns */
 
 /*!*********************************!*\
-  !*** ./src/components/index.js ***!
+  !*** ./src/components/index.ts ***!
   \*********************************/
 
 /*! exports provided: VApp, VAlert, VAutocomplete, VAvatar, VBadge, VBottomNav, VBottomSheet, VBreadcrumbs, VBtn, VBtnToggle, VCard, VCarousel, VCheckbox, VChip, VCombobox, VCounter, VDataIterator, VDataTable, VDatePicker, VDialog, VDivider, VExpansionPanel, VFooter, VForm, VGrid, VHover, VIcon, VImg, VInput, VJumbotron, VLabel, VList, VMenu, VMessages, VNavigationDrawer, VOverflowBtn, VPagination, VParallax, VPicker, VProgressCircular, VProgressLinear, VRadioGroup, VRangeSlider, VRating, VResponsive, VSelect, VSlider, VSnackbar, VSpeedDial, VStepper, VSubheader, VSwitch, VSystemBar, VTabs, VTextarea, VTextField, VTimePicker, VToolbar, VTooltip, Transitions */
@@ -2511,10 +2494,12 @@
 /*! ../util/console */
 
 /*!**********************************!*\
-  !*** ./src/mixins/filterable.js ***!
+  !*** ./src/mixins/filterable.ts ***!
   \**********************************/
 
 /*! exports provided: default */
+
+/*! vue */
 
 /*!********************************!*\
   !*** ./src/mixins/loadable.ts ***!
@@ -2553,8 +2538,6 @@
 /*! ./positionable */
 
 /*! ./stackable */
-
-/*! ./themeable */
 
 /*!***********************************!*\
   !*** ./src/mixins/overlayable.js ***!
@@ -2605,10 +2588,12 @@
 /*! ../util/console */
 
 /*!**********************************!*\
-  !*** ./src/mixins/returnable.js ***!
+  !*** ./src/mixins/returnable.ts ***!
   \**********************************/
 
 /*! exports provided: default */
+
+/*! vue */
 
 /*!**********************************!*\
   !*** ./src/mixins/rippleable.ts ***!
@@ -3205,23 +3190,3 @@
   \******************************************************************************/
 
 /*! no static exports found */
-
-/*!
- * @overview es6-promise - a tiny implementation of Promises/A+.
- * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
- * @license   Licensed under MIT license
- *            See https://raw.githubusercontent.com/stefanpenner/es6-promise/master/LICENSE
- * @version   v4.2.5+7f2b526d
- */
-
-/**
- * vue-meta v1.5.3
- * (c) 2018 Declan de Wet & Sébastien Chopin (@Atinux)
- * @license MIT
- */
-
-/*
-object-assign
-(c) Sindre Sorhus
-@license MIT
-*/
