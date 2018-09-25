@@ -14,7 +14,7 @@
 						Solve the cube before starting scramble.
 					</span>
 					<span v-if="phase === 'scramble'">
-						Follow the scramble.
+						Follow the scramble. Keep in mind you should hold the cube white-top and green-front.
 					</span>
 					<span v-if="phase === 'inspect'">
 						Now start solving when you're ready.
