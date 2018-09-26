@@ -132,7 +132,7 @@ export default {
 				const stage = this.stages[id] || {time: null};
 				const previousStage = index === 0 ? null : this.stages[stages[index - 1].id];
 				const previousTime = previousStage ? previousStage.time : null;
-				const deltaTime = (stage.time || this.time) - (previousTime === null ? 0 : previousTime);
+				const deltaTime = previousTime === null ? 0 : (stage.time || this.time) - previousTime;
 
 				const isStageFinished = stage.time !== null && stage.sequence.length !== 0;
 
@@ -217,12 +217,41 @@ export default {
 							sequenceText = '(Skipped)';
 						}
 					} else if (this.cross !== null) {
-						sequenceText = stage.sequence.toString({cross: this.cross});
+						const result = stage.sequence.toText({
+							cross: this.cross,
+							slices: ['M', 'S'],
+						});
+
+						sequenceText = result.text;
+
+						if (stage.orientation !== null) {
+							const [
+								relativeDownFrom,
+								relativeLeftFrom,
+							] = [
+								stage.orientation.down,
+								stage.orientation.left,
+							].map((face) => (
+								getRelativeFaceFromFaces(face, {
+									from: [result.orientation.left, result.orientation.down],
+									to: ['L', 'D'],
+								})
+							));
+
+							const rotationNotation = getRotationNotationFromFaces({
+								from: [relativeLeftFrom, relativeDownFrom],
+								to: ['L', 'D'],
+							});
+
+							if (rotationNotation !== '') {
+								sequenceText += ` ${rotationNotation}`;
+							}
+						}
 
 						if (id === 'unknown') {
-							const rotationNotation = getRotationNotation({from: this.cross, to: 'D'});
-							if (rotationNotation !== '') {
-								sequenceText = `${rotationNotation} ${sequenceText}`;
+							const preRotationNotation = getRotationNotation({from: this.cross, to: 'D'});
+							if (preRotationNotation !== '') {
+								sequenceText = `${preRotationNotation} ${sequenceText}`;
 							}
 						}
 						// eslint-disable-next-line no-negated-condition
