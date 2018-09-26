@@ -129,6 +129,7 @@
 					:pll-looks="analyzerState.pllLooks"
 					:roux-block="analyzerState.rouxBlock"
 					:cll="analyzerState.cll"
+					:cube-stage="analyzerState.cubeStage"
 				/>
 			</v-flex>
 		</v-layout>

@@ -121,6 +121,7 @@ export default {
 		'cll',
 		'rouxBlock',
 		'scrambleText',
+		'cubeStage',
 	],
 	data() {
 		return {
@@ -132,7 +133,7 @@ export default {
 				const stage = this.stages[id] || {time: null};
 				const previousStage = index === 0 ? null : this.stages[stages[index - 1].id];
 				const previousTime = previousStage ? previousStage.time : null;
-				const deltaTime = previousTime === null ? 0 : (stage.time || this.time) - previousTime;
+				const deltaTime = (stage.time || this.time) - (previousTime === null ? 0 : previousTime);
 
 				const isStageFinished = stage.time !== null && stage.sequence.length !== 0;
 
@@ -325,7 +326,7 @@ export default {
 					color,
 					dark,
 					sequenceText,
-					time: formatTime(deltaTime),
+					time: formatTime(isStageFinished || this.cubeStage === id ? deltaTime : 0),
 					moveCount,
 					speed,
 					inspectionTime: inspection && formatTime(inspection),

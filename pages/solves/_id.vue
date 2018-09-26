@@ -79,6 +79,7 @@
 					:roux-block="solve._rouxBlock"
 					:cll="cll"
 					:scramble-text="scrambleText"
+					:cube-stage="null"
 				/>
 			</v-flex>
 		</v-layout>
