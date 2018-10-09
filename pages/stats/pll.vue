@@ -14,7 +14,7 @@
 				slot="items"
 				slot-scope="props"
 			>
-				<th class="row-header text-xs-left"><a v-bind:href="PLLLink" target="_blank">{{props.item.name}}</a></th>
+				<th class="row-header text-xs-left"><a v-bind:href="'http://algdb.net/puzzle/333/pll/'+(props.item.name).replace(/\s/g, '').replace('Perm','')" target="_blank">{{props.item.name}}</a></th>
 				<td class="text-xs-right">{{props.item.count}}</td>
 				<td class="text-xs-right">{{props.item.averageTimeText}}</td>
 				<td class="text-xs-right">{{props.item.averageInspectionText}}</td>
@@ -73,14 +73,6 @@ export default {
 		};
 	},
 	computed: {
-		PLLLink: function () {
-			if (props.item.name !== 'PLL Skip'){
-				return 'http://algdb.net/puzzle/333/pll/' + (props.item.name).replace(/\s/g, '')
-			}
-			else {
-				return ''
-			}
-		}
 	},
 	async mounted() {
 		this.stats = await getPllStats();
