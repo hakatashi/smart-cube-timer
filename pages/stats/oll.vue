@@ -7,7 +7,7 @@
 			class="elevation-1"
 		>
 			<template slot="items" slot-scope="props">
-				<th class="row-header text-xs-left"><a v-bind:href="'http://algdb.net/puzzle/333/oll/'+(props.item.name).replace(/\s/g, '')" target="_blank">{{props.item.name}}</a></th>
+				<th class="row-header text-xs-left"><a v-bind:href="OLLLink" target="_blank">{{props.item.name}}</a></th>
 				<td class="text-xs-right">{{props.item.count}}</td>
 				<td class="text-xs-right">{{props.item.averageTimeText}}</td>
 				<td class="text-xs-right">{{props.item.averageInspectionText}}</td>
@@ -63,6 +63,14 @@ export default {
 		};
 	},
 	computed: {
+			OLLLink: function () {
+			if (props.item.name !== 'OLL Skip'){
+				return 'http://algdb.net/puzzle/333/oll/' + (props.item.name).replace(/\s/g, '')
+			}
+			else {
+				return ''
+			}
+		}
 	},
 	async mounted() {
 		this.stats = await getOllStats();
