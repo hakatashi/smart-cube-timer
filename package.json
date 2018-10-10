@@ -13,17 +13,17 @@
     "@nuxtjs/pwa": "latest",
     "cubejs": "^1.1.0",
     "dexie": "^2.0.4",
-    "file-saver": "^1.3.8",
+    "file-saver": "^2.0.0-rc.3",
     "giiker": "^2.0.1",
     "lodash": "^4.17.11",
-    "nanoid": "^1.2.3",
+    "nanoid": "^1.2.6",
     "nosleep.js": "^0.7.0",
     "nuxt": "latest",
     "postcss-import-url": "^3.0.4",
     "precss": "^3.1.2",
     "scrambo": "github:nickcolley/scrambo",
     "sylvester": "github:hakatashi/node-sylvester#0.0.21-hakatashi-0",
-    "vuetify": "^1.2.4"
+    "vuetify": "^1.2.7"
   },
   "scripts": {
     "dev": "nuxt",
@@ -39,12 +39,12 @@
   "devDependencies": {
     "@hakatashi/eslint-config": "^1.8.3",
     "@vue/test-utils": "^1.0.0-beta.25",
-    "babel-eslint": "^9.0.0",
+    "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "babel-preset-vue-app": "^2.0.0",
     "cross-env": "^5.2.0",
-    "eslint": "^5.6.0",
+    "eslint": "^5.6.1",
     "eslint-loader": "^2.1.1",
     "jest": "^23.6.0",
     "vue-jest": "^2.6.0"
