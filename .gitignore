@@ -28,4 +28,3 @@ static/workbox-sw*.js
 
 # Coverage
 /coverage/
-package-lock.json
