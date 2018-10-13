@@ -7,7 +7,17 @@
 			class="elevation-1"
 		>
 			<template slot="items" slot-scope="props">
-				<th class="row-header text-xs-left">{{props.item.name}}</th>
+				<th class="row-header text-xs-left">
+					<span v-if="props.item.id === null">{{props.item.name}}</span>
+					<a
+						v-else
+						:href="`http://algdb.net/puzzle/333/cmll/${props.item.id}`"
+						target="_blank"
+						rel="noopener"
+					>
+						{{props.item.name}}
+					</a>
+				</th>
 				<td class="text-xs-right">{{props.item.count}}</td>
 				<td class="text-xs-right">{{props.item.averageTimeText}}</td>
 				<td class="text-xs-right">{{props.item.averageInspectionText}}</td>
@@ -53,8 +63,9 @@ export default {
 				},
 			],
 			stats: [],
-			cases: clls.map(([name]) => ({
+			cases: clls.map(([name, id]) => ({
 				name,
+				id,
 				count: 0,
 				averageTime: 0,
 				averageInspection: 0,
@@ -66,8 +77,8 @@ export default {
 	},
 	async mounted() {
 		this.stats = await getCllStats();
-		this.cases = this.cases.map(({name}, index) => {
-			const stat = this.stats.find(({id}) => id === index);
+		this.cases = this.cases.map(({name, id}, index) => {
+			const stat = this.stats.find((s) => s.id === index);
 			const averageTime = stat ? stat.times / stat.count : Infinity;
 			const averageInspection = stat ? stat.inspectionTimes / stat.count : Infinity;
 			const averageExecution = stat ? stat.executionTimes / stat.count : Infinity;
@@ -75,6 +86,7 @@ export default {
 			return {
 				index,
 				name,
+				id,
 				count: stat ? stat.count : 0,
 				averageTime,
 				averageTimeText: formatTime(averageTime),

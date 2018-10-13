@@ -14,7 +14,17 @@
 				slot="items"
 				slot-scope="props"
 			>
-				<th class="row-header text-xs-left"><a v-bind:href="'http://algdb.net/puzzle/333/pll/'+(props.item.name).replace(/\s/g, '').replace('Perm','')" target="_blank">{{props.item.name}}</a></th>
+				<th class="row-header text-xs-left">
+					<span v-if="props.item.id === null">{{props.item.name}}</span>
+					<a
+						v-else
+						:href="`http://algdb.net/puzzle/333/pll/${props.item.id}`"
+						target="_blank"
+						rel="noopener"
+					>
+						{{props.item.name}}
+					</a>
+				</th>
 				<td class="text-xs-right">{{props.item.count}}</td>
 				<td class="text-xs-right">{{props.item.averageTimeText}}</td>
 				<td class="text-xs-right">{{props.item.averageInspectionText}}</td>
@@ -60,8 +70,9 @@ export default {
 				},
 			],
 			stats: [],
-			cases: plls.map(([name]) => ({
+			cases: plls.map(([name, id]) => ({
 				name,
+				id,
 				count: null,
 				averageTime: 0,
 				averageTimeText: '',
@@ -76,8 +87,8 @@ export default {
 	},
 	async mounted() {
 		this.stats = await getPllStats();
-		this.cases = this.cases.map(({name}, index) => {
-			const stat = this.stats.find(({id}) => id === index);
+		this.cases = this.cases.map(({name, id}, index) => {
+			const stat = this.stats.find((s) => s.id === index);
 			const averageTime = stat ? stat.times / stat.count : Infinity;
 			const averageInspection = stat ? stat.inspectionTimes / stat.count : Infinity;
 			const averageExecution = stat ? stat.executionTimes / stat.count : Infinity;
@@ -85,6 +96,7 @@ export default {
 			return {
 				index,
 				name,
+				id,
 				count: stat ? stat.count : 0,
 				averageTime,
 				averageTimeText: formatTime(averageTime),
