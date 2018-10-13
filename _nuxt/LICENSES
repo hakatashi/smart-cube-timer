@@ -5,8 +5,6 @@
  * @license  MIT
  */
 
-/*! @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
-
 /*!
  * Vue.js v2.5.17
  * (c) 2014-2018 Evan You
@@ -20,7 +18,7 @@
   */
 
 /**
- * vue-meta v1.5.4
+ * vue-meta v1.5.5
  * (c) 2018 Declan de Wet & Sébastien Chopin (@Atinux)
  * @license MIT
  */
@@ -1187,6 +1185,8 @@ object-assign
 
 /*! ../../mixins/toggleable */
 
+/*! ../../mixins/themeable */
+
 /*! ./mixins/menu-activator */
 
 /*! ./mixins/menu-generators */
@@ -1266,6 +1266,8 @@ object-assign
 /*! ../../stylus/components/_navigation-drawer.styl */
 
 /*! ../../mixins/applicationable */
+
+/*! ../../mixins/dependent */
 
 /*! ../../mixins/overlayable */
 
@@ -1720,6 +1722,8 @@ object-assign
 /*! exports provided: default */
 
 /*! ../VIcon */
+
+/*! ../../mixins/colorable */
 
 /*! ../../directives/ripple */
 
@@ -2478,10 +2482,12 @@ object-assign
 /*! vue */
 
 /*!*********************************!*\
-  !*** ./src/mixins/dependent.js ***!
+  !*** ./src/mixins/dependent.ts ***!
   \*********************************/
 
 /*! exports provided: default */
+
+/*! ../util/mixins */
 
 /*!**********************************!*\
   !*** ./src/mixins/detachable.js ***!
